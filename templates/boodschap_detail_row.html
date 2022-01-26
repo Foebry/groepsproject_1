@@ -1,0 +1,22 @@
+<div class="form-row">
+    <div class="col">
+        <select name="winkel" class="form-control">
+            @select@
+        </select>
+    </div>
+    <div class="col">
+        <select name="artikel" class="form-control">
+            @select@
+        </select>
+    </div>
+    <div class="col">
+        <input type="text" class="form-control" name="aantal" value="@bsr_aantal@">
+    </div>
+    <div class="col">
+        <input type="text" class="form-control" name="prijs" value="@bsr_prijs@">
+    </div>
+    <div class="buttons">
+        <a class="btn btn-info button__detail" href="./artikel_detail.php?id=@art_id@">details</a>
+        <input type="submit" class="btn btn-danger button__delete" value="delete">
+    </div>
+</div>
