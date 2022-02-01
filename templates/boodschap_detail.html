@@ -1,0 +1,28 @@
+<form action="save.php" method="POST">
+    <!-- hidding inputs -->
+    <input type="hidden" name="csrf" value="@csrf@">
+    <input type="hidden" name="table" value="row">
+    <input type="hidden" name="after" value="boodschap_detail.php">
+    <!-- end of hidding inputs -->
+    <section class="headings">
+        <div class="left">
+            <input type="date" name="gro_date" value="@gro_date@" readonly>
+            <input type="text" name="gro_desc" value="@gro_desc@" placeholder="Geef een beschrijving" readonly>
+        </div>
+        <h2><input type="text" name="gro_name" value="@gro_name@" placeholder="Geef de boodschap een naam" readonly></h2>
+        <div class="right">
+            <div>
+                <label for="aantal_artikelen">aantal artikelen</label>
+                <input type="text" id="aantal_artikelen" value="@gro_amount@" readonly>
+            </div>
+            <div>
+                <label for="totaal_prijs">Totaal prijs</label>
+                <input type="text" id="totaal_prijs" value="@gro_price@" readonly>
+            </div>
+        </div>
+    </section>
+    <ul class="rows">
+        @grocery_rows@
+    </ul>
+    <input class="btn btn-secondary" type="submit" name="action" value="submit">
+</form>
