@@ -117,12 +117,13 @@ function GetFieldType( $definition )
 * param $field: name of the field
 */
 function validateName(string $field) :void{
-    $name = $_POST[$field];
+    $name = trim($_POST[$field]);
 
     if ((preg_match("/[^a-z, A-Z, é, ë, è, ç, à]/", $name) > 0 ) or $name == ""){
         $msg = "Sorry, maar dit is geen geldige naam.";
         $_SESSION["errors"][$field."_error"] = $msg;
     }
+    $_POST[$field] = $name;
 }
 
 /**
@@ -131,12 +132,13 @@ function validateName(string $field) :void{
 * param $field: name of the field
 */
 function validateUserEmail(string $field) :void{
-    $email = $_POST[$field];
+    $email = trim($_POST[$field]);
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL) or $email == ""){
         $msg = "Dit is geen geldig e-mailadres!";
         $_SESSION["errors"][$field."_error"] = "Geen geldig e-mailadres!";
-    };
+    }
+    $_POST[$field] = $email;
 }
 
 /**
