@@ -1,0 +1,22 @@
+<li class="form-row rows__item">
+    <div class="col">
+        <select name="win_naam" class="form-control">
+            @select@
+        </select>
+    </div>
+    <div class="col">
+        <select name="art_naam" class="form-control">
+            @select@
+        </select>
+    </div>
+    <div class="col">
+        <input type="text" class="form-control" name="aantal" value="@bsr_aantal@">
+    </div>
+    <div class="col">
+        <input type="text" class="form-control" name="prijs" value="@bsr_prijs@">
+    </div>
+    <div class="buttons">
+        <a class="btn btn-info button__detail" href="./artikel_detail.php?id=@art_id@">details</a>
+        <input type="submit" class="btn btn-danger button__delete" value="delete">
+    </div>
+</li>
