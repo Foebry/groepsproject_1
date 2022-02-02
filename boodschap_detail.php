@@ -1,5 +1,4 @@
 <?php
-
     require_once "./lib/autoload.php";
 
     $id = $_GET["id"];
@@ -27,29 +26,30 @@
 
     // indien een boodschap opgrvraagd wordt waarvan de id niet bestaat, wordt de gebruiker herleid
     // naar error.php met volgende status message
-    if (!$gro_data && $id > 0){
+    if (!$gro_data && $id != -1){
         $_SESSION["status"]["404"] ="Helaas! Deze boodschap kan niet gevonden worden!";
         exit(header("location: ./error.php"));
     }
 
-    // indien opgevraagde id gelijk is aan 0 wordt een leeg formulier gecreëerd
+    // indien opgevraagde id gelijk is aan -1 wordt een leeg formulier gecreëerd
     elseif ($id == -1){
         $gro_data = [0 =>
                         [
                             "gro_name"=>"Geef een naam",
                             "gro_desc"=>"Geef een beschrijving",
                             "gro_amount" => 0,
-                            "gro_price"=>0.00,
+                            "gro_pric"=>0.00,
                             "gro_date"=> date("Y-m-d", strtotime("today"))
                             ]
                         ];
     }
 
     // pagina opbouwen
-    PrintHead("MyWeGo");
+    PrintHead();
     PrintNavbar();
 
     $content = MergeViewWithData("boodschap_detail.html", $gro_data);
+    $content = str_replace("@csrf@", GenerateCSRF(), $content);
 
     // verschillende rows aanmaken + 1 rij voor de knop nieuw toevoegen
     $rows = MergeViewWithData("boodschap_detail_row.html", $rows_data);
