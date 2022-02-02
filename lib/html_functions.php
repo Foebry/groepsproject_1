@@ -1,9 +1,9 @@
 <?php
-function PrintHead($str)
+function PrintHead()
 {
     $head = file_get_contents("templates/head.html");
     $head .= file_get_contents("templates/header.html");
-    print str_replace("@title_project@", $str, $head);
+    print $head;
 }
 
 function PrintJumbo( $title = "", $subtitle = "" )
@@ -18,7 +18,7 @@ function PrintJumbo( $title = "", $subtitle = "" )
 
 function PrintNavbar( )
 {
-    $navbar = file_get_contents("templates/navebar.html");
+    $navbar = file_get_contents("templates/navbar.html");
 
     print $navbar;
 }
