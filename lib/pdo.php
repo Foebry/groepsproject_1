@@ -2,8 +2,9 @@
 require_once "autoload.php";
 
 function CreateConnection($db){
+    $root = $_SERVER["DOCUMENT_ROOT"];
     // json file inlezen en omzetten naar associatieve array
-    $file = file_get_contents("../config.json");
+    $file = file_get_contents("$root/config.json");
     $config = json_decode($file, true)["DATABASE"][$db];
 
 
