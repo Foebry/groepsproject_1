@@ -1,25 +1,25 @@
-<li class="rows__item button__add">
-    <div class="btn btn-primary col-sm-12">Artikel aan boodschap toevoegen</div>
+<li class="rows__item rows__item__add">
+    <div class="btn btn-primary col-sm-12" id="button_add">Artikel aan boodschap toevoegen</div>
     <div class="form-row form-row--hidden">
         <div class="col">
-            <select name="win_naam" class="form-control">
-                @select@
-            </select>
+            <input type="text" name="data[@next_row_id@][sto_name]" class="form-control input__store" placeholder="winkel" autocomplete="off">
+            <ul class="store_list list--hidden">
+            </ul>
         </div>
         <div class="col">
-            <select name="art_naam" class="form-control">
-                @select@
-            </select>
+            <input type="text" name="data[@next_row_id@][art_name]" class="form-control" placeholder="artikel" autocomplete="off">
+            <ul class="article_list list--hidden">
+            </ul>
         </div>
         <div class="col">
-            <input type="text" class="form-control" name="aantal" placeholder="aantal">
+            <input type="text" class="form-control" name="data[@next_row_id@][row_pieces]" placeholder="aantal" autocomplete="off">
         </div>
         <div class="col">
-            <input type="text" class="form-control" name="prijs" placeholder="prijs">
+            <input type="text" class="form-control" name="data[@next_row_id@][row_pric]" placeholder="prijs" autocomplete="off">
         </div>
         <div class="buttons">
-            <a class="btn btn-info button__detail button__detail--disabled" href="#">details</a>
-            <div class="btn btn-danger button__delete" name="action">delete</div>
+            <a class="btn btn-info button__detail button__detail--disabled" href="./artikel_detail.php?=">details</a>
+            <div class="btn btn-danger button__delete" name="action" value="delete-@next_row_id@">delete</div>
         </div>
     </div>
 </li>

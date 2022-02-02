@@ -1,22 +1,18 @@
-<li class="form-row rows__item">
+<li class="form-row rows__item rows__item--locked">
     <div class="col">
-        <select name="win_naam" class="form-control">
-            @select@
-        </select>
+        <input type="text" name="data[@row_id@][sto_name]" class="form-control input__store" value="@sto_name@" readonly="readonly">
     </div>
     <div class="col">
-        <select name="art_naam" class="form-control">
-            @select@
-        </select>
+        <input type="text" name="data[@row_id@][art_name]" class="form-control" value="@art_name@" readonly="readonly">
     </div>
     <div class="col">
-        <input type="text" class="form-control" name="aantal" value="@bsr_aantal@">
+        <input type="text" class="form-control" name="data[@row_id@][row_pieces]" value="@row_pieces@" readonly="readonly">
     </div>
     <div class="col">
-        <input type="text" class="form-control" name="prijs" value="@bsr_prijs@">
+        <input type="text" class="form-control" name="data[@row_id@][row_gro_pric]" value="@row_pric@" readonly="readonly">
     </div>
     <div class="buttons">
         <a class="btn btn-info button__detail" href="./artikel_detail.php?id=@art_id@">details</a>
-        <input type="submit" class="btn btn-danger button__delete" value="delete">
+        <button class="btn btn-danger button__delete" name="action" value="delete-@row_id@">delete</button>
     </div>
 </li>
