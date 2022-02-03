@@ -10,6 +10,7 @@ const handleEvents = function(e) {
 	else if (e.target.classList.contains("store__list__item") || e.target.classList.contains("article__list__item")) setValue(e);
 	else if (e.target.classList.contains("input__store") || e.target.classList.contains("input__article") || e.target.classList.contains("input__aantal") || e.target.classList.contains("input__prijs")) handleInput(e);
 	else if (e.target.classList.contains("button__detail")) redirect(e);
+	else if (e.target.classList.contains("button__delete__new")) removeRow(e);
 }
 
 const add_row = function(e) {
@@ -94,6 +95,12 @@ const setValue = function(e) {
 const redirect = function(e) {
 	e.target.parentElement.parentElement.parentElement.parentElement.children[2].setAttribute("value", e.target.attributes[3].value);
 
+}
+
+const removeRow = function(e) {
+	const rows_ul = e.target.parentElement.parentElement.parentElement;
+	const this_row = e.target.parentElement.parentElement;
+	rows_ul.removeChild(this_row);
 }
 
 document.addEventListener("click", handleEvents);
