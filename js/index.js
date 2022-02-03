@@ -76,14 +76,13 @@ const looseFocus = function(e) {
 }
 
 const setValue = function(e) {
-	if (e.target.classList.contains("store__list__item") || e.target.classList.contains("sotre__list__item")) {
+	if (e.target.classList.contains("store__list__item") || e.target.classList.contains("article__list__item")) {
 		const detail_button = e.target.parentElement.parentElement.parentElement.children[4].children[0];
 		const input_field = e.target.parentElement.previousElementSibling;
 		const select_field = e.target.parentElement.parentElement.children[0].children[0];
 
 		input_field.setAttribute("value", e.target.innerHTML);
 		input_field.value = e.target.innerText;
-		console.log(e);
 		select_field.value = e.target.id;
 		if (e.target.parentElement.classList.contains("article_list")) {
 			detail_button.attributes[3].value += e.target.id;
