@@ -2,7 +2,7 @@
     <!-- hidding inputs -->
     <input type="hidden" name="csrf" value="@csrf@">
     <input type="hidden" name="table" value="row">
-    <input type="hidden" name="after" value="boodschap_detail.php">
+    <input type="hidden" class="refer" name="after" value="boodschap_detail.php">
     <input type="hidden" name="last_row_id" value="@next_row_id@" id="next_row_id">
     <!-- end of hidding inputs -->
     <section class="headings">
@@ -27,6 +27,12 @@
         <li class="col">Artikel</li>
         <li class="col">Aantal</li>
         <li class="col">Prijs/stuk</li>
+    </ul>
+    <ul class="list--hidden" id="article_list">
+        @article_list@
+    </ul>
+    <ul class="list--hidden" id="store_list">
+        @store_list@
     </ul>
     <ul class="rows list-unstyled">
         @grocery_rows@

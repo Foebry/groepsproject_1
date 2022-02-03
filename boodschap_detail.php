@@ -17,12 +17,15 @@
                     (select art_name from article where art_id = row_art_id) as art_name
                 from row where row_gro_id = $id";
 
-    $next_row_id_sql = "select row_id + 1 as next_row_id from row order by row_id desc limit 1";
+    $articles_sql = "select art_id, art_name from article";
+    $stores_sql = "select sto_id, sto_name from stores";
 
     // opvragen van de data
     $gro_data = GetData($gro_sql);
     $rows_data = GetData($rows_sql);
-    $next_row_id = GetData($next_row_id_sql);
+    $articles_data = GetData($articles_sql);
+    $stores_data = GetData($stores_sql);
+    $next_row_id = $gro_data[0]["next_row_id"];
 
     // indien een boodschap opgrvraagd wordt waarvan de id niet bestaat, wordt de gebruiker herleid
     // naar error.php met volgende status message
@@ -48,15 +51,31 @@
     PrintHead();
     PrintNavbar();
 
+    $add_row = file_get_contents("./templates/boodschap_detail_add_row.html");
+    $article_list_item = "<li class='article__list__item' id=@art_id@>@art_name@</li>";
+    $articles = "";
+    foreach($articles_data as $row){
+        $list_item = str_replace("@art_id@", $row["art_id"], $article_list_item);
+        $articles .= str_replace("@art_name@", $row["art_name"], $list_item);
+    }
+    $store_list_item = "<li class='store__list__item' id=@sto_id@>@sto_name@</li>";
+    $stores = "";
+    foreach($stores_data as $row){
+        $list_item = str_replace("@sto_id@", $row["sto_id"], $store_list_item);
+        $stores .= str_replace("@sto_name@", $row["sto_name"], $list_item);
+    }
+
     $content = MergeViewWithData("boodschap_detail.html", $gro_data);
     $content = str_replace("@csrf@", GenerateCSRF(), $content);
 
     // verschillende rows aanmaken + 1 rij voor de knop nieuw toevoegen
     $rows = MergeViewWithData("boodschap_detail_row.html", $rows_data);
-    $rows .= MergeViewWithData("boodschap_detail_add_row.html", $next_row_id);
+    $rows .= str_replace("@next_row_id@", $next_row_id, $add_row);
 
     // placeholder vervangen door de gegenereerde rows.
     $content =  str_replace("@grocery_rows@", $rows, $content);
+    $content = str_replace("@article_list@", $articles, $content);
+    $content = str_replace("@store_list@", $stores, $content);
 
     echo $content;
     echo '<script src="../js/index.js"></script>';

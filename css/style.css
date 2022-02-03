@@ -1,0 +1,41 @@
+.store_list,
+.article_list {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+}
+.store_list:hover,
+.article_list:hover {
+    background-color: green;
+}
+.form-row--hidden {
+    display: none;
+}
+.form-select--hidden {
+    display: none;
+}
+.button--hidden {
+    display: none;
+}
+.list--hidden {
+    display: none;
+}
+.store_list_parent,
+.article_list_parent {
+    position: relative;
+}
+.store__list__item,
+.article__list__item {
+    display: block;
+    backgroundcolor: lightgrey;
+}
+.store_list,
+.article_list {
+    display: block;
+}
+li.store__list__item:hover {
+    background-color: white;
+    cursor: pointer;
+}

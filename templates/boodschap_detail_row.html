@@ -1,18 +1,24 @@
 <li class="form-row rows__item rows__item--locked">
     <div class="col">
-        <input type="text" name="data[@row_id@][sto_name]" class="form-control input__store" value="@sto_name@" readonly="readonly">
+        <select name="data[@row_id@][row_sto_id]" class=form-select--hidden>
+            <option selected value="">
+        </select>
+        <input type="text" class="form-control input__store" value="@sto_name@" readonly="readonly">
     </div>
     <div class="col">
-        <input type="text" name="data[@row_id@][art_name]" class="form-control" value="@art_name@" readonly="readonly">
+        <select name="data[@row_id@][row_art_id]" class=form-select--hidden>
+            <option selected value="">
+        </select>
+        <input type="text" class="form-control input__article" value="@art_name@" readonly="readonly">
     </div>
     <div class="col">
-        <input type="text" class="form-control" name="data[@row_id@][row_pieces]" value="@row_pieces@" readonly="readonly">
+        <input type="text" class="form-control input__aantal" name="data[@row_id@][row_pieces]" value="@row_pieces@" readonly="readonly">
     </div>
     <div class="col">
-        <input type="text" class="form-control" name="data[@row_id@][row_gro_pric]" value="@row_pric@" readonly="readonly">
+        <input type="text" class="form-control input__prijs" name="data[@row_id@][row_gro_pric]" value="@row_pric@" readonly="readonly">
     </div>
-    <div class="buttons">
-        <a class="btn btn-info button__detail" href="./artikel_detail.php?id=@art_id@">details</a>
-        <button class="btn btn-danger button__delete" name="action" value="delete-@row_id@">delete</button>
-    </div>
+    <ul class="buttons">
+        <button class="btn btn-info button__detail" name="action" value="refer" refer="./artikel_detail.php?id=@art_id@">details</button>
+        <li class="btn btn-danger button__delete" name="action" value="delete-@row_id@">delete</li>
+    </ul>
 </li>
