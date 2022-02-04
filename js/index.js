@@ -13,12 +13,11 @@ const handleEvents = function(e) {
 
 const add_row = function(e) {
 	let parent = e.target.parentElement;
-	let last_child = parent.lastChild;
 	e.target.previousElementSibling.classList.remove("form-row--hidden");
 	fetch("../templates/boodschap_detail_add_row.html")
 		.then(response => response.text())
 		.then((new_row) => {
-			setNamesNewRow(last_child.previousElementSibling.previousElementSibling);
+			setNamesNewRow(e.target.previousElementSibling);
 			next_row_id.setAttribute("value", parseInt(next_row_id.value) + 1);
 			parent.innerHTML += new_row.replace(/@next_row_id@/g, next_row_id.value.toString());
 			parent.removeChild(document.getElementById("button_add"));
@@ -27,6 +26,7 @@ const add_row = function(e) {
 
 const setNamesNewRow = function(el) {
 	let nri = parseInt(next_row_id.value);
+	console.log(el);
 	el.children[0].children[0].setAttribute("name", `data[${nri}][row_sto_id]`);
 	el.children[1].children[0].setAttribute("name", `data[${nri}][row_art_id]`);
 	el.children[2].children[0].setAttribute("name", `data[${nri}][row_pieces]`);
