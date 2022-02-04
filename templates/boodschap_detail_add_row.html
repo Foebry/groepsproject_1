@@ -1,6 +1,6 @@
 <li class="form-row rows__item form-row--hidden">
     <div class="col">
-        <select name="data[@next_row_id@][row_sto_id]" class=form-select--hidden>
+        <select class=form-select--hidden>
             <option selected value="">
         </select>
         <input type="text" class="form-control input__store" placeholder="winkel" autocomplete="off">
@@ -8,7 +8,7 @@
         </ul>
     </div>
     <div class="col">
-        <select name="data[@next_row_id@][row_art_id]" class=form-select--hidden>
+        <select class=form-select--hidden>
             <option selected value="">
         </select>
         <input type="text" class="form-control input__article" placeholder="artikel" autocomplete="off">
@@ -16,14 +16,14 @@
         </ul>
     </div>
     <div class="col">
-        <input type="text" class="form-control input__aantal" name="data[@next_row_id@][row_pieces]" placeholder="aantal" autocomplete="off">
+        <input type="text" class="form-control input__aantal" placeholder="aantal" autocomplete="off">
     </div>
     <div class="col">
-        <input type="text" class="form-control input__prijs" name="data[@next_row_id@][row_pric]" placeholder="prijs" autocomplete="off">
+        <input type="text" class="form-control input__prijs" placeholder="prijs" autocomplete="off">
     </div>
     <ul class="buttons">
-        <li class="btn btn-info button__detail" name="action" value="refer" refer="./artikel_detail.php?=" disabled="disabled">details</li>
-        <div class="btn btn-danger button__delete__new" name="action" value="delete-@next_row_id@">delete</div>
+        <button class="btn btn-info button__detail" name="action" value="refer" refer="./artikel_detail.php?=" disabled="disabled">details</button>
+        <div class="btn btn-danger button__delete__new" name="action">delete</div>
     </ul>
 </li>
 <li class="form-row rows__item btn btn-primary col-sm-12 button__add_row" id="button_add">Artikel aan boodschap toevoegen</li>

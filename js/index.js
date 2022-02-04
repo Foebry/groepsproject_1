@@ -1,9 +1,7 @@
-let next_row_id = parseInt(document.getElementById("next_row_id").value);
+let next_row_id = document.getElementById("next_row_id");
 let articles = document.getElementById("article_list");
 let stores = document.getElementById("store_list")
 let button_add;
-
-//let input__stores;
 
 const handleEvents = function(e) {
 	if (e.target.id == "button_add") add_row(e);
@@ -15,38 +13,35 @@ const handleEvents = function(e) {
 
 const add_row = function(e) {
 	let parent = e.target.parentElement;
+	let last_child = parent.lastChild;
 	e.target.previousElementSibling.classList.remove("form-row--hidden");
 	fetch("../templates/boodschap_detail_add_row.html")
 		.then(response => response.text())
 		.then((new_row) => {
-			next_row_id += 1;
-			parent.innerHTML += new_row.replace(/@next_row_id@/g, next_row_id.toString());
+			setNamesNewRow(last_child.previousElementSibling.previousElementSibling);
+			next_row_id.setAttribute("value", parseInt(next_row_id.value) + 1);
+			parent.innerHTML += new_row.replace(/@next_row_id@/g, next_row_id.value.toString());
 			parent.removeChild(document.getElementById("button_add"));
 		});
+}
+
+const setNamesNewRow = function(el) {
+	let nri = parseInt(next_row_id.value);
+	el.children[0].children[0].setAttribute("name", `data[${nri}][row_sto_id]`);
+	el.children[1].children[0].setAttribute("name", `data[${nri}][row_art_id]`);
+	el.children[2].children[0].setAttribute("name", `data[${nri}][row_pieces]`);
+	el.children[3].children[0].setAttribute("name", `data[${nri}][row_pric]`);
+	el.children[4].children[1].setAttribute("value", `delete-${nri}`);
+
 }
 
 const handleInput = function(e) {
 	if (Object.values(e.target.attributes).filter(el => el.value == "readonly").length == 0) {
 		e.target.addEventListener("input", updateValue);
 		e.target.addEventListener("focus", setFocus);
-		e.target.addEventListener("blur", looseFocus, 100);
+		e.target.addEventListener("blur", looseFocus);
 	}
 }
-
-/*if (this.classList.value.includes("input__article") || this.classList.value.includes("input__store")) {
-				//console.log("leaving input__article or input__store");
-				this.nextElementSibling.classList.add("list--hidden");
-				//console.log(e.target);
-				//console.log(this);
-				if (!e.target.classList.contains("store__list__item") && !e.target.classList.contains("article__list__item")) {
-					this.nextElementSibling.innerHTML = "";
-				}
-			}
-		}
-	)
-}
-}
-}*/
 
 const setFocus = function(e) {
 	const options_list = e.target.parentElement.children[2];
@@ -55,7 +50,6 @@ const setFocus = function(e) {
 	if ((e.target.value.length > 0) && (e.target.classList.value.includes("input__store") || e.target.classList.value.includes("input__article"))) {
 		options_list.style.display = "block";
 		options_list_items = Array(...list.children).filter(el => el.outerText.toLowerCase().includes(e.target.value.toLowerCase())).slice(0, 10);
-		options_list_items.forEach(el => el.onclick = setValue);
 		options_list.innerHTML = options_list_items.reduce((str, el) => str + el.outerHTML, "");
 	} else if (e.target.value.length == 0) {
 		options_list.innerHTML = "";
@@ -73,7 +67,7 @@ const removeListItems = function(e) {
 }
 
 const looseFocus = function(e) {
-	setTimeout(removeListItems, 100, e);
+	setTimeout(removeListItems, 250, e);
 }
 
 const setValue = function(e) {
@@ -82,7 +76,7 @@ const setValue = function(e) {
 		const input_field = e.target.parentElement.previousElementSibling;
 		const select_field = e.target.parentElement.parentElement.children[0].children[0];
 
-		input_field.setAttribute("value", e.target.innerHTML);
+		input_field.setAttribute("value", e.target.innerText);
 		input_field.value = e.target.innerText;
 		select_field.value = e.target.id;
 		if (e.target.parentElement.classList.contains("article_list")) {
