@@ -67,7 +67,7 @@ const removeListItems = function(e) {
 }
 
 const looseFocus = function(e) {
-	setTimeout(removeListItems, 250, e);
+	setTimeout(removeListItems, 300, e);
 }
 
 const setValue = function(e) {
