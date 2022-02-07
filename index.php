@@ -14,13 +14,12 @@ PrintNavbar();
 <?php
 
 //slider
-$sql = 'select article.art_name, article.art_img from row
+$sql = 'select article.art_id, article.art_name, article.art_img from row
 inner join article on row.row_art_id = article.art_id';
 
 $data = GetData("$sql");
 
-$output = file_get_contents("templates/productcard.html");
-$output = MergeViewWithData($output, $data);
+$output = MergeViewWithData('productcard.html', $data);
 $template = file_get_contents("templates/slider.html");
 $result = str_replace("@slider@", $output, $template);
 
@@ -34,8 +33,7 @@ group by gro_id;';
 
 $data = GetData("$sql");
 
-$output = file_get_contents("templates/boodschapcard.html");
-$output = MergeViewWithData( $output, $data );
+$output = MergeViewWithData( 'boodschapcard.html', $data );
 $template = file_get_contents("templates/boodschappen.html");
 $result .= str_replace("@list@", $output, $template);
 
