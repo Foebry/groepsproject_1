@@ -32,7 +32,6 @@
 
     // indien errors aangetroffen in de contactform, keer terug naar contactform
     if (count($_SESSION["errors"]) > 0){
-        exit(var_dump($_SESSION["errors"]));
         exit(header("location:".$_SERVER["HTTP_REFERER"]));
     }
 
