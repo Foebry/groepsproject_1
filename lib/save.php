@@ -1,6 +1,29 @@
 <?php
 require_once "autoload.php";
 
+// csrf-token valideren
+validateCSRF();
+
+// boodschapdetail in $_SESSION opslaan
+if ($_POST["form"] == "boodschapdetail"){
+    // lege rijen verwijderen
+    foreach($_POST["data"] as $row_id => $data){
+        if(count(array_unique($data)) == 1 && current($data) == ""){
+            unset($_POST["data"][$row_id]);
+            continue;
+        }
+        $_POST["data"][$row_id]["row_id"] = $row_id;
+    }
+    $gro_id = $_POST["gro_id"];
+    $_SESSION["boodschappen"][$gro_id]["headers"][0] = $_POST["headers"];
+    $_SESSION["boodschappen"][$gro_id]["data"] = $_POST["data"];
+}
+
+// als de gebruiker wil navigeren naar een andere pagina.
+if ($_POST["action"] == "refer"){
+    exit(header("location:".$_POST["refer"]));
+}
+
 SaveFormData();
 
 function SaveFormData()
