@@ -14,14 +14,11 @@ PrintNavbar();
 <?php
 $data = [0 => ["per_firstname" => "", "per_lastname" => "", "per_email" => "", "question" => ""]];
 
-//get template
-$output = file_get_contents("templates/contactform.html");
-
 //add extra elements
 $extra_elements['csrf_token'] = GenerateCSRF( "contact.php"  );
 
 //merge
-$output = MergeViewWithData( $output, $data );
+$output = MergeViewWithData( 'contactform.html', $data );
 $output = MergeViewWithExtraElements( $output, $extra_elements );
 $output = MergeViewWithErrors( $output, $errors );
 $output = RemoveEmptyErrorTags( $output, $data );
