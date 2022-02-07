@@ -51,28 +51,17 @@
     PrintHead();
     PrintNavbar();
 
-    $add_row = file_get_contents("./templates/boodschap_detail_add_row.html");
-    $article_list_item = "<li class='article__list__item' id=@art_id@>@art_name@</li>";
-    $articles = "";
-    foreach($articles_data as $row){
-        $list_item = str_replace("@art_id@", $row["art_id"], $article_list_item);
-        $articles .= str_replace("@art_name@", $row["art_name"], $list_item);
-    }
-    $store_list_item = "<li class='store__list__item' id=@sto_id@>@sto_name@</li>";
-    $stores = "";
-    foreach($stores_data as $row){
-        $list_item = str_replace("@sto_id@", $row["sto_id"], $store_list_item);
-        $stores .= str_replace("@sto_name@", $row["sto_name"], $list_item);
-    }
-
-    $content = MergeViewWithData("boodschap_detail.html", $gro_data);
-    $content = str_replace("@csrf@", GenerateCSRF(), $content);
-
+    $articles = MergeViewWithData("article_list_item.html", $articles_data);
+    $stores = MergeViewWithData("store_list_item.html", $stores_data);
+    
     // verschillende rows aanmaken + 1 rij voor de knop nieuw toevoegen
+    $add_row = file_get_contents("./templates/boodschap_detail_add_row.html");
     $rows = MergeViewWithData("boodschap_detail_row.html", $rows_data);
     $rows .= str_replace("@next_row_id@", $next_row_id, $add_row);
 
     // placeholder vervangen door de gegenereerde rows.
+    $content = MergeViewWithData("boodschap_detail.html", $gro_data);
+    $content = str_replace("@csrf@", GenerateCSRF(), $content);
     $content =  str_replace("@grocery_rows@", $rows, $content);
     $content = str_replace("@article_list@", $articles, $content);
     $content = str_replace("@store_list@", $stores, $content);
