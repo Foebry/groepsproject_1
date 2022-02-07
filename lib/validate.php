@@ -109,3 +109,46 @@ function GetFieldType( $definition )
 
     return [ $type, $length, $precision ];
 }
+
+/**
+* Validates a name field to make sure it only contains regular characters.
+* If a character different from a-Z, é, ë, è, ç or à is detected in the name field,
+* an error is set to the $field_error key.
+* param $field: name of the field
+*/
+function validateName(string $field) :void{
+    $name = trim($_POST[$field]);
+
+    if ((preg_match("/[^a-z, A-Z, é, ë, è, ç, à]/", $name) > 0 ) or $name == ""){
+        $msg = "Sorry, maar dit is geen geldige naam.";
+        $_SESSION["errors"][$field."_error"] = $msg;
+    }
+    $_POST[$field] = $name;
+}
+
+/**
+* Validates an email field to make sure it is a correct email adress.
+* If it's not a correct email adress, an error is set to the $field_error key.
+* param $field: name of the field
+*/
+function validateUserEmail(string $field) :void{
+    $email = trim($_POST[$field]);
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL) or $email == ""){
+        $msg = "Dit is geen geldig e-mailadres!";
+        $_SESSION["errors"][$field."_error"] = "Geen geldig e-mailadres!";
+    }
+    $_POST[$field] = $email;
+}
+
+/**
+* validates a csrf-token in $_POST.
+* If not set or not correct, send user to status.php
+*/
+function validateCSRF() :void{
+
+    if (!key_exists("csrf", $_POST) or !hash_equals($_POST["csrf"], $_SESSION["last_csrf"])){
+        $_SESSION["status"]["csrf"] = "U bent niet gemachtigd om deze bewerking uit te voeren";
+        exit(header("location:../status.php"));
+    }
+}

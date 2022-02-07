@@ -10,8 +10,8 @@ require_once "security.php";
 
 $errors = [];
 
-if ( key_exists( 'errors', $_SESSION ) AND is_array( $_SESSION['errors']) )
+if ( key_exists( 'errors', $_SESSION ) )
 {
     $errors = $_SESSION['errors'];
-    $_SESSION['errors'] = null;
+    $_SESSION['errors'] = [];
 }
