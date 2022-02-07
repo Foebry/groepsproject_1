@@ -1,8 +1,9 @@
-<form action="save.php" method="POST">
+<form action="./lib/save.php" method="POST">
     <!-- hidding inputs -->
     <input type="hidden" name="csrf" value="@csrf@">
     <input type="hidden" name="table" value="row">
-    <input type="hidden" name="after" value="boodschap_detail.php">
+    <input type="hidden" class="refer" name="after" value="boodschap_detail.php">
+    <input type="hidden" name="last_row_id" value="@next_row_id@" id="next_row_id">
     <!-- end of hidding inputs -->
     <section class="headings">
         <div class="left">
@@ -17,11 +18,23 @@
             </div>
             <div>
                 <label for="totaal_prijs">Totaal prijs</label>
-                <input type="text" id="totaal_prijs" value="@gro_price@" readonly>
+                <input type="text" id="totaal_prijs" value="@gro_pric@" readonly>
             </div>
         </div>
     </section>
-    <ul class="rows">
+    <ul class="headings row list-unstyled justify-content-center">
+        <li class="col">Winkel</li>
+        <li class="col">Artikel</li>
+        <li class="col">Aantal</li>
+        <li class="col">Prijs/stuk</li>
+    </ul>
+    <ul class="list--hidden" id="article_list">
+        @article_list@
+    </ul>
+    <ul class="list--hidden" id="store_list">
+        @store_list@
+    </ul>
+    <ul class="rows list-unstyled">
         @grocery_rows@
     </ul>
     <input class="btn btn-secondary" type="submit" name="action" value="submit">
