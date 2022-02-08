@@ -31,7 +31,7 @@
 
     $articles_sql = "select art_id, art_name from article";
     $stores_sql = "select sto_id, sto_name from stores";
-    $next_row_id_sql = "select row_id next_row_id from row order by row_id desc limit 1";
+    $next_row_id_sql = "select row_id from row order by row_id desc limit 1";
 
     // opvragen van de data
     $articles_data = GetData($articles_sql);
@@ -53,7 +53,9 @@
                             "gro_desc"=>"Geef een beschrijving",
                             "gro_amount" => 0,
                             "gro_pric"=>0.00,
-                            "gro_date"=> date("Y-m-d", strtotime("today"))
+                            "gro_date"=> date("Y-m-d", strtotime("today")),
+                            "gro_id" => $id,
+                            "next_row_id" => $next_row_id+1
                             ]
                         ];
     }
