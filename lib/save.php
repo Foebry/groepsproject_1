@@ -6,7 +6,7 @@ validateCSRF();
 
 // boodschapdetail in $_SESSION opslaan
 if ($_POST["form"] == "boodschapdetail"){
-    $gro_id = $_POST["gro_id"];
+    $gro_id = $_POST["headers"]["gro_id"];
 
     // lege rijen verwijderen
     foreach($_POST["data"] as $row_id => $data){
@@ -28,15 +28,15 @@ if ($_POST["form"] == "boodschapdetail"){
         // verwijder de row-record uit de $_SESSION cache en uit de databank
 
         $row_id = (int) explode("-", $_POST["action"])[1];
-        var_dump($row_id);
+        /*var_dump($row_id);
         print("<br>");
-        unset($_SESSION["boodschappen"][$gro_id]["data"][$row_id]);
         print("<pre>");
         var_dump($_SESSION);
         print("</pre>");
-        exit();
+        exit();*/
+        unset($_SESSION["boodschappen"][$gro_id]["data"][$row_id]);
         $sql_delete = "delete from row where row_id = $row_id";
-        //ExecuteSQL($sql_delete);
+        ExecuteSQL($sql_delete);
 
         // zet een melding voor de gebruiker en keer terug naar het formulier
         $_SESSION["status"]["msg"] = $_POST["record correct verwijdert"];
