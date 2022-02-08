@@ -18,7 +18,7 @@ $data = [0 => ["per_firstname" => "", "per_lastname" => "", "per_email" => "", "
 $output = file_get_contents("templates/contactform.html");
 
 //add extra elements
-$extra_elements['csrf_token'] = GenerateCSRF( "contact.php"  );
+$extra_elements['csrf'] = GenerateCSRF( "contact.php"  );
 
 //merge
 $output = MergeViewWithData( $output, $data );
