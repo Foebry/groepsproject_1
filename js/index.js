@@ -28,7 +28,9 @@ const setNamesNewRow = function(el) {
 	let nri = parseInt(next_row_id.value);
 	//console.log(el);
 	el.children[0].children[0].setAttribute("name", `data[${nri}][row_sto_id]`);
+	el.children[0].children[1].setAttribute("name", `data[${nri}][sto_name]`);
 	el.children[1].children[0].setAttribute("name", `data[${nri}][row_art_id]`);
+	el.children[1].children[1].setAttribute("name", `data[${nri}][art_name]`);
 	el.children[2].children[0].setAttribute("name", `data[${nri}][row_pieces]`);
 	el.children[3].children[0].setAttribute("name", `data[${nri}][row_pric]`);
 	el.children[4].children[1].setAttribute("value", `delete-${nri}`);
