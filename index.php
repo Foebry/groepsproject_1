@@ -24,12 +24,15 @@ $template = file_get_contents("templates/slider.html");
 $result = str_replace("@slider@", $output, $template);
 
 //boodschappen
-$sql = 'select gro_id, gro_name, gro_date, per_firstname, per_lastname, sum(row_pieces) as aantal,
+$where = isset($_GET['search']) ? 'where gro_name like "%'.$_GET['search'].'%"': '';
+
+$sql = "select gro_id, gro_name, gro_date, per_firstname, per_lastname, sum(row_pieces) as aantal,
 (select round(sum(row_pric * row_pieces)) from row
 where row_gro_id = gro_id) as totaal from grocery
 inner join person on grocery.gro_per_id = person.per_id
-inner join row on grocery.gro_id = row.row_gro_id
-group by gro_id;';
+inner join row on grocery.gro_id = row.row_gro_id ".
+$where
+." group by gro_id;";
 
 $data = GetData("$sql");
 
