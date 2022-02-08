@@ -15,7 +15,7 @@ PrintNavbar();
 $data = [0 => ["per_firstname" => "", "per_lastname" => "", "per_email" => "", "question" => ""]];
 
 //add extra elements
-$extra_elements['csrf_token'] = GenerateCSRF( "contact.php"  );
+$extra_elements['csrf'] = GenerateCSRF( "contact.php"  );
 
 //merge
 $output = MergeViewWithData( 'contactform.html', $data );
