@@ -6,6 +6,8 @@ validateCSRF();
 
 // boodschapdetail in $_SESSION opslaan
 if ($_POST["form"] == "boodschapdetail"){
+    $gro_id = $_POST["gro_id"];
+
     // lege rijen verwijderen
     foreach($_POST["data"] as $row_id => $data){
         if(count(array_unique($data)) == 1 && current($data) == ""){
@@ -14,13 +16,31 @@ if ($_POST["form"] == "boodschapdetail"){
         }
         $_POST["data"][$row_id]["row_id"] = $row_id;
     }
-    $gro_id = $_POST["gro_id"];
     $_SESSION["boodschappen"][$gro_id]["headers"][0] = $_POST["headers"];
     $_SESSION["boodschappen"][$gro_id]["data"] = $_POST["data"];
 
     // als de gebruiker wil navigeren naar een andere pagina.
     if ($_POST["action"] == "refer"){
         exit(header("location:".$_POST["refer"]));
+    }
+    //indien de gebruiker een row-record wil verwijderen
+    elseif( strpos($_POST["action"], "delete") !== false){
+        // verwijder de row-record uit de $_SESSION cache en uit de databank
+
+        $row_id = (int) explode("-", $_POST["action"])[1];
+        var_dump($row_id);
+        print("<br>");
+        unset($_SESSION["boodschappen"][$gro_id]["data"][$row_id]);
+        print("<pre>");
+        var_dump($_SESSION);
+        print("</pre>");
+        exit();
+        $sql_delete = "delete from row where row_id = $row_id";
+        //ExecuteSQL($sql_delete);
+
+        // zet een melding voor de gebruiker en keer terug naar het formulier
+        $_SESSION["status"]["msg"] = $_POST["record correct verwijdert"];
+        exit(header("location:".$_SERVER["HTTP_REFERER"]));
     }
 }
 

@@ -23,3 +23,4 @@ if(key_exists("status", $_SESSION)){
 if (!isset($_SESSION["boodschappen"])){
     $_SESSION["boodschappen"] = [];
 }
+$boodschappen = $_SESSION["boodschappen"];
