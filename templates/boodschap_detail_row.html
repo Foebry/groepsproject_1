@@ -17,8 +17,11 @@
     <div class="col">
         <input type="text" class="form-control input__prijs" name="data[@row_id@][row_pric]" value="@row_pric@" readonly="readonly">
     </div>
-    <ul class="buttons">
-        <button class="btn btn-info button__detail" name="action" value="refer" refer="../artikel_detail.php?id=@row_art_id@">details</button>
-        <li class="btn btn-danger button__delete" name="action" value="delete-@row_id@">delete</li>
+    <ul class="buttons list-unstyled d-flex">
+        <li>
+            <button class="btn btn-info button__detail" name="action" value="refer" refer="../artikel_detail.php?id=@row_art_id@">details</button>
+        </li>
+        <li><button class="btn btn-danger button__delete" name="action" value="delete-@row_id@">delete</button>
+        </li>
     </ul>
 </li>

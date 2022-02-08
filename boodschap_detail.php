@@ -1,6 +1,6 @@
 <?php
     require_once "./lib/autoload.php";
-    //exit(var_dump($_SESSION));
+    var_dump($_SESSION);
 
     $id = $_GET["id"];
 
@@ -78,4 +78,4 @@
     $content = str_replace("@store_list@", $stores, $content);
 
     echo $content;
-    echo '<script src="../js/index.js"></script>';
+    echo '<script src="./js/index.js"></script>';

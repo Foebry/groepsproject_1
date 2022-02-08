@@ -14,7 +14,7 @@ const handleEvents = function(e) {
 const add_row = function(e) {
 	let parent = e.target.parentElement;
 	e.target.previousElementSibling.classList.remove("form-row--hidden");
-	fetch("../templates/boodschap_detail_add_row.html")
+	fetch("./templates/boodschap_detail_add_row.html")
 		.then(response => response.text())
 		.then((new_row) => {
 			setNamesNewRow(e.target.previousElementSibling);
@@ -26,7 +26,7 @@ const add_row = function(e) {
 
 const setNamesNewRow = function(el) {
 	let nri = parseInt(next_row_id.value);
-	console.log(el);
+	//console.log(el);
 	el.children[0].children[0].setAttribute("name", `data[${nri}][row_sto_id]`);
 	el.children[1].children[0].setAttribute("name", `data[${nri}][row_art_id]`);
 	el.children[2].children[0].setAttribute("name", `data[${nri}][row_pieces]`);
@@ -72,7 +72,7 @@ const looseFocus = function(e) {
 
 const setValue = function(e) {
 	if (e.target.classList.contains("store__list__item") || e.target.classList.contains("article__list__item")) {
-		const detail_button = e.target.parentElement.parentElement.parentElement.children[4].children[0];
+		const detail_button = e.target.parentElement.parentElement.parentElement.children[4].children[0].children[0];
 		const input_field = e.target.parentElement.previousElementSibling;
 		const select_field = e.target.parentElement.parentElement.children[0].children[0];
 
@@ -87,7 +87,7 @@ const setValue = function(e) {
 }
 
 const redirect = function(e) {
-	e.target.parentElement.parentElement.parentElement.parentElement.children[2].setAttribute("value", e.target.attributes[3].value);
+	e.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[2].setAttribute("value", e.target.attributes[3].value);
 
 }
 
