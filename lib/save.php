@@ -17,11 +17,11 @@ if ($_POST["form"] == "boodschapdetail"){
     $gro_id = $_POST["gro_id"];
     $_SESSION["boodschappen"][$gro_id]["headers"][0] = $_POST["headers"];
     $_SESSION["boodschappen"][$gro_id]["data"] = $_POST["data"];
-}
 
-// als de gebruiker wil navigeren naar een andere pagina.
-if ($_POST["action"] == "refer"){
-    exit(header("location:".$_POST["refer"]));
+    // als de gebruiker wil navigeren naar een andere pagina.
+    if ($_POST["action"] == "refer"){
+        exit(header("location:".$_POST["refer"]));
+    }
 }
 
 SaveFormData();
