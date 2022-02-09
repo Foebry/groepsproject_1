@@ -1,26 +1,31 @@
 <li class="form-row rows__item rows__item--locked">
-    <div class="col">
+    <div class="col @row_sto_id--error@">
         <select name="data[@row_id@][row_sto_id]" class=form-select--hidden>
             <option selected value="@row_sto_id@">
         </select>
         <input type="text" class="form-control input__store" name="data[@row_id@][sto_name]" value="@sto_name@" readonly="readonly">
+        <ul class="store_list list--hidden">
+        </ul>
     </div>
-    <div class="col">
+    <div class="col @row_art_id--error@">
         <select name="data[@row_id@][row_art_id]" class=form-select--hidden>
             <option selected value="@row_art_id@">
         </select>
         <input type="text" class="form-control input__article" name="data[@row_id@][art_name]" value="@art_name@" readonly="readonly">
+        <ul class="article_list list--hidden">
+        </ul>
     </div>
-    <div class="col">
+    <div class="col @row_pieces--error@">
         <input type="text" class="form-control input__aantal" name="data[@row_id@][row_pieces]" value="@row_pieces@" readonly="readonly">
     </div>
-    <div class="col">
-        <input type="text" class="form-control input__prijs" name="data[@row_id@][row_pric]" value="@row_pric@" readonly="readonly">
+    <div class="col @row_pric--error@">
+        <input type=" text" class="form-control input__prijs" name="data[@row_id@][row_pric]" value="@row_pric@" readonly="readonly">
     </div>
     <ul class="buttons list-unstyled d-flex">
         <li>
             <button class="btn btn-info button__detail" name="action" value="refer" refer="../artikel_detail.php?id=@row_art_id@">details</button>
         </li>
+        <li class="btn btn-success button__edit">edit</li>
         <li><button class="btn btn-danger button__delete" name="action" value="delete-@row_id@">delete</button>
         </li>
     </ul>

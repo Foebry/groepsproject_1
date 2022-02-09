@@ -9,6 +9,7 @@ const handleEvents = function(e) {
 	else if (e.target.classList.contains("input__store") || e.target.classList.contains("input__article") || e.target.classList.contains("input__aantal") || e.target.classList.contains("input__prijs")) handleInput(e);
 	else if (e.target.classList.contains("button__detail")) redirect(e);
 	else if (e.target.classList.contains("button__delete__new")) removeRow(e);
+	else if (e.target.classList.contains("button__edit")) edit(e);
 }
 
 const add_row = function(e) {
@@ -19,14 +20,13 @@ const add_row = function(e) {
 		.then((new_row) => {
 			setNamesNewRow(e.target.previousElementSibling);
 			next_row_id.setAttribute("value", parseInt(next_row_id.value) + 1);
-			parent.innerHTML += new_row.replace(/@next_row_id@/g, next_row_id.value.toString());
+			parent.innerHTML += new_row.replace(/@next_row_id@/g, parseInt(next_row_id.value));
 			parent.removeChild(document.getElementById("button_add"));
 		});
 }
 
 const setNamesNewRow = function(el) {
 	let nri = parseInt(next_row_id.value);
-	//console.log(el);
 	el.children[0].children[0].setAttribute("name", `data[${nri}][row_sto_id]`);
 	el.children[0].children[1].setAttribute("name", `data[${nri}][sto_name]`);
 	el.children[1].children[0].setAttribute("name", `data[${nri}][row_art_id]`);
@@ -46,6 +46,7 @@ const handleInput = function(e) {
 }
 
 const setFocus = function(e) {
+	console.log(e);
 	const options_list = e.target.parentElement.children[2];
 	const class_list = e.target.classList.value;
 	const list = class_list.includes("input__article") ? articles : class_list.includes("input__store") ? stores : null;
@@ -60,6 +61,7 @@ const setFocus = function(e) {
 }
 
 const updateValue = function(e) {
+	console.log(e);
 	e.target.setAttribute("value", e.target.value);
 	setFocus(e);
 }
@@ -80,7 +82,7 @@ const setValue = function(e) {
 
 		input_field.setAttribute("value", e.target.innerText);
 		input_field.value = e.target.innerText;
-		select_field.value = e.target.id;
+		select_field.value = parseInt(e.target.id);
 		if (e.target.parentElement.classList.contains("article_list")) {
 			detail_button.attributes[3].value += e.target.id;
 			detail_button.removeAttribute("disabled");
@@ -97,6 +99,15 @@ const removeRow = function(e) {
 	const rows_ul = e.target.parentElement.parentElement.parentElement;
 	const this_row = e.target.parentElement.parentElement;
 	rows_ul.removeChild(this_row);
+}
+
+const edit = function(e) {
+	const this_row = e.target.parentElement.parentElement;
+	const children = [...this_row.children];
+	children[0].children[1].toggleAttribute("readonly");
+	children[1].children[1].toggleAttribute("readonly");
+	children[2].children[0].toggleAttribute("readonly");
+	children[3].children[0].toggleAttribute("readonly");
 }
 
 document.addEventListener("click", handleEvents);

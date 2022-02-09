@@ -4,9 +4,9 @@ require_once "autoload.php";
 // csrf-token valideren
 validateCSRF();
 
-// boodschapdetail in $_SESSION opslaan
+
 if ($_POST["form"] == "boodschapdetail"){
-    $gro_id = $_POST["gro_id"];
+    $gro_id = $_POST["headers"]["gro_id"];
 
     // lege rijen verwijderen
     foreach($_POST["data"] as $row_id => $data){
@@ -15,32 +15,105 @@ if ($_POST["form"] == "boodschapdetail"){
             continue;
         }
         $_POST["data"][$row_id]["row_id"] = $row_id;
+        $_POST["data"][$row_id]["row_art_id"] = (int) $_POST["data"][$row_id]["row_art_id"];
+        $_POST["data"][$row_id]["row_sto_id"] = (int) $_POST["data"][$row_id]["row_sto_id"];
+        $_POST["data"][$row_id]["row_gro_id"] = (int) $gro_id;
+        $_POST["data"][$row_id]["row_pric"] = (float) $_POST["data"][$row_id]["row_pric"];
     }
+    // boodschapdetail in $_SESSION opslaan
     $_SESSION["boodschappen"][$gro_id]["headers"][0] = $_POST["headers"];
     $_SESSION["boodschappen"][$gro_id]["data"] = $_POST["data"];
 
-    // als de gebruiker wil navigeren naar een andere pagina.
+    // indien de gebruiker wil navigeren naar een andere pagina.
     if ($_POST["action"] == "refer"){
         exit(header("location:".$_POST["refer"]));
     }
     //indien de gebruiker een row-record wil verwijderen
     elseif( strpos($_POST["action"], "delete") !== false){
-        // verwijder de row-record uit de $_SESSION cache en uit de databank
 
+        // verwijder de row-record uit de $_SESSION cache
         $row_id = (int) explode("-", $_POST["action"])[1];
-        var_dump($row_id);
-        print("<br>");
         unset($_SESSION["boodschappen"][$gro_id]["data"][$row_id]);
-        print("<pre>");
-        var_dump($_SESSION);
-        print("</pre>");
-        exit();
+
+        // verwijder de row-record uit de databank
         $sql_delete = "delete from row where row_id = $row_id";
-        //ExecuteSQL($sql_delete);
+        ExecuteSQL($sql_delete);
 
         // zet een melding voor de gebruiker en keer terug naar het formulier
-        $_SESSION["status"]["msg"] = $_POST["record correct verwijdert"];
+        $_SESSION["info"]["msg"] = $_POST["info-delete"];
         exit(header("location:".$_SERVER["HTTP_REFERER"]));
+    }
+
+    // inzending van het formulier
+    elseif ($_POST["action"] == "submit"){
+        // valideer gegevens van de boodschap zelf
+        $table = "grocery";
+        $headers = getHeaders($table);
+        $sql_statements = [];
+
+        // Valideer de waarde van iedere key overeenkomend met de headers van de tabel
+        // sla de primary en foreign keys over
+        foreach($headers as $key => $values){
+            $key_type = $_POST["DB_HEADERS"][$key]["key"];
+            if (key_exists($key, $_POST["headers"]) AND ($key_type === "PRI")) continue;
+            validate($key, $values, $_POST["headers"]);
+        }
+        if (count($_SESSION["errors"]) > 0){
+            exit(header("location:".$_SERVER["HTTP_REFERER"]));
+        }
+        // bepalen of het een insert of update statment moet zijn.
+        $gro_sql = "select * from grocery where gro_id = $gro_id";
+        $gro_data = getData($gro_sql);
+        $statement = $gro_data ? "update $table set " : "insert into $table set ";
+        $where = $gro_data ? " where gro_id = $gro_id" : "";
+
+        // sql statement aanmaken en uitvoeren
+        $sql = buildStatement($statement, $table, $_POST["headers"]);
+        $sql_statements[] = $sql.$where;
+
+
+        // data van rijen valideren
+        $table = $_POST["table"];
+        $headers = getHeaders($table);
+
+        foreach($_POST["data"] as $row => $data){
+            $array = $_SESSION["boodschappen"][$gro_id]["data"][$row];
+
+            foreach($headers as $key => $values){
+                $key_type = $_POST["DB_HEADERS"][$key]["key"];
+
+                if (key_exists($key, $data) AND ($key_type === "PRI" )) continue;
+
+                $_SESSION["boodschappen"][$gro_id]["data"][$row] = validate($key, $values, $array);
+            }
+
+            // bepalen of het een insert of update statment moet zijn.
+            $sql = "select * from row where row_id = $row";
+            $sql_data = getData($sql);
+            $statement = $sql_data ? "update $table set " : "insert into $table set ";
+            $where = $sql_data ? " where row_id = $row" : "";
+
+            // sql statement aanmaken en uitvoeren
+            $sql = buildStatement($statement, $table, $data);
+            $sql_statements[] = $sql.$where;
+        }
+
+        $_SESSION["info"]["success"] = $_POST["info-submit"];
+
+        if (count($_SESSION["errors"]) > 0){
+            exit(header("location:".$_SERVER["HTTP_REFERER"]));
+        }
+        foreach($sql_statements as $sql){
+            ExecuteSQL($sql);
+        }
+
+        // verwijder boodschap uit cache
+        unset($_SESSION["boodschappen"][$gro_id]);
+
+        $_SESSION["info"]["boodschap"] = $_POST["info-msg"];
+
+        // navigeer naar homepagina
+        exit(header("location:".$_POST["refer"]));
     }
 }
 
@@ -50,12 +123,6 @@ function SaveFormData()
 {
     if ( $_SERVER['REQUEST_METHOD'] == "POST" )
     {
-        //controle CSRF token
-        if ( ! key_exists("csrf", $_POST)) die("Missing CSRF");
-        if ( ! hash_equals( $_POST['csrf'], $_SESSION['lastest_csrf'] ) ) die("Problem with CSRF");
-
-        $_SESSION['lastest_csrf'] = "";
-
         //sanitization
         $_POST = StripSpaces($_POST);
         $_POST = ConvertSpecialChars($_POST);

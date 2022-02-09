@@ -1,6 +1,117 @@
 <?php
 require_once "autoload.php";
 
+function validate($field, $values, &$array=null){
+    $not_null = $_POST["DB_HEADERS"][$field]["can_be_null"] == "NO";
+    $unique = $_POST["DB_HEADERS"][$field]["key"] == "UNI";
+    $array = $array ? $array : $_POST;
+
+    $fields = [
+        "gro_date" => "De datum van de boodschap",
+        "gro_desc" => "De beschrijving van de boodschap",
+        "gro_name" => "De naam van de boodschap",
+        "art_name" => "De naam van het artikel",
+        "sto_name" => "De naam van de winkel",
+        "row_pieces" => "Het aantal voor dit artikel",
+        "row_pric" => "De prijs voor dit artikel"
+    ];
+
+    // indien de doorgegeven waarde van field leeg is, zet ze gelijk aan "null"
+    $array[$field] = $array[$field] == "" ? "null" : $array[$field];
+
+    // indien de ingevoerde waarde leeg is, ga na of dit veld in de databank leeg mag zijn,
+    // zoniet, zet de correcte error message en return;
+    if ($not_null and $array[$field] == "null"){
+        $_SESSION["errors"][$field."_error"] = "$fields[$field] mag niet leeg zijn.";
+        $array["$field--error"] = "col--error";
+        return $array;
+    }
+    # indien het veld uniek is in de databank, ga na of deze waarde nog niet bestaat.
+    # indien wel het geval, zet de correcte error message en return.
+    if ($unique){
+        if (getData("select $field from ".$array["table"]." where $field = "."'".$array[$field]."'")){
+            $_SESSION["errors"][$field."_error"] = "$fields[$field] is al in gebruik.";
+            $array["$field--error"] = "col--error";
+            return $array;
+        }
+    }
+    $value = $array[$field];
+
+    if ($values["datatype"] == "int") $array = validateInteger($value, $field, $fields, $array);
+    elseif ($values["datatype"] == "varchar") $array = validateString($value, $field, $fields, $array);
+    elseif ($values["datatype"] == "double") $array = validateFloat($value, $field, $fields, $array);
+    elseif ($values["datatype"] == "date") $array = validateDate($value, $field, $fields, $array);
+
+    return $array;
+}
+
+
+function validateInteger($value, string $field, array $fields, array $array){
+    if (!is_numeric($value)) {
+        $msg = key_exists($field, $fields) ? "$fields[$field] is een numeriek veld en mag enkel numerieke waarden bevatten." : "";
+
+        if ($field == "row_art_id") $msg = "Gelieve een artikel uit de lijst te selecteren.";
+        elseif ($field == "row_sto_id") $msg = "Gelieve een winkel uit de lijst te selecteren";
+
+        var_dump($field);
+        print("<br>");
+
+        $array["test-error"] = "col--error";
+        $array["$field--error"] = "col--error";
+        var_dump("array: ");
+        var_dump($array);
+        print("<br><br>");
+
+        $_SESSION["errors"][$field."_error"] = $msg;
+
+    }
+
+    return $array;
+}
+
+
+function validateString($value, string $field, array $fields, array $array){
+    $value = htmlentities(trim($value), ENT_QUOTES);
+
+    $unique = $_POST["DB_HEADERS"][$field]["can_be_null"] == "NO";
+    $unique = $_POST["DB_HEADERS"][$field]["key"] == "UNI";
+    $max_length = $_POST["DB_HEADERS"][$field]["max_size"];
+    $min_length = key_exists($field."_min", $array) ? $array[$field."_min"] : 0;
+
+    $strlen = strlen($value);
+
+    // indien de lengte van de ingevoerde waarde langer is dan de toegelaten lengte,
+    // of net te kort, zet de correcte error messages voor de respectievelijke fouten.
+    if(strlen($value) < $min_length){
+        $_SESSION["errors"][$field."_error"] = "$fields[$field] moet minstens $min_length tekens bevatten";
+        $array["$field--error"] = "col--error";
+    }
+    elseif (strlen($value) > $max_length) {
+       $_SESSION["errors"][$field."_error"] = "$fields[$field] is $strlen lang, maar mag maximaal $max_length lang zijn.";
+       $array["$field--error"] = "col--error";
+   }
+   return $array;
+}
+
+
+function validateFloat($value, string $field, array $fields, array $array){
+    if ( ! is_numeric($value) OR $value !== (float) $value){
+        $_SESSION["errors"][$field."_error"] = "$fields[$field] moet een getal zijn, eventueel met decimalen";
+        $array["$field--error"] = "col--error";
+    }
+    return $array;
+}
+
+
+function validateDate($date, string $field, array $fields, array $array){
+    if (date('Y-m-d', strtotime($date)) !== $date){
+        $_SESSION["errors"][$field."_error"] = "$fields[$field] is een datum veld gelieve een formaat yyyy-mm-dd te gebruiken";
+        $array["$field--error"] = "col--error";
+    }
+    return $array;
+}
+
+
 function CompareWithDatabase( $table, $pkey ): void
 {
     $data = GetData( "SHOW FULL COLUMNS FROM $table" );
@@ -150,4 +261,5 @@ function validateCSRF() :void{
         $_SESSION["status"]["csrf"] = "U bent niet gemachtigd om deze bewerking uit te voeren";
         exit(header("location:../status.php"));
     }
+    $_SESSION['latest_csrf'] = "";
 }
