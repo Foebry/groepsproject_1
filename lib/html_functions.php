@@ -23,12 +23,20 @@ function PrintNavbar( )
     print $navbar;
 }
 
+function PrintFooter( )
+{
+    $footer = file_get_contents("templates/footer.html");
+
+    print $footer;
+}
+
+
 function MergeViewWithData( $template, $data ){
     $return_template = "";
 
     foreach ( $data as $row )
     {
-        $item = file_get_contents("./templates/$template");
+        $item = file_get_contents("templates/$template");
         foreach( array_keys($row) as $field )  //eerst "img_id", dan "img_title", ...
         {
             $item = str_replace( "@$field@", $row["$field"], $item );
