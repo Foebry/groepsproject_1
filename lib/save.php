@@ -66,7 +66,7 @@ if ($_POST["form"] == "boodschapdetail"){
 
         // sql statement aanmaken en uitvoeren
         $sql = buildStatement($statement, $table, $_POST["headers"]);
-        //exit(var_dump("bob? $sql"));
+
         if(!ExecuteSQL($sql.$where)) exit(var_dump($sql));
 
 
@@ -74,7 +74,7 @@ if ($_POST["form"] == "boodschapdetail"){
         $table = $_POST["table"];
         $headers = getHeaders($table);
         foreach($_POST["data"] as $row => $data){
-            //exit(var_dump($data));
+
             foreach($headers as $key => $values){
                 $key_type = $_POST["DB_HEADERS"][$key]["key"];
 
@@ -82,7 +82,6 @@ if ($_POST["form"] == "boodschapdetail"){
                 validate($key, $values, $data);
             }
             if (count($_SESSION["errors"]) > 0){
-                exit(var_dump($_SESSION["errors"]));
                 exit(header("location:".$_SERVER["HTTP_REFERER"]));
             }
             // bepalen of het een insert of update statment moet zijn.
@@ -93,7 +92,7 @@ if ($_POST["form"] == "boodschapdetail"){
 
             // sql statement aanmaken en uitvoeren
             $sql = buildStatement($statement, $table, $data);
-            //exit(var_dump("bob? $sql"));
+
             if(!ExecuteSQL($sql.$where)) exit(var_dump($sql));
         }
 
@@ -107,7 +106,7 @@ if ($_POST["form"] == "boodschapdetail"){
     }
 }
 
-/*SaveFormData();
+SaveFormData();
 
 function SaveFormData()
 {
@@ -184,4 +183,4 @@ function SaveFormData()
         if ( $insert AND $_POST["afterinsert"] > "" ) header("Location: ../" . $_POST["afterinsert"] );
         if ( $update AND $_POST["afterupdate"] > "" ) header("Location: ../" . $_POST["afterupdate"] );
     }
-}*/
+}

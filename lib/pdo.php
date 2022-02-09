@@ -104,7 +104,7 @@ function getHeaders($table, $db="LIVE"): array{
             // $values aanvullen met veld en doorgestuurde waarde
             $sql_values[] = "$key = '$value'";
         }
-        //exit(var_dump($sql_values));
+
         $sql_values = implode(", ", $sql_values);
         return $statement .$sql_values;
 

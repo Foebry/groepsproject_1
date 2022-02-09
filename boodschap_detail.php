@@ -1,6 +1,5 @@
 <?php
     require_once "./lib/autoload.php";
-    var_dump($_SESSION);
 
     $id = $_GET["id"];
 
