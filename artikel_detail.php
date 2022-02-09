@@ -1,19 +1,22 @@
 <?php
 require_once "./lib/autoload.php";
+var_dump($_GET["id"]);
+$id = $_GET["id"];
 
 //sql query voor artikeldetail en artikeldetailrow
-$artDetail_sql="select art_id, art_name, art_code, art_img from article ";
+$artDetail_sql="select art_id, art_name, art_code, art_img from article where art_id = $id";
 
 $artDetailRow_sql="select sto_name, row_pric, uni_name from stores as s
 inner join row r on s.sto_id = r.row_sto_id
-inner join units u on u.uni_id";
+inner join units u on u.uni_id
+where r.row_art_id = $id";
 
 //data ophalen uit DB
 $artDetail_data= GetData($artDetail_sql);
 $artDetailRow_data= GetData($artDetailRow_sql);
 //html template bestanden
-$artDetail_temp= file_get_contents("./templates/artikeldetail.html");
-$artDetailRow_temp= file_get_contents("./templates/artikeldetailrow.html");
+$artDetail_temp = "artikeldetail.html";
+$artDetailRow_temp = "artikeldetailrow.html";
 
 //pagina opbouw
 PrintHead();
