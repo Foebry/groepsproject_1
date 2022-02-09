@@ -20,7 +20,7 @@ const add_row = function(e) {
 		.then((new_row) => {
 			setNamesNewRow(e.target.previousElementSibling);
 			next_row_id.setAttribute("value", parseInt(next_row_id.value) + 1);
-			parent.innerHTML += new_row.replace(/@next_row_id@/g, next_row_id.value.toString());
+			parent.innerHTML += new_row.replace(/@next_row_id@/g, parseInt(next_row_id.value));
 			parent.removeChild(document.getElementById("button_add"));
 		});
 }
@@ -80,7 +80,7 @@ const setValue = function(e) {
 
 		input_field.setAttribute("value", e.target.innerText);
 		input_field.value = e.target.innerText;
-		select_field.value = e.target.id;
+		select_field.value = parseInt(e.target.id);
 		if (e.target.parentElement.classList.contains("article_list")) {
 			detail_button.attributes[3].value += e.target.id;
 			detail_button.removeAttribute("disabled");

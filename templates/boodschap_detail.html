@@ -2,15 +2,17 @@
     <!-- hidding inputs -->
     <input type="hidden" name="csrf" value="@csrf@">
     <input type="hidden" name="table" value="row">
-    <input type="hidden" name="refer" value="boodschap_detail.php">
+    <input type="hidden" name="refer" value="../index.php">
     <input type="hidden" name="headers[next_row_id]" value="@next_row_id@" id="next_row_id">
     <input type="hidden" name="form" value="boodschapdetail">
     <input type="hidden" name="headers[gro_id]" value="@gro_id@">
+    <input type="hidden" name="headers[gro_per_id]" value="@gro_per_id@">
+    <input type="hidden" name="info-msg" value="Boodchap is succesvol toegevoegd!">
     <!-- end of hidding inputs -->
     <section class="headings">
         <div class="left">
             <input type="date" name="headers[gro_date]" value="@gro_date@" readonly>
-            <input type="text" name="headers[gro_desc]" value="@gro_desc@" placeholder="Geef een beschrijving" readonly>
+            <input type="text" name="headers[gro_description]" value="@gro_description@" placeholder="Geef een beschrijving" readonly>
         </div>
         <h2><input type="text" name="headers[gro_name]" value="@gro_name@" placeholder="Geef de boodschap een naam" readonly></h2>
         <div class="right">

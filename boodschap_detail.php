@@ -7,7 +7,7 @@
     // indien data nog niet ingeladen, laadt data in vanuit databank.
     if(!array_key_exists($id, $_SESSION["boodschappen"])){
         // sql query voor de gegevens specifiek aan de boodschap
-        $gro_sql = "select gro_id, gro_name, gro_date, gro_description gro_desc,
+        $gro_sql = "select gro_id, gro_name, gro_date, gro_description, gro_per_id,
                         (select sum(row_pieces) from row where row_gro_id = $id) as gro_amount,
                         round((select sum(row_pieces * row_pric) from row where row_gro_id = $id), 2) as gro_pric,
                         (select row_id + 1 from row order by row_id desc limit 1) as next_row_id
@@ -40,22 +40,23 @@
 
     // indien een boodschap opgrvraagd wordt waarvan de id niet bestaat, wordt de gebruiker herleid
     // naar error.php met volgende status message
-    if (!$gro_data && $id != -1){
+    if($id <= 0){
         $_SESSION["status"]["404"] ="Helaas! Deze boodschap kan niet gevonden worden!";
         exit(header("location: ./error.php"));
     }
 
     // indien opgevraagde id gelijk is aan -1 wordt een leeg formulier gecreëerd
-    elseif ($id == -1){
-        $gro_data = [0 =>
+    elseif (!$gro_data && $id > 0){
+        $gro_data = [$id =>
                         [
-                            "gro_name"=>"Geef een naam",
-                            "gro_desc"=>"Geef een beschrijving",
+                            "gro_name"=>"Nieuwe boodschap",
+                            "gro_description"=>"Geef een beschrijving",
                             "gro_amount" => 0,
                             "gro_pric"=>0.00,
                             "gro_date"=> date("Y-m-d", strtotime("today")),
                             "gro_id" => $id,
-                            "next_row_id" => $next_row_id+1
+                            "next_row_id" => $next_row_id+1,
+                            "gro_per_id" => 6
                             ]
                         ];
     }

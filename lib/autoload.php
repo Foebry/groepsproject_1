@@ -14,13 +14,15 @@ $status = [];
 if ( key_exists( 'errors', $_SESSION ) )
 {
     $errors = $_SESSION['errors'];
-    $_SESSION['errors'] = [];
 }
 if(key_exists("status", $_SESSION)){
     $status = $_SESSION["status"];
-    $_SESSION["status"] = [];
 }
 if (!isset($_SESSION["boodschappen"])){
     $_SESSION["boodschappen"] = [];
 }
+
+
+$_SESSION['errors'] = [];
+$_SESSION["status"] = [];
 $boodschappen = $_SESSION["boodschappen"];

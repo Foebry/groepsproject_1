@@ -34,11 +34,14 @@ inner join row on grocery.gro_id = row.row_gro_id ".
 $where
 ." group by gro_id;";
 
+$next_gro_id_sql = "select gro_id+1 next_gro_id from grocery group by gro_id desc limit 1";
+$next_gro_id = GetData($next_gro_id_sql)[0]["next_gro_id"];
 $data = GetData("$sql");
 
 $output = MergeViewWithData( 'boodschapcard.html', $data );
 $template = file_get_contents("templates/boodschappen.html");
 $result .= str_replace("@list@", $output, $template);
+$result = str_replace("@next_gro_id@", $next_gro_id, $result);
 
 print $result;
 
