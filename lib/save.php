@@ -18,6 +18,7 @@ if ($_POST["form"] == "boodschapdetail"){
         $_POST["data"][$row_id]["row_art_id"] = (int) $_POST["data"][$row_id]["row_art_id"];
         $_POST["data"][$row_id]["row_sto_id"] = (int) $_POST["data"][$row_id]["row_sto_id"];
         $_POST["data"][$row_id]["row_gro_id"] = (int) $gro_id;
+        $_POST["data"][$row_id]["row_pric"] = (float) $_POST["data"][$row_id]["row_pric"];
     }
     // boodschapdetail in $_SESSION opslaan
     $_SESSION["boodschappen"][$gro_id]["headers"][0] = $_POST["headers"];
@@ -48,6 +49,8 @@ if ($_POST["form"] == "boodschapdetail"){
         // valideer gegevens van de boodschap zelf
         $table = "grocery";
         $headers = getHeaders($table);
+        $sql_statements = [];
+
         // Valideer de waarde van iedere key overeenkomend met de headers van de tabel
         // sla de primary en foreign keys over
         foreach($headers as $key => $values){
@@ -66,24 +69,24 @@ if ($_POST["form"] == "boodschapdetail"){
 
         // sql statement aanmaken en uitvoeren
         $sql = buildStatement($statement, $table, $_POST["headers"]);
-
-        if(!ExecuteSQL($sql.$where)) exit(var_dump($sql));
+        $sql_statements[] = $sql.$where;
 
 
         // data van rijen valideren
         $table = $_POST["table"];
         $headers = getHeaders($table);
+
         foreach($_POST["data"] as $row => $data){
+            $array = $_SESSION["boodschappen"][$gro_id]["data"][$row];
 
             foreach($headers as $key => $values){
                 $key_type = $_POST["DB_HEADERS"][$key]["key"];
 
-                if (key_exists($key, $data) AND ($key_type === "PRI" OR $key == "row_gro_id" )) continue;
-                validate($key, $values, $data);
+                if (key_exists($key, $data) AND ($key_type === "PRI" )) continue;
+
+                $_SESSION["boodschappen"][$gro_id]["data"][$row] = validate($key, $values, $array);
             }
-            if (count($_SESSION["errors"]) > 0){
-                exit(header("location:".$_SERVER["HTTP_REFERER"]));
-            }
+
             // bepalen of het een insert of update statment moet zijn.
             $sql = "select * from row where row_id = $row";
             $sql_data = getData($sql);
@@ -92,8 +95,14 @@ if ($_POST["form"] == "boodschapdetail"){
 
             // sql statement aanmaken en uitvoeren
             $sql = buildStatement($statement, $table, $data);
+            $sql_statements[] = $sql.$where;
+        }
 
-            if(!ExecuteSQL($sql.$where)) exit(var_dump($sql));
+        if (count($_SESSION["errors"]) > 0){
+            exit(header("location:".$_SERVER["HTTP_REFERER"]));
+        }
+        foreach($sql_statements as $sql){
+            ExecuteSQL($sql);
         }
 
         // verwijder boodschap uit cache

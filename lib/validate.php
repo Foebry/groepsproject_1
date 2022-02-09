@@ -1,7 +1,7 @@
 <?php
 require_once "autoload.php";
 
-function validate($field, $values, $array=null){
+function validate($field, $values, &$array=null){
     $not_null = $_POST["DB_HEADERS"][$field]["can_be_null"] == "NO";
     $unique = $_POST["DB_HEADERS"][$field]["key"] == "UNI";
     $array = $array ? $array : $_POST;
@@ -23,27 +23,50 @@ function validate($field, $values, $array=null){
     // zoniet, zet de correcte error message en return;
     if ($not_null and $array[$field] == "null"){
         $_SESSION["errors"][$field."_error"] = "$fields[$field] mag niet leeg zijn.";
-        return;
+        $array["$field--error"] = "col--error";
+        return $array;
     }
     # indien het veld uniek is in de databank, ga na of deze waarde nog niet bestaat.
     # indien wel het geval, zet de correcte error message en return.
     if ($unique){
         if (getData("select $field from ".$array["table"]." where $field = "."'".$array[$field]."'")){
             $_SESSION["errors"][$field."_error"] = "$fields[$field] is al in gebruik.";
-            return;
+            $array["$field--error"] = "col--error";
+            return $array;
         }
     }
-    if ($values["datatype"] == "int") validateInteger($array[$field], $field, $fields);
-    elseif ($values["datatype"] == "varchar") validateString($array[$field], $field, $fields, $array);
-    elseif ($values["datatype"] == "float") validateFloat($array[$field], $field, $fields);
-    elseif ($values["datatype"] == "date") validateDate($array[$field], $field, $fields);
+    $value = $array[$field];
+
+    if ($values["datatype"] == "int") $array = validateInteger($value, $field, $fields, $array);
+    elseif ($values["datatype"] == "varchar") $array = validateString($value, $field, $fields, $array);
+    elseif ($values["datatype"] == "double") $array = validateFloat($value, $field, $fields, $array);
+    elseif ($values["datatype"] == "date") $array = validateDate($value, $field, $fields, $array);
+
+    return $array;
 }
 
 
-function validateInteger($value, string $field, array $fields){
+function validateInteger($value, string $field, array $fields, array $array){
     if (!is_numeric($value)) {
-        $_SESSION["errors"][$field."_error"] = "$fields[$field] $field is een numeriek veld en mag enkel numerieke waarden bevatten, maar is $value.";
+        $msg = key_exists($field, $fields) ? "$fields[$field] is een numeriek veld en mag enkel numerieke waarden bevatten." : "";
+
+        if ($field == "row_art_id") $msg = "Gelieve een artikel uit de lijst te selecteren.";
+        elseif ($field == "row_sto_id") $msg = "Gelieve een winkel uit de lijst te selecteren";
+
+        var_dump($field);
+        print("<br>");
+
+        $array["test-error"] = "col--error";
+        $array["$field--error"] = "col--error";
+        var_dump("array: ");
+        var_dump($array);
+        print("<br><br>");
+
+        $_SESSION["errors"][$field."_error"] = $msg;
+
     }
+
+    return $array;
 }
 
 
@@ -61,24 +84,31 @@ function validateString($value, string $field, array $fields, array $array){
     // of net te kort, zet de correcte error messages voor de respectievelijke fouten.
     if(strlen($value) < $min_length){
         $_SESSION["errors"][$field."_error"] = "$fields[$field] moet minstens $min_length tekens bevatten";
+        $array["$field--error"] = "col--error";
     }
     elseif (strlen($value) > $max_length) {
        $_SESSION["errors"][$field."_error"] = "$fields[$field] is $strlen lang, maar mag maximaal $max_length lang zijn.";
+       $array["$field--error"] = "col--error";
    }
+   return $array;
 }
 
 
-function validateFloat($value, string $field, array $fields){
+function validateFloat($value, string $field, array $fields, array $array){
     if ( ! is_numeric($value) OR $value !== (float) $value){
         $_SESSION["errors"][$field."_error"] = "$fields[$field] moet een getal zijn, eventueel met decimalen";
+        $array["$field--error"] = "col--error";
     }
+    return $array;
 }
 
 
-function validateDate($date, string $field, array $fields){
+function validateDate($date, string $field, array $fields, array $array){
     if (date('Y-m-d', strtotime($date)) !== $date){
         $_SESSION["errors"][$field."_error"] = "$fields[$field] is een datum veld gelieve een formaat yyyy-mm-dd te gebruiken";
+        $array["$field--error"] = "col--error";
     }
+    return $array;
 }
 
 

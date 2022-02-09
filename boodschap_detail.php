@@ -26,6 +26,10 @@
         $gro_data = $_SESSION["boodschappen"][$id]["headers"];
         $rows_data = $_SESSION["boodschappen"][$id]["data"];
     }
+    /*print("<pre>");
+    var_dump($rows_data);
+    print("</pre>");
+    exit();*/
 
 
     $articles_sql = "select art_id, art_name from article";
@@ -69,6 +73,7 @@
 
     // verschillende rows aanmaken + 1 rij voor de knop nieuw toevoegen
     $add_row = file_get_contents("./templates/boodschap_detail_add_row.html");
+
     $rows = MergeViewWithData("boodschap_detail_row.html", $rows_data);
     $rows .= str_replace("@next_row_id@", $next_row_id, $add_row);
 
@@ -78,6 +83,8 @@
     $content =  str_replace("@grocery_rows@", $rows, $content);
     $content = str_replace("@article_list@", $articles, $content);
     $content = str_replace("@store_list@", $stores, $content);
+    $content = MergeErrorInfoPlaceholders($content, $errors, $info);
+    $content = removeEmptyPlaceholders($content);
 
     echo $content;
     echo '<script src="./js/index.js"></script>';

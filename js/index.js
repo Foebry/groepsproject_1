@@ -46,6 +46,7 @@ const handleInput = function(e) {
 }
 
 const setFocus = function(e) {
+	console.log(e);
 	const options_list = e.target.parentElement.children[2];
 	const class_list = e.target.classList.value;
 	const list = class_list.includes("input__article") ? articles : class_list.includes("input__store") ? stores : null;
@@ -60,6 +61,7 @@ const setFocus = function(e) {
 }
 
 const updateValue = function(e) {
+	console.log(e);
 	e.target.setAttribute("value", e.target.value);
 	setFocus(e);
 }

@@ -27,10 +27,22 @@
         </div>
     </section>
     <ul class="headings row list-unstyled justify-content-center">
-        <li class="col">Winkel</li>
-        <li class="col">Artikel</li>
-        <li class="col">Aantal</li>
-        <li class="col">Prijs/stuk</li>
+        <li class="col">
+            <h3>Winkel</h3>
+            <p class="error-msg">@row_sto_id_error@</p>
+        </li>
+        <li class="col">
+            <h3>Artikel</h3>
+            <p class="error-msg">@row_art_id_error@</p>
+        </li>
+        <li class="col">
+            <h3>Aantal</h3>
+            <p class="error-msg">@row_pieces_error@</p>
+        </li>
+        <li class="col">
+            <h3>Prijs/stuk</h3>
+            <p class="error-msg">@row_pric_error@</p>
+        </li>
     </ul>
     <ul class="list--hidden" id="article_list">
         @article_list@
