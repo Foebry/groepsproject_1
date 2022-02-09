@@ -1,7 +1,7 @@
 <?php
 require_once "autoload.php";
 
-function CreateConnection($db="LOCAL"){
+function CreateConnection($db="LIVE"){
     $root = $_SERVER["DOCUMENT_ROOT"];
     // json file inlezen en omzetten naar associatieve array
     if ($root === 'C:/xl/htdocs') $root.= '/groepsproject_1';
@@ -54,7 +54,7 @@ function ExecuteSQL( $sql ){
 *
 * @return: array(string => array(string => string|int))
 */
-function getHeaders($table, $db="LIVE"): array{
+function getHeaders($table): array{
         $headers = [];
         // aanmaken connectie & query
         $conn = CreateConnection($db);
