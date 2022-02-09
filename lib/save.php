@@ -40,7 +40,7 @@ if ($_POST["form"] == "boodschapdetail"){
         ExecuteSQL($sql_delete);
 
         // zet een melding voor de gebruiker en keer terug naar het formulier
-        $_SESSION["status"]["msg"] = $_POST["record correct verwijdert"];
+        $_SESSION["info"]["msg"] = $_POST["info-delete"];
         exit(header("location:".$_SERVER["HTTP_REFERER"]));
     }
 
@@ -97,6 +97,8 @@ if ($_POST["form"] == "boodschapdetail"){
             $sql = buildStatement($statement, $table, $data);
             $sql_statements[] = $sql.$where;
         }
+
+        $_SESSION["info"]["success"] = $_POST["info-submit"];
 
         if (count($_SESSION["errors"]) > 0){
             exit(header("location:".$_SERVER["HTTP_REFERER"]));
