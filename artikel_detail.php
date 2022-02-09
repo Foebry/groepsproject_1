@@ -8,8 +8,10 @@ $artDetail_sql="select art_id, art_name, art_code, art_img from article where ar
 
 $artDetailRow_sql="select sto_name, row_pric, uni_name from stores as s
 inner join row r on s.sto_id = r.row_sto_id
-inner join units u on u.uni_id
-where r.row_art_id = $id";
+inner join article a on r.row_art_id = a.art_id
+inner join units u on u.uni_id =a.art_uni_id
+where r.row_art_id = $id
+group by s.sto_id";
 
 //data ophalen uit DB
 $artDetail_data= GetData($artDetail_sql);
