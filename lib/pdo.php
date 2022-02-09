@@ -57,7 +57,7 @@ function ExecuteSQL( $sql ){
 function getHeaders($table): array{
         $headers = [];
         // aanmaken connectie & query
-        $conn = CreateConnection($db);
+        $conn = CreateConnection();
         $db = getData("select database()")[0]["database()"];
         $query = "select * from information_schema.columns where table_name = '$table' and table_schema = '$db'";
 
