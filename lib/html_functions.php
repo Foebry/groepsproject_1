@@ -2,6 +2,7 @@
 function PrintHead()
 {
     $head = file_get_contents("templates/head.html");
+    $head .= file_get_contents("templates/header.html");
     print $head;
 }
 
@@ -22,23 +23,20 @@ function PrintNavbar( )
     print $navbar;
 }
 
-function MergeViewWithData( $template, $data )
-{
-    $returnvalue = "";
+function MergeViewWithData( $template, $data ){
+    $return_template = "";
 
     foreach ( $data as $row )
     {
-        $output = $template;
-
+        $item = file_get_contents("./templates/$template");
         foreach( array_keys($row) as $field )  //eerst "img_id", dan "img_title", ...
         {
-            $output = str_replace( "@$field@", $row["$field"], $output );
+            $item = str_replace( "@$field@", $row["$field"], $item );
         }
-
-        $returnvalue .= $output;
+        $return_template .= $item;
     }
 
-    return $returnvalue;
+    return $return_template;
 }
 
 function MergeViewWithExtraElements( $template, $elements )
