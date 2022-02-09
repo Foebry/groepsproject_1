@@ -9,7 +9,7 @@
     </div>
     <div class="col">
         <select class=form-select--hidden>
-            <option selected value="">
+            <option selected value=>
         </select>
         <input type="text" class="form-control input__article" placeholder="artikel" autocomplete="off">
         <ul class="article_list list--hidden">
@@ -21,9 +21,10 @@
     <div class="col">
         <input type="text" class="form-control input__prijs" placeholder="prijs" autocomplete="off">
     </div>
-    <ul class="buttons">
-        <button class="btn btn-info button__detail" name="action" value="refer" refer="./artikel_detail.php?=" disabled="disabled">details</button>
-        <div class="btn btn-danger button__delete__new" name="action">delete</div>
+    <ul class="buttons list-unstyled d-flex">
+        <li><button class="btn btn-info button__detail" name="action" value="refer" refer="../artikel_detail.php?=" disabled="disabled">details</button></li>
+        <li class="btn btn-success button__edit">edit</li>
+        <li class="btn btn-danger button__delete__new" name="action" disabled="disabled">delete</li>
     </ul>
 </li>
 <li class="form-row rows__item btn btn-primary col-sm-12 button__add_row" id="button_add">Artikel aan boodschap toevoegen</li>

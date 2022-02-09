@@ -1,7 +1,7 @@
 <?php
 require_once "autoload.php";
 
-function CreateConnection($db){
+function CreateConnection($db="LIVE"){
     $root = $_SERVER["DOCUMENT_ROOT"];
     // json file inlezen en omzetten naar associatieve array
     if ($root === 'C:/xl/htdocs') $root.= '/groepsproject_1';
@@ -24,9 +24,9 @@ function CreateConnection($db){
     }
 }
 
-function GetData( $sql, $db="LIVE"){
+function GetData( $sql ){
     // create connection
-    $conn = CreateConnection($db);
+    $conn = CreateConnection();
 
     //define and execute query
     $result = $conn->query( $sql );
@@ -36,9 +36,9 @@ function GetData( $sql, $db="LIVE"){
 
 }
 
-function ExecuteSQL( $sql, $db="LIVE" ){
+function ExecuteSQL( $sql ){
     // create connection
-    $conn = CreateConnection( $db );
+    $conn = CreateConnection( );
 
     //define and execute query
     $result = $conn->query( $sql );
@@ -54,10 +54,10 @@ function ExecuteSQL( $sql, $db="LIVE" ){
 *
 * @return: array(string => array(string => string|int))
 */
-function getHeaders($table, $db="LIVE"): array{
+function getHeaders($table): array{
         $headers = [];
         // aanmaken connectie & query
-        $conn = CreateConnection($db);
+        $conn = CreateConnection();
         $db = getData("select database()")[0]["database()"];
         $query = "select * from information_schema.columns where table_name = '$table' and table_schema = '$db'";
 
@@ -84,4 +84,28 @@ function getHeaders($table, $db="LIVE"): array{
         }
         $_POST["DB_HEADERS"] = $headers;
         return $headers;
+    }
+
+
+    function buildStatement($statement, $table=null, $array=null){
+        $table = $table ? $table : $_POST["table"];
+        $array = $array ? $array : $_POST;
+        $headers = $_POST["DB_HEADERS"];
+        $sql_values = [];
+
+        foreach($headers as $key => $values){
+            $key_type = $headers[$key]["key"];
+
+            // primary key overslaan.
+            if($key_type == "PRI") continue;
+
+            $value = $array[$key];
+
+            // $values aanvullen met veld en doorgestuurde waarde
+            $sql_values[] = "$key = '$value'";
+        }
+
+        $sql_values = implode(", ", $sql_values);
+        return $statement .$sql_values;
+
     }

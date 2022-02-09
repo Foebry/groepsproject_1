@@ -9,9 +9,25 @@ require_once "validate.php";
 require_once "security.php";
 
 $errors = [];
+$status = [];
+$info = [];
 
 if ( key_exists( 'errors', $_SESSION ) )
 {
     $errors = $_SESSION['errors'];
-    $_SESSION['errors'] = [];
 }
+if(key_exists("status", $_SESSION)){
+    $status = $_SESSION["status"];
+}
+if (key_exists("info", $_SESSION)){
+    $info = $_SESSION["info"];
+}
+if (!isset($_SESSION["boodschappen"])){
+    $_SESSION["boodschappen"] = [];
+}
+
+
+$_SESSION['errors'] = [];
+$_SESSION["status"] = [];
+$_SESSION["info"] = [];
+$boodschappen = $_SESSION["boodschappen"];

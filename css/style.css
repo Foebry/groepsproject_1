@@ -39,6 +39,10 @@ li.store__list__item:hover {
     background-color: white;
     cursor: pointer;
 }
+.col--error {
+    border: 1px solid red;
+    border-radius: 5px;
+}
 h1 {
     color:darkblue;
     font-size: 72px;
@@ -53,4 +57,5 @@ h3 {
 }
 body {
     background-color:rgb(230, 230, 230);
+
 }
