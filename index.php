@@ -15,7 +15,8 @@ PrintNavbar();
 
 //slider
 $sql = 'select article.art_id, article.art_name, article.art_img from row
-inner join article on row.row_art_id = article.art_id';
+inner join article on row.row_art_id = article.art_id
+group by article.art_id';
 
 $data = GetData("$sql");
 

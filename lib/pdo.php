@@ -5,7 +5,7 @@ function CreateConnection($db){
     $root = $_SERVER["DOCUMENT_ROOT"];
     // json file inlezen en omzetten naar associatieve array
     if ($root === 'C:/xl/htdocs') $root.= '/groepsproject_1';
-    $file = file_get_contents("$root/config.json");
+    $file = file_get_contents("./config.json");
     $config = json_decode($file, true)["DATABASE"][$db];
 
     $servername = $config["host"];
