@@ -84,3 +84,5 @@
 
     echo $content;
     echo '<script src="./js/index.js"></script>';
+
+    printFooeter();

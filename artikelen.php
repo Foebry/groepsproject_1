@@ -16,3 +16,5 @@
     $content .= str_replace("@artikelen@", $artikelen, $artikelen_list);
 
     echo $content;
+
+    printFooter();

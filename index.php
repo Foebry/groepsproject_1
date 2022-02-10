@@ -7,12 +7,14 @@ require_once "lib/autoload.php";
 ?>
 
 <?php
-$result = PrintHead();
+$result = PrintHead("MyWeGo");
 $result .= PrintNavbar();
 //slider
-$sql = 'select article.art_id, article.art_name, article.art_img from row
-inner join article on row.row_art_id = article.art_id
-group by article.art_id';
+$sql = 'select row_art_id art_id, art_name, a.art_img, sum(row_pieces) aankopen, row_gro_id from row
+join article a on row.row_art_id = a.art_id
+group by row_art_id
+order by aankopen desc, art_name
+limit 5';
 
 $data = GetData("$sql");
 
@@ -29,7 +31,8 @@ where row_gro_id = gro_id) as totaal from grocery
 inner join person on grocery.gro_per_id = person.per_id
 inner join row on grocery.gro_id = row.row_gro_id ".
 $where
-." group by gro_id;";
+." group by gro_id
+order by gro_id desc;";
 
 
 $data = GetData("$sql");
@@ -40,6 +43,7 @@ $result .= str_replace("@list@", $output, $template);
 $result = str_replace("@next_gro_id@", $_SESSION["next_gro_id"], $result);
 
 print $result;
+PrintFooter();
 
 ?>
 

@@ -24,6 +24,7 @@ function PrintNavbar( )
     $next_gro_id = $_SESSION["next_gro_id"];
 
     $navbar = file_get_contents("templates/navbar.html");
+    //exit(var_dump($navbar));
     $navbar = str_replace("@next_gro_id@", $next_gro_id, $navbar);
 
     return $navbar;

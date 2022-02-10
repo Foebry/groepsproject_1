@@ -1,6 +1,5 @@
 <?php
 require_once "./lib/autoload.php";
-var_dump($_GET["id"]);
 $id = $_GET["id"];
 
 //sql query voor artikeldetail en artikeldetailrow
