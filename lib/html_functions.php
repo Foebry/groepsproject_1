@@ -1,9 +1,12 @@
 <?php
+
+if (!isset($_SESSION)) session_start();
+
 function PrintHead()
 {
     $head = file_get_contents("templates/head.html");
     $head .= file_get_contents("templates/header.html");
-    print $head;
+    return $head;
 }
 
 function PrintJumbo( $title = "", $subtitle = "" )
@@ -18,9 +21,12 @@ function PrintJumbo( $title = "", $subtitle = "" )
 
 function PrintNavbar( )
 {
-    $navbar = file_get_contents("templates/navbar.html");
+    $next_gro_id = $_SESSION["next_gro_id"];
 
-    print $navbar;
+    $navbar = file_get_contents("templates/navbar.html");
+    $navbar = str_replace("@next_gro_id@", $next_gro_id, $navbar);
+
+    return $navbar;
 }
 
 function PrintFooter( )
@@ -113,18 +119,25 @@ function removeEmptyPlaceholders(string $templatestr){
 
 
 function mergeErrors(string $templatestr, array $errors){
+    $messages = "";
     foreach($errors as $key => $value){
-
-        $templatestr = str_replace("@$key@", $value, $templatestr);
+        $error_message = file_get_contents("./templates/error_message.html");
+        $messages .= str_replace("@message@", $value, $error_message);
     }
+
+    $templatestr = str_replace("@error@", $messages, $templatestr);
     return $templatestr;
 }
 
 
 function mergeInfo(string $templatestr, array $info){
+    $messages = "";
     foreach($info as $key => $value){
-        $templatestr = str_replace("@info@", $value, $templatestr);
+        $info_message = file_get_contents("./templates/info_message.html");
+        $messages .= str_replace("@message@", $value, $info_message);
     }
+
+    $templatestr = str_replace("@info@", $messages, $templatestr);
     return $templatestr;
 }
 

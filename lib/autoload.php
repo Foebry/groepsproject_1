@@ -8,6 +8,9 @@ require_once "sanitize.php";
 require_once "validate.php";
 require_once "security.php";
 
+$next_gro_id_sql = "select gro_id+1 next_gro_id from grocery group by gro_id desc limit 1";
+$_SESSION["next_gro_id"] = getData($next_gro_id_sql)[0]["next_gro_id"];
+
 $errors = [];
 $status = [];
 $info = [];

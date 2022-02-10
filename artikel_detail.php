@@ -21,12 +21,11 @@ $artDetail_temp = "artikeldetail.html";
 $artDetailRow_temp = "artikeldetailrow.html";
 
 //pagina opbouw
-PrintHead();
-PrintNavbar();
+$content = PrintHead();
+$content .= PrintNavbar();
 //samenstellen van data en templates
 $artDetailRow = MergeViewWithData($artDetailRow_temp,$artDetailRow_data);
-$content = MergeViewWithData( $artDetail_temp, $artDetail_data );
+$content .= MergeViewWithData( $artDetail_temp, $artDetail_data );
 $content = str_replace("@artikel_list@", $artDetailRow, $content);
 
 echo $content;
-
