@@ -26,10 +26,6 @@
         $gro_data = $_SESSION["boodschappen"][$id]["headers"];
         $rows_data = $_SESSION["boodschappen"][$id]["data"];
     }
-    /*print("<pre>");
-    var_dump($rows_data);
-    print("</pre>");
-    exit();*/
 
 
     $articles_sql = "select art_id, art_name from article";
@@ -65,8 +61,8 @@
     }
 
     // pagina opbouwen
-    PrintHead();
-    PrintNavbar();
+    $content = PrintHead();
+    $content .= PrintNavbar();
 
     $articles = MergeViewWithData("article_list_item.html", $articles_data);
     $stores = MergeViewWithData("store_list_item.html", $stores_data);
@@ -78,7 +74,7 @@
     $rows .= str_replace("@next_row_id@", $next_row_id, $add_row);
 
     // placeholder vervangen door de gegenereerde rows.
-    $content = MergeViewWithData("boodschap_detail.html", $gro_data);
+    $content .= MergeViewWithData("boodschap_detail.html", $gro_data);
     $content = str_replace("@csrf@", GenerateCSRF(), $content);
     $content =  str_replace("@grocery_rows@", $rows, $content);
     $content = str_replace("@article_list@", $articles, $content);
@@ -88,3 +84,5 @@
 
     echo $content;
     echo '<script src="./js/index.js"></script>';
+
+    printFooeter();

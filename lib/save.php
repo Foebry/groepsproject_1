@@ -1,12 +1,16 @@
 <?php
 require_once "autoload.php";
-
 // csrf-token valideren
 validateCSRF();
 
 
 if ($_POST["form"] == "boodschapdetail"){
     $gro_id = $_POST["headers"]["gro_id"];
+    // Boodschap mag niet leeg zijn
+    if (!key_exists("data", $_POST)){
+        $_POST["data"] = [];
+        $_SESSION["errors"]["data_error"] = "Uw boodschap kan helaas niet leeg zijn. Gelieve een artikel in te vullen";
+    }
 
     // lege rijen verwijderen
     foreach($_POST["data"] as $row_id => $data){
@@ -20,6 +24,7 @@ if ($_POST["form"] == "boodschapdetail"){
         $_POST["data"][$row_id]["row_gro_id"] = (int) $gro_id;
         $_POST["data"][$row_id]["row_pric"] = (float) $_POST["data"][$row_id]["row_pric"];
     }
+
     // boodschapdetail in $_SESSION opslaan
     $_SESSION["boodschappen"][$gro_id]["headers"][0] = $_POST["headers"];
     $_SESSION["boodschappen"][$gro_id]["data"] = $_POST["data"];
@@ -98,8 +103,6 @@ if ($_POST["form"] == "boodschapdetail"){
             $sql_statements[] = $sql.$where;
         }
 
-        $_SESSION["info"]["success"] = $_POST["info-submit"];
-
         if (count($_SESSION["errors"]) > 0){
             exit(header("location:".$_SERVER["HTTP_REFERER"]));
         }
@@ -110,7 +113,7 @@ if ($_POST["form"] == "boodschapdetail"){
         // verwijder boodschap uit cache
         unset($_SESSION["boodschappen"][$gro_id]);
 
-        $_SESSION["info"]["boodschap"] = $_POST["info-msg"];
+        $_SESSION["info"]["success"] = $_POST["info-submit"];
 
         // navigeer naar homepagina
         exit(header("location:".$_POST["refer"]));

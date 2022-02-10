@@ -4,25 +4,23 @@ ini_set( 'display_errors', 1 );
 
 require_once "lib/autoload.php";
 
-PrintHead();
-PrintNavbar();
 ?>
 
-<div class="container">
-    <div class="row">
-
 <?php
-
+$result = PrintHead("MyWeGo");
+$result .= PrintNavbar();
 //slider
-$sql = 'select article.art_id, article.art_name, article.art_img from row
-inner join article on row.row_art_id = article.art_id
-group by article.art_id';
+$sql = 'select row_art_id art_id, art_name, a.art_img, sum(row_pieces) aankopen, row_gro_id from row
+join article a on row.row_art_id = a.art_id
+group by row_art_id
+order by aankopen desc, art_name
+limit 5';
 
 $data = GetData("$sql");
 
 $output = MergeViewWithData('productcard.html', $data);
 $template = file_get_contents("templates/slider.html");
-$result = str_replace("@slider@", $output, $template);
+$result .= str_replace("@slider@", $output, $template);
 
 //boodschappen
 $where = isset($_GET['search']) ? 'where gro_name like "%'.$_GET['search'].'%"': '';
@@ -33,18 +31,19 @@ where row_gro_id = gro_id) as totaal from grocery
 inner join person on grocery.gro_per_id = person.per_id
 inner join row on grocery.gro_id = row.row_gro_id ".
 $where
-." group by gro_id;";
+." group by gro_id
+order by gro_id desc;";
 
-$next_gro_id_sql = "select gro_id+1 next_gro_id from grocery group by gro_id desc limit 1";
-$next_gro_id = GetData($next_gro_id_sql)[0]["next_gro_id"];
+
 $data = GetData("$sql");
 
 $output = MergeViewWithData( 'boodschapcard.html', $data );
 $template = file_get_contents("templates/boodschappen.html");
 $result .= str_replace("@list@", $output, $template);
-$result = str_replace("@next_gro_id@", $next_gro_id, $result);
+$result = str_replace("@next_gro_id@", $_SESSION["next_gro_id"], $result);
 
 print $result;
+PrintFooter();
 
 ?>
 

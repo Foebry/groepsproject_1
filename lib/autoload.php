@@ -8,6 +8,9 @@ require_once "sanitize.php";
 require_once "validate.php";
 require_once "security.php";
 
+$next_gro_id_sql = "SELECT AUTO_INCREMENT next_gro_id FROM information_schema.tables WHERE table_name = 'grocery';";
+$_SESSION["next_gro_id"] = getData($next_gro_id_sql)[0]["next_gro_id"];
+
 $errors = [];
 $status = [];
 $info = [];

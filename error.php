@@ -4,17 +4,17 @@ ini_set( 'display_errors', 1 );
 
 require_once "lib/autoload.php";
 
-PrintHead();
-PrintNavbar();
-PrintJumbo("Error");
-?>
+$content = PrintHead();
+$content .= PrintNavbar();
+$content .= PrintJumbo("Error");
 
-<div class="container">
-    <div class="row">
-    <?php 
+echo $content;
+
     foreach ($_SESSION[status] as $msg) {
         print $msg;
     }
+    PrintFooter();
+
     ?>
 </div>
 </div>
