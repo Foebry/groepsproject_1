@@ -5,13 +5,12 @@ $id = $_GET["id"];
 //sql query voor artikeldetail en artikeldetailrow
 $artDetail_sql="select art_id, art_name, art_code, art_img from article where art_id = $id";
 
-$artDetailRow_sql="select sto_name, pri_value, uni_name from stores as s
-inner join row r on s.sto_id = r.row_sto_id
-inner join article a on r.row_art_id = a.art_id
-inner join units u on u.uni_id = a.art_uni_id
-join art_price_sto aps on a.art_id = aps.pri_art_id
-where r.row_art_id = $id
-group by s.sto_id";
+$artDetailRow_sql="select sto_name,pri_value,uni_name from stores as s
+join art_price_sto aps on s.sto_id = aps.pri_sto_id
+join article a on aps.pri_art_id = a.art_id
+join units u on u.uni_id = a.art_uni_id
+where pri_art_id = $id
+order by pri_value;";
 
 //data ophalen uit DB
 $artDetail_data= GetData($artDetail_sql);
