@@ -1,0 +1,22 @@
+<form method="POST" action="./save.php">
+    <!--hidden inputs -->
+    <input type="hidden" name="csrf" value="@csrf@">
+    <input type="hidden" name="table" value="artikel">
+    <input type="hidden" name="refer" value="../index.php">
+    <!-- end of hidden inputs -->
+    <section class="article">
+        <div class="article_img_holder">
+            <img src="./images/default.jpg" alt="afbeelding van uw product">
+        </div>
+        <div class="article_input">
+            <div class="article_input_code">
+                <label for="art_code">artikel code</label>
+                <input type="text" id="art_code" name="art_code" value="@art_code@" readonly>
+            </div>
+            <div class="article_input_name">
+                <label for="art_name">artikel naam</label>
+                <input type="text" id="art_name" name="art_name" placeholder="Geef uw artikel een naam" autocomplete="off">
+            </div>
+        </div>
+    </section>
+</form>
