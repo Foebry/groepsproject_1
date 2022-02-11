@@ -123,6 +123,19 @@ else{
     $sql_statements = [];
     $table = $_POST["table"];
     $headers = getHeaders($_POST["table"]);
+
+    if (strpos($_POST["action"], "delete") !== false){
+        $key = $_POST["key"];
+        //var_dump(explode())
+        $id = explode("delete-", $_POST["action"])[1];
+
+        $sql_delete = "delete from $table where $key = $id";
+        ExecuteSQL($sql_delete);
+
+        $_SESSION["info"]["delete"] = $_POST["info-delete"];
+
+        exit(header("location:".$_POST["refer"]));
+    }
     //$data = [0=>$headers];
     foreach($headers as $key => $values){
         $key_type = $headers[$key]["key"];
@@ -134,8 +147,6 @@ else{
 
     $sql = buildStatement($statement, $table);
     $sql_statements[] = $sql.$where;
-
-    exit(var_dump($sql_statements));
 
     if (count($_SESSION["errors"]) > 0){
         exit(header("location:".$_SERVER["HTTP_REFERER"]));
