@@ -123,10 +123,10 @@ else{
     $sql_statements = [];
     $table = $_POST["table"];
     $headers = getHeaders($_POST["table"]);
-    $data = [0=>$headers];
+    //$data = [0=>$headers];
     foreach($headers as $key => $values){
         $key_type = $headers[$key]["key"];
-        if (!key_exists($key, $_POST) OR ($key_type === "PRI")) continue;
+        if (!key_exists($key, $_POST)) continue;
         validate($key, $values, $_POST);
     }
     $statement = $_POST[$_POST["key"]] > 0 ? "update $table set " : "insert into $table set ";
@@ -134,6 +134,8 @@ else{
 
     $sql = buildStatement($statement, $table);
     $sql_statements[] = $sql.$where;
+
+    exit(var_dump($sql_statements));
 
     if (count($_SESSION["errors"]) > 0){
         exit(header("location:".$_SERVER["HTTP_REFERER"]));
@@ -143,7 +145,9 @@ else{
         ExecuteSQL($sql);
     }
 
-    $_SESSION["info"]["success"] = $_POST["info-success"];
+    $_SESSION["info"]["success"] = $_POST[$_POST["key"]] > 0 ? $_POST["info-update"] : $_POST["info-add"];
+
+    //$_SESSION["info"]["success"] = $_POST["info-success"];
     exit(header("location:".$_POST["refer"]));
 }
 SaveFormData();
