@@ -13,7 +13,8 @@ function validate($field, $values, &$array=null){
         "art_name" => "De naam van het artikel",
         "sto_name" => "De naam van de winkel",
         "row_pieces" => "Het aantal voor dit artikel",
-        "row_pric" => "De prijs voor dit artikel"
+        "row_pric" => "De prijs voor dit artikel",
+        "pri_value" => "De prijs"
     ];
 
     // indien de doorgegeven waarde van field leeg is, zet ze gelijk aan "null"

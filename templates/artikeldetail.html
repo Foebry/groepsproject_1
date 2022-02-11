@@ -2,7 +2,7 @@
     <!-- hidden inputs -->
     <input type="hidden" name="csrf" value="@csrf@" />
     <input type="hidden" name="refer" value="../artikel_detail.php?id=@art_id@" />
-    <input type="hidden" name="info-submit" value="Nieuwe winkel-prijs combinatie succesvol toegevoegd!" />
+    <input type="hidden" name="info-success" value="Nieuwe winkel-prijs combinatie succesvol toegevoegd!" />
     <input type="hidden" name="info-add" value="artikel succesvol aan winkelmand toegevoegd!" />
     <input type="hidden" name="table" value="art_price_sto" />
     <input type="hidden" name="form" value="artikel-detail" />
@@ -19,6 +19,7 @@
         </div>
     </section>
     @info@
+    @error@
     <h2 class="title">Prijs per winkel </h2>
     <ul class="list">
         @artikel_list@

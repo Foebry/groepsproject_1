@@ -119,7 +119,33 @@ if ($_POST["form"] == "boodschapdetail"){
         exit(header("location:".$_POST["refer"]));
     }
 }
+else{
+    $sql_statements = [];
+    $table = $_POST["table"];
+    $headers = getHeaders($_POST["table"]);
+    $data = [0=>$headers];
+    foreach($headers as $key => $values){
+        $key_type = $headers[$key]["key"];
+        if (!key_exists($key, $_POST) OR ($key_type === "PRI")) continue;
+        validate($key, $values, $_POST);
+    }
+    $statement = $_POST[$_POST["key"]] > 0 ? "update $table set " : "insert into $table set ";
+    $where = $_POST[$_POST["key"]] > 0 ? " where ".$_POST["key"]." = ".$_POST[$_POST["key"]] : "";
 
+    $sql = buildStatement($statement, $table);
+    $sql_statements[] = $sql.$where;
+
+    if (count($_SESSION["errors"]) > 0){
+        exit(header("location:".$_SERVER["HTTP_REFERER"]));
+    }
+
+    foreach($sql_statements as $sql){
+        ExecuteSQL($sql);
+    }
+
+    $_SESSION["info"]["success"] = $_POST["info-success"];
+    exit(header("location:".$_POST["refer"]));
+}
 SaveFormData();
 
 function SaveFormData()
