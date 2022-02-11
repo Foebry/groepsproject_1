@@ -6,21 +6,21 @@
     // indien data nog niet ingeladen, laadt data in vanuit databank.
     if(!array_key_exists($id, $_SESSION["boodschappen"])){
         // sql query voor de gegevens specifiek aan de boodschap
-        $gro_sql = "select gro_id, gro_name, gro_date, gro_description, gro_per_id,
-                        (select sum(row_pieces) from row where row_gro_id = $id) as gro_amount,
-                        round((select sum(row_pieces * row_pric) from row where row_gro_id = $id), 2) as gro_pric,
-                        (select row_id + 1 from row order by row_id desc limit 1) as next_row_id
-                    from grocery where gro_id = $id;";
+        // $gro_sql = "select gro_id, gro_name, gro_date, gro_description, gro_per_id,
+        //                 (select sum(row_pieces) from row where row_gro_id = $id) as gro_amount,
+        //                 round((select sum(row_pieces * row_pric) from row where row_gro_id = $id), 2) as gro_pric,
+        //                 (select row_id + 1 from row order by row_id desc limit 1) as next_row_id
+        //             from grocery where gro_id = $id;";
 
         // sql query voor de gegevens specifiek aan de verschillende rijen van de boodschap
-        $rows_sql = "select row_pieces, round(row_pric,2) row_pric, row_id, row_sto_id, row_art_id,
-                        (select sto_name from stores where sto_id = row_sto_id) as sto_name,
-                        (select art_name from article where art_id = row_art_id) as art_name
-                    from row where row_gro_id = $id";
+        // $rows_sql = "select row_pieces, round(row_pric,2) row_pric, row_id, row_sto_id, row_art_id,
+        //                 (select sto_name from stores where sto_id = row_sto_id) as sto_name,
+        //                 (select art_name from article where art_id = row_art_id) as art_name
+        //             from row where row_gro_id = $id";
 
 
-        $gro_data = GetData($gro_sql);
-        $rows_data = GetData($rows_sql);
+        // $gro_data = GetData($gro_sql);
+        // $rows_data = GetData($rows_sql);
     }
     else{
         $gro_data = $_SESSION["boodschappen"][$id]["headers"];
@@ -85,4 +85,4 @@
     echo $content;
     echo '<script src="./js/index.js"></script>';
 
-    printFooeter();
+    printFooter();
