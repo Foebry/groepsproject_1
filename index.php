@@ -25,16 +25,15 @@ $result .= str_replace("@slider@", $output, $template);
 //boodschappen
 $where = isset($_GET['search']) ? 'where gro_name like "%'.$_GET['search'].'%"': '';
 
-$sql = "select gro_id, gro_name, gro_date, per_firstname, per_lastname, sum(row_pieces) as aantal,
-(select round(sum(art_price_sto.pri_value * row_pieces)) from row
-where row_gro_id = gro_id) as totaal from grocery
-inner join person on grocery.gro_per_id = person.per_id
-inner join row on grocery.gro_id = row.row_gro_id 
-inner join article on article.art_id = row.row_art_id 
-inner join art_price_sto on article.art_id = art_price_sto.pri_art_id ".
-$where
-." group by gro_id
-order by gro_id desc;";
+$sql = "select g.gro_id, g.gro_name, g.gro_date, p.per_firstname, p.per_lastname,sum(row_pieces) as aantal,
+(select round(sum(aps.pri_value * row_pieces)) from row r
+inner join article a on r.row_art_id = a.art_id
+join art_price_sto aps on a.art_id = aps.pri_art_id
+where (pri_sto_id= row_sto_id and r.row_gro_id = g.gro_id)) as totaal from row r
+join grocery g on g.gro_id = r.row_gro_id
+join person p on p.per_id = g.gro_per_id
+group by g.gro_id
+order by gro_id desc";
 
 
 $data = GetData("$sql");
