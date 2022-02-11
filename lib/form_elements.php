@@ -1,6 +1,18 @@
 <?php
 require_once "autoload.php";
 
+
+function createOptions($data, $selected_pos=0){
+    $selection = "";
+    foreach($data as $key => $row){
+        $selected = $key == $selected_pos ? 'selected="selected"' : "";
+        $value = $row["id"];
+        $name = $row["name"];
+        $selection .= "<option value='$value' $selected>$name</option>";
+    }
+    return $selection;
+}
+
 function MakeSelect( $fkey, $value, $sql )
 {
     $select = "<select id=$fkey name=$fkey value=$value>";
@@ -30,4 +42,3 @@ function MakeCheckbox( )
 {
 
 }
-

@@ -26,5 +26,7 @@ $content .= PrintNavbar();
 $artDetailRow = MergeViewWithData($artDetailRow_temp,$artDetailRow_data);
 $content .= MergeViewWithData( $artDetail_temp, $artDetail_data );
 $content = str_replace("@artikel_list@", $artDetailRow, $content);
+$content = MergeErrorInfoPlaceholders($content, $errors, $info);
+$content = removeEmptyPlaceholders($content);
 
 echo $content;
