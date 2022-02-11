@@ -2,25 +2,34 @@
     <!--hidden inputs -->
     <input type="hidden" name="csrf" value="@csrf@" />
     <input type="hidden" name="table" value="article" />
-    <input type="hidden" name="refer" value="../index.php" />
+    <input type="hidden" name="refer" value="../artikel_detail.php?id=@next_art_id@" />
     <input type="hidden" name="pkey" value="art_id" />
     <input type="hidden" name="form" value="artikel_form" />
     <input type="hidden" name="art_id" value="0" />
+    <input type="hidden" name="art_img" value="coming-soon.jpg" />
+    <input type="hidden" name="info-success" value="Artikel correct toegevoegd!" />
     <!-- end of hidden inputs -->
     <h2 class="form_title">Maak een nieuw artikel aan</h2>
+    @error@
     <section class="article">
         <div class="article_img_holder">
-            <img src="./images/default.jpg" alt="afbeelding van uw product">
+            <img src="./images/coming-soon.jpg" alt="afbeelding van uw product">
         </div>
         <div class="article_input">
             <div class="article_input_code">
-                <label for="art_code">artikel code</label>
+                <label for="art_code">code</label>
                 <input type="text" id="art_code" name="art_code" value="@art_code@" readonly>
             </div>
             <div class="article_input_name">
-                <label for="art_name">artikel naam</label>
+                <label for="art_name">naam</label>
                 <input type="text" id="art_name" name="art_name" placeholder="Geef uw artikel een naam" autocomplete="off">
             </div>
+        </div>
+        <div class="article_input_unit">
+            <label for="art_unit">eenheid</label>
+            <select class="article_input_unit_select" id="art_unit" name="art_uni_id">
+                @unit_options@
+            </select>
         </div>
     </section>
     <button class="button" type="submit" name="action" value="submit">submit</button>
