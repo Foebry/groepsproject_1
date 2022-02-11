@@ -16,7 +16,6 @@ function validate($field, $values, &$array=null){
         "row_pric" => "De prijs voor dit artikel",
         "pri_value" => "De prijs"
     ];
-
     // indien de doorgegeven waarde van field leeg is, zet ze gelijk aan "null"
     $array[$field] = $array[$field] == "" ? "null" : $array[$field];
 
@@ -54,14 +53,7 @@ function validateInteger($value, string $field, array $fields, array $array){
         if ($field == "row_art_id") $msg = "Gelieve een artikel uit de lijst te selecteren.";
         elseif ($field == "row_sto_id") $msg = "Gelieve een winkel uit de lijst te selecteren";
 
-        var_dump($field);
-        print("<br>");
-
-        $array["test-error"] = "col--error";
         $array["$field--error"] = "col--error";
-        var_dump("array: ");
-        var_dump($array);
-        print("<br><br>");
 
         $_SESSION["errors"][$field."_error"] = $msg;
 

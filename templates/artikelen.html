@@ -1,8 +1,10 @@
 <section class="artikelen">
+    <a class="artikelen_add" href="./artikel_add.php">artikel toevoegen</a>
     <form action="./artikelen.php" method="GET">
-        <div>
-            <input type="search" class="form-control" name="name" placeholder="search field" autocomplete="off">
-            <button type="submit">zoek</button>
+        <div class="search">
+            <input class="search_input" type="search" class="form-control" name="name" placeholder="search field" autocomplete="off">
+            <button class="search_button" type="submit">zoek</button>
+        </div>
     </form>
     <ul>
         @artikelen@

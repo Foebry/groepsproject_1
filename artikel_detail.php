@@ -29,7 +29,10 @@ $artDetailRow = MergeViewWithData($artDetailRow_temp,$artDetailRow_data);
 $artDetailRow .= file_get_contents("./templates/artikeldetail_addrow.html");
 $content .= MergeViewWithData( $artDetail_temp, $artDetail_data );
 $content = str_replace("@artikel_list@", $artDetailRow, $content);
+<<<<<<< HEAD
 $content = str_replace("@csrf@", $csrf, $content);
+=======
+>>>>>>> dev
 $content = MergeErrorInfoPlaceholders($content, $errors, $info);
 $content = removeEmptyPlaceholders($content);
 
