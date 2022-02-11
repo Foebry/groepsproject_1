@@ -88,10 +88,12 @@ function validateString($value, string $field, array $fields, array $array){
 
 
 function validateFloat($value, string $field, array $fields, array $array){
-    if ( ! is_numeric($value) OR $value !== (float) $value){
+    if ( ! is_numeric($value) OR $value != (float) $value){
         $_SESSION["errors"][$field."_error"] = "$fields[$field] moet een getal zijn, eventueel met decimalen";
         $array["$field--error"] = "col--error";
     }
+    if (key_exists($field, $_POST)) $_POST[$field] = (float) $value;
+    //$array[$field] = (float) $value;
     return $array;
 }
 

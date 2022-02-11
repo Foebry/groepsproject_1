@@ -12,15 +12,20 @@ $artDetailRow_sql= "select s.sto_name, aps.pri_value, uni_name from stores as s
 where a.art_id = $id
 group by s.sto_id;";
 
+$stores_sql = "select sto_id, sto_name from stores";
+
 //data ophalen uit DB
 $artDetail_data= GetData($artDetail_sql);
 $artDetailRow_data= GetData($artDetailRow_sql);
+$stores_data = GetData($stores_sql);
+
 //html template bestanden
 $artDetail_temp = "artikeldetail.html";
 $artDetailRow_temp = "artikeldetailrow.html";
 
 //pagina opbouw
 $csrf = GenerateCSRF();
+$stores = MergeViewWithData("store_list_item.html", $stores_data);
 
 $content = PrintHead();
 $content .= PrintNavbar();
@@ -29,10 +34,9 @@ $artDetailRow = MergeViewWithData($artDetailRow_temp,$artDetailRow_data);
 $artDetailRow .= file_get_contents("./templates/artikeldetail_addrow.html");
 $content .= MergeViewWithData( $artDetail_temp, $artDetail_data );
 $content = str_replace("@artikel_list@", $artDetailRow, $content);
-<<<<<<< HEAD
 $content = str_replace("@csrf@", $csrf, $content);
-=======
->>>>>>> dev
+$content = str_replace("@store_list@", $stores, $content);
+
 $content = MergeErrorInfoPlaceholders($content, $errors, $info);
 $content = removeEmptyPlaceholders($content);
 

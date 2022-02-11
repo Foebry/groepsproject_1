@@ -46,8 +46,9 @@ const handleInput = function(e) {
 }
 
 const setFocus = function(e) {
-	console.log(e);
+	//console.log("hi");
 	const options_list = e.target.parentElement.children[2];
+	console.log(options_list);
 	const class_list = e.target.classList.value;
 	const list = class_list.includes("input__article") ? articles : class_list.includes("input__store") ? stores : null;
 	if ((e.target.value.length > 0) && (e.target.classList.value.includes("input__store") || e.target.classList.value.includes("input__article"))) {
@@ -76,14 +77,16 @@ const looseFocus = function(e) {
 
 const setValue = function(e) {
 	if (e.target.classList.contains("store__list__item") || e.target.classList.contains("article__list__item")) {
-		const detail_button = e.target.parentElement.parentElement.parentElement.children[4].children[0].children[0];
+
+		const form = document.getElementById("form");
 		const input_field = e.target.parentElement.previousElementSibling;
 		const select_field = e.target.parentElement.parentElement.children[0].children[0];
 
 		input_field.setAttribute("value", e.target.innerText);
 		input_field.value = e.target.innerText;
 		select_field.value = parseInt(e.target.id);
-		if (e.target.parentElement.classList.contains("article_list")) {
+		if (form == "boodschapdetail" && e.target.parentElement.classList.contains("article_list")) {
+			const detail_button = e.target.parentElement.parentElement.parentElement.children[4].children[0].children[0];
 			detail_button.attributes[3].value += e.target.id;
 			detail_button.removeAttribute("disabled");
 		}
