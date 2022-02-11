@@ -1,8 +1,11 @@
-<form method="POST" action="./save.php">
+<form method="POST" action="../lib/save.php">
     <!--hidden inputs -->
-    <input type="hidden" name="csrf" value="@csrf@">
-    <input type="hidden" name="table" value="artikel">
-    <input type="hidden" name="refer" value="../index.php">
+    <input type="hidden" name="csrf" value="@csrf@" />
+    <input type="hidden" name="table" value="article" />
+    <input type="hidden" name="refer" value="../index.php" />
+    <input type="hidden" name="pkey" value="art_id" />
+    <input type="hidden" name="form" value="artikel_form" />
+    <input type="hidden" name="art_id" value="0" />
     <!-- end of hidden inputs -->
     <h2 class="form_title">Maak een nieuw artikel aan</h2>
     <section class="article">
@@ -20,4 +23,5 @@
             </div>
         </div>
     </section>
+    <button class="button" type="submit" name="action" value="submit">submit</button>
 </form>

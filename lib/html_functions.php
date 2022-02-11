@@ -149,3 +149,16 @@ function MergeErrorInfoPlaceholders(string $templatestr, array $errors, array $i
 
     return $templatestr;
 }
+
+/**
+* functie om een random code te genereren van 8 characters
+*/
+function GenerateCode() :string{
+    $characters = "0123456789abcdefghijklmnopqrstuvwxyz";
+    $code = "";
+    for($i=0; $i<8; $i++){
+        $position = rand(0, strlen($characters)-1);
+        $code .= rand(0,100) > 50 ? $characters[$position] : strtoupper($characters[$position]);
+    }
+    return $code;
+}
