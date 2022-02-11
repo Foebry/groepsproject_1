@@ -1,11 +1,25 @@
-<div class="artikel_detail">
-  <div class="artikel_detail_card">
-    <img src="@art_img@" alt="@art_name@" />
-    <div class="artikel_detail_text">
-      <h2>@art_name@</h2>
-      <h2>@art_code@</h2>
-    </div>
-  </div>
-  <h2>Prijs per winkel</h2>
-  <div>@artikel_list@</div>
-</div>
+<form method="POST" action="./lib/save.php">
+    <!-- hidden inputs -->
+    <input type="hidden" name="csrf" value="@csrf@" />
+    <input type="hidden" name="refer" value="../artikel_detail.php?id=@art_id@" />
+    <input type="hidden" name="info-submit" value="Nieuwe winkel-prijs combinatie succesvol toegevoegd!" />
+    <input type="hidden" name="table" value="art_price_sto" />
+    <input type="hidden" name="form" value="artikel-detail" />
+    <!-- einde hidden inputs -->
+    <section class="headings">
+        <div class="headings_left">
+            <div class="headings_left_imgholder">
+                <img src="./images/@art_img@" alt="@art_name@ afbeelding" />
+            </div>
+            <div class="headings_left_info">
+                <h3 class="headings_left_info_name">@art_name@</h3>
+                <h3 class="headings_left_info_code">@art_code@</h3>
+            </div>
+        </div>
+    </section>
+    @info@
+    <h2 class="title">Prijs per winkel </h2>
+    <ul class="list">
+        @artikel_list@
+    </ul>
+</form>
