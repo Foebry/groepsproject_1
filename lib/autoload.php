@@ -8,8 +8,10 @@ require_once "sanitize.php";
 require_once "validate.php";
 require_once "security.php";
 
-$next_gro_id_sql = "SELECT AUTO_INCREMENT next_gro_id FROM information_schema.tables WHERE table_name = 'grocery';";
+$next_gro_id_sql = "SELECT AUTO_INCREMENT next_gro_id FROM information_schema.tables WHERE table_name = 'grocery'";
+$next_art_id_sql = "SELECT AUTO_INCREMENT next_art_id FROM information_schema.tables WHERE table_name = 'article'";
 $_SESSION["next_gro_id"] = getData($next_gro_id_sql)[0]["next_gro_id"];
+$_SESSION["next_art_id"] = getData($next_art_id_sql)[0]["next_art_id"];
 
 $errors = [];
 $status = [];
