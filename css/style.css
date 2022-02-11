@@ -106,8 +106,11 @@ body a {
 }
 
 .groceries {
-  margin: 30px 0px;
+  margin: 90px 0px;
   padding: 10px;
+}
+.groceries a {
+  text-decoration: none;
 }
 .groceries_name {
   color: #00768b;
@@ -123,6 +126,12 @@ body a {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
+.groceries_btns_link {
+  text-decoration: none;
+  padding: 20px;
+  background-color: #343a40;
+  border: 1px solid black;
+}
 .groceries_list {
   padding: 20px;
   padding-top: 0px;
@@ -133,9 +142,6 @@ body a {
   background-color: #7eac7e;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-}
-.groceries_list a {
-  text-decoration: none;
 }
 .groceries_list_card {
   border-radius: 10px;
@@ -163,6 +169,47 @@ body a {
   text-align: end;
 }
 
+.form {
+  width: 80%;
+  margin: 0 auto;
+}
+.form_group {
+  display: flex;
+  flex-wrap: wrap;
+}
+.form_group_label {
+  flex: 1 0 20%;
+  font-size: 14px;
+}
+.form_group_input {
+  flex: 1 0 80%;
+  width: 100%;
+}
+.form_group_text {
+  flex: 1 0 80%;
+  width: 100%;
+}
+.form_group_error {
+  flex: 1 0 20%;
+}
+.form-row--hidden {
+  display: none;
+}
+.form-select--hidden {
+  display: none;
+}
+
+.artikelen ul {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.artikelen ul > * {
+  max-width: 20%;
+  flex: 1 0 20%;
+}
+
 .store_list,
 .article_list {
   position: absolute;
@@ -175,14 +222,6 @@ body a {
 .store_list:hover,
 .article_list:hover {
   background-color: green;
-}
-
-.form-row--hidden {
-  display: none;
-}
-
-.form-select--hidden {
-  display: none;
 }
 
 .button--hidden {
@@ -234,22 +273,31 @@ li.store__list__item:hover {
   font-size: 14px;
   margin-bottom: 0;
 }
-.footer_social a {
-  display: inline-block;
+.footer_social {
+  display: flex;
+  gap: 10px;
+}
+.footer_social_link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.footer_social_link_go {
   width: 35px;
   height: 35px;
   background-color: #33383b;
   border-radius: 2px;
-  font-size: 20px;
-  color: #ffffff;
-  text-align: center;
-  line-height: 35px;
   margin-left: 3px;
   transition: all 0.25s;
 }
-.footer_social a:hover {
+.footer_social_link_go:hover {
   transform: scale(1.1);
   -webkit-transform: scale(1.1);
+}
+.footer_social_link_name {
+  font-size: 12px;
+  color: #8f9296;
+  margin-bottom: 0;
 }
 
 @media (max-width: 600px) {

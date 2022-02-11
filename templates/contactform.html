@@ -1,43 +1,43 @@
-<form action="../lib/mail.php" method="POST">
+<form class="form" action="../lib/mail.php" method="POST">
     <!-- meta data -->
     <input type="hidden" name="next" value="index.php">
     <input type="hidden" name="csrf" value="@csrf@">
     <!-- end of meta data -->
-    <div class="form-group row">
-        <label for="per_firstname" class="col-sm-2 col-form-label">Voornaam</label>
+    <div class="form_group">
+        <label for="per_firstname" class="form_group_label col-sm-2">Voornaam</label>
         <div class="col-sm-10">
-            <input type="text" name="per_firstname" class="form-control" id="per_firstname">
+            <input type="text" name="per_firstname" class="form_group_input" id="per_firstname">
         </div>
-        <div class="col-sm-2 col-fom-label">
+        <div class="form_group_error col-sm-2">
             <p class="msg-error">@per_firstname_error@</p>
         </div>
     </div>
-    <div class="form-group row">
-        <label for="per_lastname" class="col-sm-2 col-form-label">Naam</label>
+    <div class="form_group row">
+        <label for="per_lastname" class="form_group_label col-sm-2">Naam</label>
         <div class="col-sm-10">
-            <input type="text" name="per_lastname" class="form-control" id="per_lastname">
+            <input type="text" name="per_lastname" class="form_group_input" id="per_lastname">
         </div>
-        <div class="col-sm-2 col-fom-label">
+        <div class="form_group_error col-sm-2 col-form-label">
             <p class="msg-error">@per_lastname_error@</p>
         </div>
     </div>
-    <div class="form-group row">
-        <label for="per_email" class="col-sm-2 col-form-label">e-mail adres</label>
+    <div class="form_group row">
+        <label for="per_email" class="form_group_label col-sm-2">e-mail adres</label>
         <div class="col-sm-10">
-            <input type="text" name="per_email" class="form-control" id="per_email">
+            <input type="text" name="per_email" class="form_group_input" id="per_email">
         </div>
-        <div class="col-sm-2 col-fom-label">
+        <div class="form_group_error col-sm-2 col-form-label">
             <p class="msg-error">@per_email_error@</p>
         </div>
     </div>
-    <div class="form-group row">
-        <label for="question" class="col-sm-2 col-form-label">stel uw vraag</label>
+    <div class="form_group row">
+        <label for="question" class="form_group_label col-sm-2">stel uw vraag</label>
         <div class="col-sm-10">
-            <textarea name="question" id="question" class="form-control"></textarea>
+            <textarea name="question" id="question" class="form_group_text"></textarea>
         </div>
-        <div class="col-sm-2 col-fom-label">
+        <div class="form_group_error col-sm-2 col-form-label">
             <p class="msg-error">@question_error@</p>
         </div>
     </div>
-    <button type="submit" class="btn btn-primary">verzend</button>
+    <button type="submit" class="submit btn btn-primary">verzend</button>
 </form>
