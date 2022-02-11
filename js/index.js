@@ -46,7 +46,6 @@ const handleInput = function(e) {
 }
 
 const setFocus = function(e) {
-	//console.log("hi");
 	const options_list = e.target.parentElement.children[2];
 	console.log(options_list);
 	const class_list = e.target.classList.value;

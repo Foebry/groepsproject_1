@@ -142,7 +142,7 @@ else{
     }
 
     foreach($sql_statements as $sql){
-        ExecuteSQL($sql);
+        exit(var_dump(ExecuteSQL($sql)));
     }
 
     $_SESSION["info"]["success"] = $_POST[$_POST["key"]] > 0 ? $_POST["info-update"] : $_POST["info-add"];
