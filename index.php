@@ -10,10 +10,10 @@ require_once "lib/autoload.php";
 $result = PrintHead("MyWeGo");
 $result .= PrintNavbar();
 //slider
-$sql = 'select row_art_id art_id, art_name, a.art_img, sum(row_pieces) aankopen, row_gro_id from row
+$sql = 'select row_art_id, art_id, art_name, a.art_img, sum(row_pieces) aankopen, row_gro_id from row
 join article a on row.row_art_id = a.art_id
 group by row_art_id
-order by aankopen desc, art_name
+order by aankopen desc
 limit 5';
 
 $data = GetData("$sql");
