@@ -31,9 +31,10 @@ inner join article a on r.row_art_id = a.art_id
 join art_price_sto aps on a.art_id = aps.pri_art_id
 where (pri_sto_id= row_sto_id and r.row_gro_id = g.gro_id)) as totaal from row r
 join grocery g on g.gro_id = r.row_gro_id
-join person p on p.per_id = g.gro_per_id".
-    $where."group by g.gro_id
-order by gro_id desc";
+join person p on p.per_id = g.gro_per_id
+".$where."
+group by g.gro_id
+order by g.gro_id desc;";
 
 
 $data = GetData("$sql");
