@@ -7,11 +7,16 @@ require_once "form_elements.php";
 require_once "sanitize.php";
 require_once "validate.php";
 require_once "security.php";
+require_once "functions_save.php";
+
 
 $next_gro_id_sql = "SELECT AUTO_INCREMENT next_gro_id FROM information_schema.tables WHERE table_name = 'grocery'";
 $next_art_id_sql = "SELECT AUTO_INCREMENT next_art_id FROM information_schema.tables WHERE table_name = 'article'";
+$next_row_id_sql = "SELECT AUTO_INCREMENT next_row_id FROM information_schema.tables WHERE table_name = 'row'";
+
 $_SESSION["next_gro_id"] = getData($next_gro_id_sql)[0]["next_gro_id"];
 $_SESSION["next_art_id"] = getData($next_art_id_sql)[0]["next_art_id"];
+$_SESSION["next_row_id"] = getData($next_row_id_sql)[0]["next_row_id"];
 
 $errors = [];
 $status = [];
