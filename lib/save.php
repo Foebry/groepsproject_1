@@ -136,6 +136,10 @@ else{
 
         exit(header("location:".$_POST["refer"]));
     }
+    elseif (strpos($_POST["action"], "add") !== false){
+        var_dump($_SESSION["boodschappen"]);
+        exit(var_dump("adding to grocery list"));
+    }
     //$data = [0=>$headers];
     foreach($headers as $key => $values){
         $key_type = $headers[$key]["key"];

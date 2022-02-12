@@ -5,7 +5,7 @@ $id = $_GET["id"];
 //sql query voor artikeldetail en artikeldetailrow
 $artDetail_sql="select art_id, art_name, art_code, art_img from article where art_id = $id";
 
-$artDetailRow_sql="select pri_id, sto_name, pri_value, uni_name from stores as s
+$artDetailRow_sql="select pri_id, pri_art_id, pri_sto_id, sto_name, pri_value, uni_name from stores as s
 join art_price_sto aps on s.sto_id = aps.pri_sto_id
 join article a on aps.pri_art_id = a.art_id
 join units u on u.uni_id = a.art_uni_id
