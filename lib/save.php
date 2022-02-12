@@ -28,7 +28,7 @@ if ($_POST["form"] == "boodschapdetail"){
     // boodschapdetail in $_SESSION opslaan
     $_SESSION["boodschappen"][$gro_id]["headers"][0] = $_POST["headers"];
     $_SESSION["boodschappen"][$gro_id]["data"] = $_POST["data"];
-    $_SESSION["next_row_id"] = $_POST["headers"]["next_row_id"];
+    $_SESSION["next_row_id"] = $_POST["headers"]["next_row_id"] +1;
 
     // indien de gebruiker wil navigeren naar een andere pagina.
     if ($_POST["action"] == "refer"){
@@ -207,25 +207,10 @@ function checkGroceryForItemStoreCombination(){
     $_SESSION["boodschappen"][$next_gro_id]["data"][$next_row_id]["art_name"] = $art_name;
     $_SESSION["boodschappen"][$next_gro_id]["data"][$next_row_id]["sto_name"] = $sto_name;
     $_SESSION["boodschappen"][$next_gro_id]["data"][$next_row_id]["row_pric"] = $price;
-    $_SESSION["next_gro_id"] += 1;
+    $_SESSION["next_row_id"] += 1;
 
     return False;
 }
-
-
-/*function setGroceryHeadders(int $gro_id, int $next_row_id){
-    $_SESSION["boodschappen"][$gro_id]["headers"][0]["next_row_id"] = $next_row_id;
-    $_SESSION["boodschappen"][$gro_id]["headers"][0]["gro_id"] = $gro_id;
-    $_SESSION["boodschappen"][$gro_id]["headers"][0]["gro_per_id"] = 6;
-    $_SESSION["boodschappen"][$gro_id]["headers"][0]["gro_name"] = "Nieuwe boodschap";
-    $_SESSION["boodschappen"][$gro_id]["headers"][0]["gro_date"] = date("Y-m-d", strtotime("today"));
-    $_SESSION["boodschappen"][$gro_id]["headers"][0]["gro_amount"] = 0;
-    $_SESSION["boodschappen"][$gro_id]["headers"][0]["gro_description"] = "Geef een beschrijving";
-    $_SESSION["boodschappen"][$gro_id]["headers"][0]["gro_pric"] = 0;
-
-    return $_SESSION["boodschappen"][$gro_id]["headers"][0];
-
-}*/
 
 
 

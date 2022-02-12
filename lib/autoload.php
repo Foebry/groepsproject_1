@@ -16,7 +16,6 @@ $next_row_id_sql = "SELECT AUTO_INCREMENT next_row_id FROM information_schema.ta
 
 $_SESSION["next_gro_id"] = getData($next_gro_id_sql)[0]["next_gro_id"];
 $_SESSION["next_art_id"] = getData($next_art_id_sql)[0]["next_art_id"];
-$_SESSION["next_row_id"] = getData($next_row_id_sql)[0]["next_row_id"];
 
 $errors = [];
 $status = [];
@@ -34,6 +33,9 @@ if (key_exists("info", $_SESSION)){
 }
 if (!isset($_SESSION["boodschappen"])){
     $_SESSION["boodschappen"] = [];
+}
+if (!isset($_SESSION["next_row_id"])){
+    $_SESSION["next_row_id"] = getData($next_row_id_sql)[0]["next_row_id"];
 }
 
 

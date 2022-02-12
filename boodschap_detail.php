@@ -36,7 +36,7 @@
     }
     else{
         $gro_data = key_exists("headers", $_SESSION["boodschappen"][$id]) ? $_SESSION["boodschappen"][$id]["headers"] : setGroceryHeaders($id, $next_row_id);
-        $rows_data = $_SESSION["boodschappen"][$id]["data"];
+        $rows_data = key_exists("data", $_SESSION["boodschappen"][$id]) ? $_SESSION["boodschappen"][$id]["data"] : [];
     }
 
 
@@ -54,22 +54,9 @@
         exit(header("location: ./error.php"));
     }
 
-    // indien opgevraagde id gelijk is aan -1 wordt een leeg formulier gecreëerd
-    elseif (!$gro_data && $id > 0){
-        /*$gro_data = [$id =>
-                        [
-                            "gro_name"=>"Nieuwe boodschap",
-                            "gro_description"=>"Geef een beschrijving",
-                            "gro_amount" => 0,
-                            "gro_pric"=>0.00,
-                            "gro_date"=> date("Y-m-d", strtotime("today")),
-                            "gro_id" => $id,
-                            "next_row_id" => $next_row_id+1,
-                            "gro_per_id" => 6
-                            ]
-                        ];*/
-            $gro_data = setGroceryHeadders($id, $next_row_id);
-    }
+    // opevraagde grocery bestaat nog niet
+    if (!$gro_data) $gro_data = setGroceryHeaders($id, $next_row_id);
+    if (!$rows_data) $rows_data = [];
 
     // pagina opbouwen
     $content = PrintHead();
