@@ -20,7 +20,7 @@ if ($_POST["form"] == "boodschapdetail"){
         $_POST["data"][$row_id]["row_pric"] = (float) $_POST["data"][$row_id]["row_pric"];
     }
     // Boodschap mag niet leeg zijn
-    if (!key_exists("data", $_POST) || count($_POST["data"] == 0)){
+    if (!key_exists("data", $_POST) || count($_POST["data"]) == 0){
         $_POST["data"] = [];
         $_SESSION["errors"]["data_error"] = "Uw boodschap kan helaas niet leeg zijn. Gelieve een artikel in te vullen";
     }
