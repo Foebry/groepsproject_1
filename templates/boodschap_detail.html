@@ -1,4 +1,4 @@
-<form action="./lib/save.php" method="POST">
+<div class="form" action="./lib/save.php" method="POST">
     <!-- hidding inputs -->
     <input type="hidden" name="csrf" value="@csrf@">
     <input type="hidden" name="table" value="row">
@@ -10,26 +10,25 @@
     <input type="hidden" name="info-delete" value="rij werd succesvol verwijdert!">
     <input type="hidden" name="info-submit" value="Boodchap is succesvol toegevoegd!">
     <!-- end of hidding inputs -->
-    <section class="headings">
-        <div class="left">
-            <input type="date" name="headers[gro_date]" value="@gro_date@" readonly>
-            <input type="text" name="headers[gro_description]" value="@gro_description@" placeholder="Geef een beschrijving">
-        </div>
-        <h2><input type="text" name="headers[gro_name]" value="@gro_name@" placeholder="Geef de boodschap een naam"></h2>
-        <div class="right">
-            <div>
+    <section class="form_top">
+        <h2 class="form_top_name"><input class="form_top_input_name" type="text" name="headers[gro_name]" value="@gro_name@" placeholder="Geef de boodschap een naam"></h2>
+        <div class="form_top_group">
+            <input type="date" class="form_top_input_date" name="headers[gro_date]" value="@gro_date@" readonly>
+            <div class="form_top_readonly">
                 <label for="aantal_artikelen">aantal artikelen</label>
-                <input type="text" name=headers[gro_amount] id="aantal_artikelen" value="@gro_amount@" readonly>
+                <input type="text" class="form_top_input_readonly--aantal" name=headers[gro_amount] id="aantal_artikelen" value="@gro_amount@" readonly>
             </div>
-            <div>
+            <input type="text" class="form_top_input_descr" name="headers[gro_description]" value="@gro_description@" placeholder="Geef een beschrijving">
+            <div class="form_top_readonly">
                 <label for="totaal_prijs">Totaal prijs</label>
-                <input type="text" id="totaal_prijs" name="headers[gro_pric]" value="@gro_pric@" readonly>
+                <input type="text" class="form_top_input_readonly--totaal" id="totaal_prijs" name="headers[gro_pric]" value="@gro_pric@" readonly>
             </div>
         </div>
     </section>
     @info@
     @error@
-    <ul class="headings row list-unstyled justify-content-center">
+    <div class="form_top_data">
+    <ul class="row list-unstyled justify-content-center">
         <li class="col">
             <h3>Winkel</h3>
             <p class="error-msg">@row_sto_id_error@</p>
@@ -56,5 +55,6 @@
     <ul class="rows list-unstyled">
         @grocery_rows@
     </ul>
-    <input class="btn btn-secondary" type="submit" name="action" value="submit">
+    <input class="form_submit" type="submit" name="action" value="submit">
+    </div>
 </form>

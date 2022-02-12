@@ -1,4 +1,4 @@
-<form method="POST" action="./lib/save.php">
+<form class="form" method="POST" action="./lib/save.php">
     <!-- hidden inputs -->
     <input type="hidden" name="csrf" value="@csrf@" />
     <input type="hidden" name="refer" value="../artikel_detail.php?id=@art_id@" />
@@ -7,20 +7,20 @@
     <input type="hidden" name="table" value="art_price_sto" />
     <input type="hidden" name="form" value="artikel-detail" />
     <!-- einde hidden inputs -->
-    <section class="headings">
-        <div class="headings_left">
-            <div class="headings_left_imgholder">
+    <section class="form_headings">
+            <div class="form_headings_imgholder">
                 <img src="./images/@art_img@" alt="@art_name@ afbeelding" />
-            </div>
-            <div class="headings_left_info">
-                <h3 class="headings_left_info_name">@art_name@</h3>
-                <h3 class="headings_left_info_code">@art_code@</h3>
-            </div>
-        </div>
-    </section>
+                <div class="form_headings_imgholder_info">
+                    <h3 class="form_headings_imgholder_info_name">@art_name@</h3>
+                    <h3 class="form_headings_imgholder_info_code">@art_code@</h3>
+                </div>
+            </div> 
     @info@
-    <h2 class="title">Prijs per winkel </h2>
-    <ul class="list">
+    <div class="form_data">
+    <h2 class="form_data_title">Prijs per winkel </h2>
+    <ul class="form_data_list">
         @artikel_list@
     </ul>
+    </div>
+</section>
 </form>
