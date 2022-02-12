@@ -1,5 +1,5 @@
-<li class="form-row rows__item rows__item--locked">
-    <div class="col @row_sto_id--error@">
+<li class="form_data_list_row form-row rows__item rows__item--locked">
+    <div class="@row_sto_id--error@">
         <select name="data[@row_id@][row_sto_id]" class=form-select--hidden>
             <option selected value="@row_sto_id@">
         </select>
@@ -7,7 +7,7 @@
         <ul class="store_list list--hidden">
         </ul>
     </div>
-    <div class="col @row_art_id--error@">
+    <div class="@row_art_id--error@">
         <select name="data[@row_id@][row_art_id]" class=form-select--hidden>
             <option selected value="@row_art_id@">
         </select>
@@ -15,13 +15,13 @@
         <ul class="article_list list--hidden">
         </ul>
     </div>
-    <div class="col @row_pieces--error@">
+    <div class="@row_pieces--error@">
         <input type="text" class="form-control input__aantal" name="data[@row_id@][row_pieces]" value="@row_pieces@" readonly="readonly">
     </div>
-    <div class="col @row_pric--error@">
+    <div class="@row_pric--error@">
         <input type=" text" class="form-control input__prijs" name="data[@row_id@][row_pric]" value="@row_pric@" readonly="readonly">
     </div>
-    <ul class="buttons list-unstyled d-flex">
+    <ul class="form_data_list_row_buttons buttons list-unstyled">
         <li>
             <button class="btn btn-info button__detail" name="action" value="refer" refer="../artikel_detail.php?id=@row_art_id@">details</button>
         </li>
