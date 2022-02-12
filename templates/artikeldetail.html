@@ -9,21 +9,21 @@
     <input type="hidden" name="pri_art_id" value="@art_id@" />
     <input type="hidden" name="key" value="pri_id" />
     <!-- einde hidden inputs -->
-    <section class="form-headings">
-        <div class="form_headings_left">
-            <div class="fomr_headings_left_imgholder">
-                <img src="./images/@art_img@" alt="@art_name@ afbeelding" />
-            </div>
-            <div class="from_headings_left_info">
-                <h3 class="form_headings_left_info_name">@art_name@</h3>
-                <h3 class="form_headings_left_info_code">@art_code@</h3>
+    <section class="form_headings">
+        <div class="form_headings_imgholder">
+            <img src="./images/@art_img@" alt="@art_name@ afbeelding" />
+            <div class="form_headings_imgholder_info">
+                <h3 class="form_headings_imgholder_info_name">@art_name@</h3>
+                <h3 class="form_headings_imgholder_info_code">@art_code@</h3>
             </div>
         </div>
+        @info@
+        @error@
+        <div class="form_data">
+            <h2 class="form_data_title">Prijs per winkel </h2>
+            <ul class="form_data_list">
+                @artikel_list@
+            </ul>
+        </div>
     </section>
-    @info@
-    @error@
-    <h2 class="form_title">Prijs per winkel </h2>
-    <ul class="form_list">
-        @artikel_list@
-    </ul>
 </form>

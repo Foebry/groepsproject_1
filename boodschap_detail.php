@@ -6,7 +6,7 @@
     // indien data nog niet ingeladen, laadt data in vanuit databank.
     if(!array_key_exists($id, $_SESSION["boodschappen"])){
         // sql query voor de gegevens specifiek aan de boodschap
-        /$gro_sql = "select gro_id, gro_name, gro_date, gro_description, gro_per_id,
+        $gro_sql = "select gro_id, gro_name, gro_date, gro_description, gro_per_id,
 (select sum(row_pieces) from row where row_gro_id = $id) as gro_amount,
 round((select sum(row_pieces * pri_value) from row join article a on a.art_id = row.row_art_id
 join art_price_sto aps on a.art_id = aps.pri_art_id where (pri_sto_id= row_sto_id and row_gro_id = $id)), 2) as gro_pric,
@@ -23,8 +23,8 @@ from grocery where gro_id = $id;";
         where (pri_sto_id= row_sto_id and row_gro_id = $id)";
 
 
-        // $gro_data = GetData($gro_sql);
-        // $rows_data = GetData($rows_sql);
+        $gro_data = GetData($gro_sql);
+        $rows_data = GetData($rows_sql);
     }
     else{
         $gro_data = $_SESSION["boodschappen"][$id]["headers"];
