@@ -1,4 +1,4 @@
-<form class="form" action="../lib/mail.php" method="POST">
+    <form class="form" action="./lib/mail.php" method="POST">
     <!-- meta data -->
     <input type="hidden" name="next" value="index.php">
     <input type="hidden" name="csrf" value="@csrf@">
@@ -8,36 +8,36 @@
         <div class="col-sm-10">
             <input type="text" name="per_firstname" class="form_group_input" id="per_firstname">
         </div>
-        <div class="form_group_error col-sm-2">
-            <p class="msg-error">@per_firstname_error@</p>
+        <div class="form_group_error">
+            @per_firstname_error@
         </div>
     </div>
-    <div class="form_group row">
+    <div class="form_group">
         <label for="per_lastname" class="form_group_label col-sm-2">Naam</label>
         <div class="col-sm-10">
             <input type="text" name="per_lastname" class="form_group_input" id="per_lastname">
         </div>
-        <div class="form_group_error col-sm-2 col-form-label">
-            <p class="msg-error">@per_lastname_error@</p>
+        <div class="form_group_error">
+            @per_lastname_error@
         </div>
     </div>
-    <div class="form_group row">
+    <div class="form_group">
         <label for="per_email" class="form_group_label col-sm-2">e-mail adres</label>
         <div class="col-sm-10">
             <input type="text" name="per_email" class="form_group_input" id="per_email">
         </div>
-        <div class="form_group_error col-sm-2 col-form-label">
-            <p class="msg-error">@per_email_error@</p>
+        <div class="form_group_error">
+            @per_email_error@
         </div>
     </div>
-    <div class="form_group row">
+    <div class="form_group">
         <label for="question" class="form_group_label col-sm-2">stel uw vraag</label>
         <div class="col-sm-10">
             <textarea name="question" id="question" class="form_group_text"></textarea>
         </div>
-        <div class="form_group_error col-sm-2 col-form-label">
-            <p class="msg-error">@question_error@</p>
+        <div class="form_group_error">
+            @question_error@
         </div>
     </div>
-    <button type="submit" class="submit btn btn-primary">verzend</button>
-</form>
+    <button type="submit" class="form_submit">verzend</button>
+    </form>
