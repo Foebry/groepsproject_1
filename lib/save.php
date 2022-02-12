@@ -28,6 +28,7 @@ if ($_POST["form"] == "boodschapdetail"){
     // boodschapdetail in $_SESSION opslaan
     $_SESSION["boodschappen"][$gro_id]["headers"][0] = $_POST["headers"];
     $_SESSION["boodschappen"][$gro_id]["data"] = $_POST["data"];
+    $_SESSION["next_row_id"] = $_POST["headers"]["next_row_id"] +1;
 
     // indien de gebruiker wil navigeren naar een andere pagina.
     if ($_POST["action"] == "refer"){
@@ -123,10 +124,36 @@ else{
     $sql_statements = [];
     $table = $_POST["table"];
     $headers = getHeaders($_POST["table"]);
-    $data = [0=>$headers];
+
+    if (strpos($_POST["action"], "delete") !== false){
+        $key = $_POST["key"];
+        //var_dump(explode())
+        $id = explode("delete-", $_POST["action"])[1];
+
+        $sql_delete = "delete from $table where $key = $id";
+        ExecuteSQL($sql_delete);
+
+        $_SESSION["info"]["delete"] = $_POST["info-delete"];
+
+        exit(header("location:".$_POST["refer"]));
+    }
+    elseif (strpos($_POST["action"], "add") !== false){
+        // nagaan of deze combinatie nog niet in de nieuwe boodschap zit
+        $result = checkGroceryForItemStoreCombination();
+
+        if ($result){
+            $_SESSION["info"]["add"] = "Deze winkel-artikel combinatie zit reeds in uw winkelmandje";
+            exit(header("location:".$_SERVER["HTTP_REFERER"]));
+        }
+
+        $_SESSION["info"]["add"] = "Artikel aan winkelmand toegevoegd!";
+        exit(header("location:".$_SERVER["HTTP_REFERER"]));
+
+    }
+    //$data = [0=>$headers];
     foreach($headers as $key => $values){
         $key_type = $headers[$key]["key"];
-        if (!key_exists($key, $_POST) OR ($key_type === "PRI")) continue;
+        if (!key_exists($key, $_POST)) continue;
         validate($key, $values, $_POST);
     }
     $statement = $_POST[$_POST["key"]] > 0 ? "update $table set " : "insert into $table set ";
@@ -143,9 +170,53 @@ else{
         ExecuteSQL($sql);
     }
 
-    $_SESSION["info"]["success"] = $_POST["info-success"];
+    $_SESSION["info"]["success"] = $_POST[$_POST["key"]] > 0 ? $_POST["info-update"] : $_POST["info-add"];
+
+    //$_SESSION["info"]["success"] = $_POST["info-success"];
     exit(header("location:".$_POST["refer"]));
 }
+
+
+
+function checkGroceryForItemStoreCombination(){
+    $elements = explode("-", $_POST["action"]);
+    $art_id = $elements[1];
+    $sto_id = $elements[2];
+    $art_name = $elements[3];
+    $sto_name = $elements[4];
+    $price = $elements[5];
+
+    $next_gro_id = $_SESSION["next_gro_id"];
+    $next_row_id = $_SESSION["next_row_id"];
+
+    foreach($_SESSION["boodschappen"] as $gro_id => $gro_data){
+        if (!key_exists("headers", $gro_data)){
+            setGroceryHeaders($gro_id, $next_row_id);
+        }
+        foreach($gro_data["data"] as $row_id => $row_data){
+            if ($row_data["row_art_id"] == $art_id && $row_data["row_sto_id"] == $sto_id){
+
+                return True;
+            }
+        }
+    }
+
+    // data zetten voor een nieuwe rij
+    $_SESSION["boodschappen"][$next_gro_id]["data"][$next_row_id]["row_art_id"] = $art_id;
+    $_SESSION["boodschappen"][$next_gro_id]["data"][$next_row_id]["row_sto_id"] = $sto_id;
+    $_SESSION["boodschappen"][$next_gro_id]["data"][$next_row_id]["art_name"] = $art_name;
+    $_SESSION["boodschappen"][$next_gro_id]["data"][$next_row_id]["sto_name"] = $sto_name;
+    $_SESSION["boodschappen"][$next_gro_id]["data"][$next_row_id]["row_pric"] = $price;
+    $_SESSION["next_row_id"] += 1;
+
+    return False;
+}
+
+
+
+
+
+
 
 SaveFormData();
 
