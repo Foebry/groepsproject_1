@@ -1,5 +1,8 @@
+@use "./icons/icons";
+
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
 @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
+
 * {
   font-family: Roboto;
 }
@@ -16,11 +19,15 @@ body {
   h4 {
       margin: 0;
   }
+  img {
+      aspect-ratio: 1/1;
+  }
 }
 .header {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+    padding: 0px 10%;
     &_imgholder {
         width: 200px;
         height: 200px;
@@ -67,6 +74,7 @@ body {
 .container {
     max-width: 1200px;
     width: 80%;
+    padding: 0;
 }
 .popular {
     margin-top: 90px;
@@ -101,7 +109,7 @@ body {
             } 
             &_name {
                 font-size: 24px;
-                color: whitesmoke;
+                color: rgb(194, 212, 235);
                 position: absolute;
                 top: 10px;
                 text-align: center;
@@ -157,7 +165,7 @@ body {
             padding: 20px;
             flex: 1 0 45%;
             &_name {
-                color: #a88b07;
+                color: rgb(194, 212, 235);
                 font-size: 24px;
                 text-align: center;
                 
@@ -182,7 +190,14 @@ body {
 
 .form {
     width: 100%;
+    &--contact {
+        width: 50%;
+    }
+    margin: 0 auto;
     margin-bottom: 20px;
+    &--place {
+        margin: 0 auto;
+    }
     &_group {
         margin-top: 20px;
         display: flex;
@@ -197,8 +212,9 @@ body {
             // line-height: 1.5; 
         }
         &_input {  
+            width: 60%;
             //flex: 1 0 80%;  
-            width: 30%;
+            //width: 30%;
             // display: block;
             // width: 100%;
             // height: calc(1.5em + 0.75rem + 2px);
@@ -214,10 +230,10 @@ body {
             // transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
         }
         &_text {
-            width: 40%;
+            width: 90%;
         }
         &_error {
-            margin-left: 16.6%;
+            margin-left: 26.6%;
             p {
                 margin: 0;
                 margin-left: 15px;
@@ -225,19 +241,94 @@ body {
         }
     }
     &_submit {
+        margin-top: 20px;
         text-decoration: none;
         padding: 10px 20px;
         color: #0398b3;
         background-color: #343a40;
-        border: 1px solid black;
+        border: 1px solid #343a40;
         border-radius: 10px;
+        &_sub { // 'artikel aan boodschap toevoegen' - boodschapdetail
+            margin: 0;
+            padding: 10px 20px;
+            background-color: #343a40;
+            border: 1px solid #343a40;
+            border-radius: 10px;
+            color: rgb(126, 172, 126);
+            cursor: pointer;
+        }
+        &--grocery {
+            margin-top: 20px;
+            text-decoration: none;
+            padding: 10px 20px;
+            color: #0398b3;
+            background-color: #343a40;
+            border: 1px solid #343a40;
+            border-radius: 10px;
+            &:hover {
+            color: #a88b07;
+            border: 1px solid #343a40;
+            font-weight: bold;
+            }
+        }
         &:hover {
             color: #a88b07;
+            border: 1px solid #343a40;
+            font-weight: bold;
+            animation: rotate 1s linear;
+        }
+        @keyframes rotate{
+            0%{
+                transform: rotate(0deg);
+            }
+            50%{
+                transform: rotate(180deg);
+            }
+            100%{
+                transform: rotate(360deg);
+            }
         }
     }
     &_search {
         display: flex;
         justify-content: flex-end;
+        align-items: center;
+        > * { 
+            padding: 0;
+        }
+        &_input {
+            width: 100%;
+            &--artikel {
+                width: 20%;
+            }
+            background-color: #343a40;
+            color: #00768b;
+            text-align: center;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: 1px solid black;
+            border-radius: 10px;
+            &::placeholder {
+                color: #00768b;
+                text-transform: uppercase;
+            }
+        }
+        &_button {
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: none;
+            border-radius: 5px;
+            &:after {
+                display: block;
+                width: 40px;
+                height: 40px;
+                content: "\e001";
+                font-family: 'icomoon';
+                font-size: 30px;
+                color: #343a40;
+            }
+        }
     }
     &_headings {
         display: flex;
@@ -274,20 +365,50 @@ body {
             
         }
     }
-    &_top {
-        text-align: center;
+    &_top { // boodschap detail boven
         margin: 30px;
         &_name {
             font-size: 48px;
             margin-bottom: 20px;
-            &_input {
-                
+            text-align: center;
+            &--input {
+                text-align: center;
             }
         }
         &_readonly {
             display: flex;
             justify-content: flex-end;
+            align-items: center;
             gap: 20px; 
+            > * {
+                color:rgb(0, 118, 139);
+                font-size: 16px;
+                font-weight: bold;
+            }
+            label {
+                margin: 0; 
+            }
+            &--totaal,&--aantal {
+                width: 5%;
+                background: transparent;
+                border: none;
+            }
+        }
+        &_input {
+            display: flex;
+            align-items: center;
+            &_date {
+                width: 30%;
+                background: transparent;
+                border: none;
+                color:rgb(0, 118, 139);
+                font-size: 16px;
+                font-weight: bold;
+            }
+            &_descr {
+                width: 60%;
+                font-size: 16px;
+            }
         }
         &_group {
             display: flex;
@@ -298,33 +419,29 @@ body {
                 flex: 1 0 45%;
             }
         }
-        &_input {
-            &_name {
-                text-align: center;
-                width: 50%;
-            }
-            &_date {
-                width: 20%;
-            }
-            &_descr {
-                width: 40%;
-            }
-            &_readonly {
-                width: 10%;
-                &--aantal {
-
+    }
+    &_data {
+        padding: 20px;
+        background-color: rgb(126, 172, 126);
+        border-radius: 10px;
+        &_list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            &_row {
+                display: flex;
+                justify-content: flex-start;
+                gap: 10px;
+                margin: 0;
+                &_buttons {
+                    display: flex;
+                    gap: 10px;
+                    margin-left: 6%;
                 }
-                &--totaal {
-                    
-                }
             }
-        }
-        &_data {
-            padding: 20px;
-            background-color: rgb(126, 172, 126);
-            border-radius: 10px;
         }
     }
+    
     &-row--hidden {
         display: none;
     }
@@ -338,7 +455,7 @@ body {
         display: flex;
         align-items: center;
     > a {
-        width: 16%;
+        width: 20%;
         text-decoration: none;
         padding: 10px 20px;
         color: #0398b3;
@@ -457,7 +574,7 @@ li.store__list__item:hover {
                     display: block;
                     width: 35px;
                     height: 35px;
-                    background: url("../images/coming-soon.jpg");
+                    background: url("../images/linkedin_steven.png");
                     background-size: contain;
                     position: absolute;
                     left: 0;
@@ -468,7 +585,7 @@ li.store__list__item:hover {
                     display: block;
                     width: 35px;
                     height: 35px;
-                    background: url("../images/coming-soon.jpg");
+                    background: url("../images/linkedin_tijl.jpg");
                     background-size: contain;
                     position: absolute;
                     left: 0;
@@ -479,7 +596,7 @@ li.store__list__item:hover {
                     display: block;
                     width: 35px;
                     height: 35px;
-                    background: url("../images/coming-soon.jpg");
+                    background: url("../images/linkedin_sander.jpg");
                     background-size: contain;
                     position: absolute;
                     left: 0;

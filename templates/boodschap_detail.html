@@ -11,50 +11,54 @@
     <input type="hidden" name="info-submit" value="Boodchap is succesvol toegevoegd!">
     <!-- end of hidding inputs -->
     <section class="form_top">
-        <h2 class="form_top_name"><input class="form_top_input_name" type="text" name="headers[gro_name]" value="@gro_name@" placeholder="Geef de boodschap een naam"></h2>
+        <h2 class="form_top_name"><input class="form_top_name--input" type="text" name="headers[gro_name]" value="@gro_name@" placeholder="Geef de boodschap een naam"></h2>
         <div class="form_top_group">
+            <div class="form_top_input">
             <input type="date" class="form_top_input_date" name="headers[gro_date]" value="@gro_date@" readonly>
-            <div class="form_top_readonly">
-                <label for="aantal_artikelen">aantal artikelen</label>
-                <input type="text" class="form_top_input_readonly--aantal" name=headers[gro_amount] id="aantal_artikelen" value="@gro_amount@" readonly>
             </div>
-            <input type="text" class="form_top_input_descr" name="headers[gro_description]" value="@gro_description@" placeholder="Geef een beschrijving">
             <div class="form_top_readonly">
-                <label for="totaal_prijs">Totaal prijs</label>
-                <input type="text" class="form_top_input_readonly--totaal" id="totaal_prijs" name="headers[gro_pric]" value="@gro_pric@" readonly>
+                <label for="aantal_artikelen">aantal artikelen:</label>
+                <input type="text" class="form_top_readonly--aantal" name=headers[gro_amount] id="aantal_artikelen" value="@gro_amount@" readonly>
+            </div>
+            <div class="form_top_input">
+            <input type="text" class="form_top_input_descr" name="headers[gro_description]" value="@gro_description@" placeholder="Geef een beschrijving">
+            </div>
+            <div class="form_top_readonly">
+                <label for="totaal_prijs">Totaal prijs:</label>
+                <input type="text" class="form_top_readonly--totaal" id="totaal_prijs" name="headers[gro_pric]" value="@gro_pric@" readonly>
             </div>
         </div>
     </section>
     @info@
     @error@
-    <div class="form_top_data">
-        <ul class="row list-unstyled justify-content-center">
-            <li class="col">
-                <h3>Winkel</h3>
-                <p class="error-msg">@row_sto_id_error@</p>
-            </li>
-            <li class="col">
-                <h3>Artikel</h3>
-                <p class="error-msg">@row_art_id_error@</p>
-            </li>
-            <li class="col">
-                <h3>Aantal</h3>
-                <p class="error-msg">@row_pieces_error@</p>
-            </li>
-            <li class="col">
-                <h3>Prijs/stuk</h3>
-                <p class="error-msg">@row_pric_error@</p>
-            </li>
-        </ul>
-        <ul class="list--hidden" id="article_list">
-            @article_list@
-        </ul>
-        <ul class="list--hidden" id="store_list">
-            @store_list@
-        </ul>
-        <ul class="rows list-unstyled">
-            @grocery_rows@
-        </ul>
-        <input class="form_submit" type="submit" name="action" value="submit">
-    </div>
+    <div class="form_data">
+    <ul class="row list-unstyled justify-content-center">
+        <li class="col">
+            <h3>Winkel</h3>
+            <p class="error-msg">@row_sto_id_error@</p>
+        </li>
+        <li class="col">
+            <h3>Artikel</h3>
+            <p class="error-msg">@row_art_id_error@</p>
+        </li>
+        <li class="col">
+            <h3>Aantal</h3>
+            <p class="error-msg">@row_pieces_error@</p>
+        </li>
+        <li class="col">
+            <h3>Prijs/stuk</h3>
+            <p class="error-msg">@row_pric_error@</p>
+        </li>
+    </ul>
+    <ul class="list--hidden" id="article_list">
+        @article_list@
+    </ul>
+    <ul class="list--hidden" id="store_list">
+        @store_list@
+    </ul>
+    <ul class="form_data_list rows list-unstyled">
+        @grocery_rows@
+    </ul>
+    <input class="form_submit" type="submit" name="action" value="submit">
+</div>
 </form>

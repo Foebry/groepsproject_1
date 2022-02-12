@@ -1,12 +1,10 @@
 <section class="groceries">
     <h2 class="groceries_name">Recente boodschappen</h2>
         <div class="groceries_btns">
-            <a href="boodschap_detail.php?id=@next_gro_id@" class="groceries_btns_link">Boodschap toevoegen</a>
-            <form action="index.php" method="get" class="groceries_btns_form form-inline">
-                <div class="groceries_btns_form_layer">
-                    <input class="form-control groceries_btns_form_layer_search" type="search" name="search" placeholder="SEARCH FIELD" aria-label="Search">
-                    <button type="submit" class="groceries_btns_form_layer_submit"></button>
-                </div>
+            <a href="boodschap_detail.php?id=@next_gro_id@" class="form_submit--grocery">Boodschap toevoegen</a>
+            <form action="index.php" method="get" class="groceries_btns_form form_search">
+                <input class="form_search_input" type="search" name="search" placeholder="SEARCH FIELD" aria-label="Search">
+                <button type="submit" class="form_search_button"></button>
             </form>
         </div>
         <div class="groceries_list">

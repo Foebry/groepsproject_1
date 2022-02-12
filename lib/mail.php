@@ -18,15 +18,15 @@
     $message = $_POST["question"];
     if (strlen($message) == 0){
         $msg = "Dit veld mag niet leeg zijn. Gelieve een bericht tussen ".MIN_Q_LENGTH." en ".MAX_Q_LENGTH." karakters in te geven.";
-        $_SESSION["errors"]["question"] = $msg;
+        $_SESSION["errors"]["question_error"] = $msg;
     }
     elseif (strlen($message) < MIN_Q_LENGTH){
         $msg = "Uw bericht is te kort. De minimum lengte is ". MIN_Q_LENGTH ." karakters.\n Uw bericht is slechts ".strlen($_POST["question"])." karakters lang";
-        $_SESSION["errors"]["question"] = $msg;
+        $_SESSION["errors"]["question_error"] = $msg;
     }
     elseif (strlen($message) > MAX_Q_LENGTH){
         $msg = "Uw bericht is te lang. De maximum lengte is ".MAX_Q_LENGTH." karakters.\n Uw bericht is ".strlen($_POST["question"])." karakters lang";
-        $_SESSION["errors"]["question"] = $msg;
+        $_SESSION["errors"]["question_error"] = $msg;
     }
 
     // indien errors aangetroffen in de contactform, keer terug naar contactform
