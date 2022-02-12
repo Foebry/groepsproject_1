@@ -3,43 +3,49 @@
 
     $id = $_GET["id"];
 
+
+    $next_row_id = $_SESSION["next_row_id"]; //GetData($next_row_id_sql)[0]["row_id"];
+
+
     // indien data nog niet ingeladen, laadt data in vanuit databank.
     if(!array_key_exists($id, $_SESSION["boodschappen"])){
         // sql query voor de gegevens specifiek aan de boodschap
+
         $gro_sql = "select gro_id, gro_name, gro_date, gro_description, gro_per_id,
-(select sum(row_pieces) from row where row_gro_id = $id) as gro_amount,
-round((select sum(row_pieces * pri_value) from row join article a on a.art_id = row.row_art_id
-join art_price_sto aps on a.art_id = aps.pri_art_id where (pri_sto_id= row_sto_id and row_gro_id = $id)), 2) as gro_pric,
-(select row_id + 1 from row order by row_id desc limit 1) as next_row_id
-from grocery where gro_id = $id;";
+                    (select sum(row_pieces) from row where row_gro_id = $id) as gro_amount,
+                    round((select sum(row_pieces * pri_value) from row join article a on a.art_id = row.row_art_id
+                    join art_price_sto aps on a.art_id = aps.pri_art_id where (pri_sto_id= row_sto_id and row_gro_id = $id)), 2) as gro_pric,
+                    (select row_id + 1 from row order by row_id desc limit 1) as next_row_id
+                    from grocery where gro_id = $id;";
+
 
         //sql query voor de gegevens specifiek aan de verschillende rijen van de boodschap
         $rows_sql = "select row_pieces, round(pri_value,2) as pri_value, row_id, row_sto_id, row_art_id,
-        (select sto_name from stores where sto_id = row_sto_id) as sto_name,
-        (select art_name from article where art_id = row_art_id) as art_name
-        from row
-        join article a on row.row_art_id = a.art_id
-        join art_price_sto aps on a.art_id = aps.pri_art_id
-        where (pri_sto_id= row_sto_id and row_gro_id = $id)";
+                        (select sto_name from stores where sto_id = row_sto_id) as sto_name,
+                        (select art_name from article where art_id = row_art_id) as art_name
+                    from row
+                        join article a on row.row_art_id = a.art_id
+                        join art_price_sto aps on a.art_id = aps.pri_art_id
+                    where (pri_sto_id= row_sto_id and row_gro_id = $id)";
 
 
-        $gro_data = GetData($gro_sql);
+
         $rows_data = GetData($rows_sql);
+        $gro_data = GetData($gro_sql);
+
     }
     else{
-        $gro_data = $_SESSION["boodschappen"][$id]["headers"];
-        $rows_data = $_SESSION["boodschappen"][$id]["data"];
+        $gro_data = key_exists("headers", $_SESSION["boodschappen"][$id]) ? $_SESSION["boodschappen"][$id]["headers"] : setGroceryHeaders($id, $next_row_id);
+        $rows_data = key_exists("data", $_SESSION["boodschappen"][$id]) ? $_SESSION["boodschappen"][$id]["data"] : [];
     }
 
 
     $articles_sql = "select art_id, art_name from article";
     $stores_sql = "select sto_id, sto_name from stores";
-    $next_row_id_sql = "select row_id from row order by row_id desc limit 1";
 
     // opvragen van de data
     $articles_data = GetData($articles_sql);
     $stores_data = GetData($stores_sql);
-    $next_row_id = GetData($next_row_id_sql)[0]["row_id"];
 
     // indien een boodschap opgrvraagd wordt waarvan de id niet bestaat, wordt de gebruiker herleid
     // naar error.php met volgende status message
@@ -48,21 +54,9 @@ from grocery where gro_id = $id;";
         exit(header("location: ./error.php"));
     }
 
-    // indien opgevraagde id gelijk is aan -1 wordt een leeg formulier gecreëerd
-    elseif (!$gro_data && $id > 0){
-        $gro_data = [$id =>
-                        [
-                            "gro_name"=>"Nieuwe boodschap",
-                            "gro_description"=>"Geef een beschrijving",
-                            "gro_amount" => 0,
-                            "gro_pric"=>0.00,
-                            "gro_date"=> date("Y-m-d", strtotime("today")),
-                            "gro_id" => $id,
-                            "next_row_id" => $next_row_id+1,
-                            "gro_per_id" => 6
-                            ]
-                        ];
-    }
+    // opevraagde grocery bestaat nog niet
+    if (!$gro_data) $gro_data = setGroceryHeaders($id, $next_row_id);
+    if (!$rows_data) $rows_data = [];
 
     // pagina opbouwen
     $content = PrintHead();

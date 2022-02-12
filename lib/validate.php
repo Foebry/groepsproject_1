@@ -13,7 +13,8 @@ function validate($field, $values, &$array=null){
         "art_name" => "De naam van het artikel",
         "sto_name" => "De naam van de winkel",
         "row_pieces" => "Het aantal voor dit artikel",
-        "row_pric" => "De prijs voor dit artikel"
+        "row_pric" => "De prijs voor dit artikel",
+        "pri_value" => "De prijs"
     ];
     // indien de doorgegeven waarde van field leeg is, zet ze gelijk aan "null"
     $array[$field] = $array[$field] == "" ? "null" : $array[$field];
@@ -87,10 +88,12 @@ function validateString($value, string $field, array $fields, array $array){
 
 
 function validateFloat($value, string $field, array $fields, array $array){
-    if ( ! is_numeric($value) OR $value !== (float) $value){
+    if ( ! is_numeric($value) OR $value != (float) $value){
         $_SESSION["errors"][$field."_error"] = "$fields[$field] moet een getal zijn, eventueel met decimalen";
         $array["$field--error"] = "col--error";
     }
+    if (key_exists($field, $_POST)) $_POST[$field] = (float) $value;
+    //$array[$field] = (float) $value;
     return $array;
 }
 

@@ -16,7 +16,6 @@
 
     // controleren van lengte textarea
     $message = $_POST["question"];
-
     if (strlen($message) == 0){
         $msg = "Dit veld mag niet leeg zijn. Gelieve een bericht tussen ".MIN_Q_LENGTH." en ".MAX_Q_LENGTH." karakters in te geven.";
         $_SESSION["errors"]["question_error"] = $msg;
