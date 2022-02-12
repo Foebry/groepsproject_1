@@ -2,6 +2,7 @@
 require_once "./lib/autoload.php";
 $id = $_GET["id"];
 
+
 //sql query voor artikeldetail en artikeldetailrow
 $artDetail_sql="select art_id, art_name, art_code, art_img from article where art_id = $id";
 

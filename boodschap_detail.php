@@ -1,10 +1,12 @@
 <?php
     require_once "./lib/autoload.php";
 
+
     $id = $_GET["id"];
 
 
     $next_row_id = $_SESSION["next_row_id"]; //GetData($next_row_id_sql)[0]["row_id"];
+
 
 
     // indien data nog niet ingeladen, laadt data in vanuit databank.
@@ -54,9 +56,11 @@
         exit(header("location: ./error.php"));
     }
 
+
     // opevraagde grocery bestaat nog niet
     if (!$gro_data) $gro_data = setGroceryHeaders($id, $next_row_id);
     if (!$rows_data) $rows_data = [];
+
 
     // pagina opbouwen
     $content = PrintHead();
