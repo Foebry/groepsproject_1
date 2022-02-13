@@ -20,6 +20,13 @@ $stores_data_sql = "select sto_id, sto_name from stores where sto_id not in(
 $stores_data= GetData($stores_data_sql);
 $artDetail_data= GetData($artDetail_sql);
 $artDetailRow_data= GetData($artDetailRow_sql);
+
+//onbestaand artikel? -> navigeer naar status.php
+if (!$artDetail_data) {
+    $_SESSION["info"]["404-artikel"] = "Dit artikel bestaat helaas niet.";
+    exit(header("location:./status.php"));
+}
+
 //html template bestanden
 $artDetail_temp = "artikeldetail.html";
 $artDetailRow_temp = "artikeldetailrow.html";

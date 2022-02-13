@@ -6,14 +6,13 @@ require_once "lib/autoload.php";
 
 $content = PrintHead();
 $content .= PrintNavbar();
-$content .= PrintJumbo("Error");
+$content .= "@info@";
 
+$content = MergeErrorInfoPlaceholders($content, $errors, $info);
+$content = removeEmptyPlaceholders($content);
 echo $content;
 
-    foreach ($_SESSION[status] as $msg) {
-        print $msg;
-    }
-    PrintFooter();
+PrintFooter();
 
     ?>
 </div>
