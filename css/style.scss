@@ -1,12 +1,9 @@
 @use "./icons/icons";
-
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
 @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
-
 * {
-  font-family: Roboto;
+    font-family: Roboto;
 }
-
 body {
     margin: 0 auto;
     background-color: rgb(194, 212, 235);
@@ -14,20 +11,39 @@ body {
         list-style-type: none;
     }
     a {
-      text-decoration: none;
-  }
-  h4 {
-      margin: 0;
-  }
-  img {
-      aspect-ratio: 1/1;
-  }
+        text-decoration: none;
+    }
+    h4 {
+        margin: 0;
+    }
+    img {
+        aspect-ratio: 1/1;
+    }
+}
+.messages {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    &_msg {
+        background-color: #343a40;
+        padding: 10px;
+        margin: 10px 0 0;
+        border-radius: 10px;
+        text-align: center;
+        &--error {
+            color: red;
+        }
+        &--info {
+            color: rgb(126, 172, 126);
+        }
+    }
 }
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0px 10%;
+    padding: 0 10%;
     &_imgholder {
         width: 200px;
         height: 200px;
@@ -41,7 +57,7 @@ body {
         color: rgb(13, 13, 95);
     }
 }
-.nav{
+.nav {
     height: 80px;
     padding: 5px 50px;
     font-size: 20px;
@@ -80,7 +96,7 @@ body {
     margin-top: 90px;
     padding: 10px;
     &_name {
-        color:rgb(0, 118, 139);
+        color: rgb(0, 118, 139);
         font-size: 48px;
         text-align: center;
         margin-bottom: 20px;
@@ -106,7 +122,7 @@ body {
                 height: auto;
                 opacity: 0.7;
                 border-radius: 10px;
-            } 
+            }
             &_name {
                 font-size: 24px;
                 color: rgb(194, 212, 235);
@@ -118,13 +134,13 @@ body {
     }
 }
 .groceries {
-    margin: 90px 0px;
+    margin: 90px 0;
     padding: 10px;
     a {
         text-decoration: none;
     }
     &_name {
-        color:rgb(0, 118, 139);
+        color: rgb(0, 118, 139);
         font-size: 48px;
         text-align: center;
         margin-bottom: 20px;
@@ -149,8 +165,7 @@ body {
         }
     }
     &_list {
-        padding: 20px;
-        padding-top: 0px;
+        padding: 0 20px 20px;
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
@@ -161,14 +176,13 @@ body {
         &_card {
             border-radius: 10px;
             max-width: 48%;
-            background-color:#343a40;
+            background-color: #343a40;
             padding: 20px;
             flex: 1 0 45%;
             &_name {
                 color: rgb(194, 212, 235);
                 font-size: 24px;
                 text-align: center;
-                
             }
             &_info {
                 display: flex;
@@ -187,14 +201,12 @@ body {
         }
     }
 }
-
 .form {
     width: 100%;
     &--contact {
         width: 50%;
     }
-    margin: 0 auto;
-    margin-bottom: 20px;
+    margin: 0 auto 20px;
     &--place {
         margin: 0 auto;
     }
@@ -209,11 +221,11 @@ body {
             // padding-bottom: calc(0.375rem + 1px);
             // margin-bottom: 0;
             // font-size: inherit;
-            // line-height: 1.5; 
+            // line-height: 1.5;
         }
-        &_input {  
+        &_input {
             width: 60%;
-            //flex: 1 0 80%;  
+            //flex: 1 0 80%;
             //width: 30%;
             // display: block;
             // width: 100%;
@@ -235,8 +247,7 @@ body {
         &_error {
             margin-left: 26.6%;
             p {
-                margin: 0;
-                margin-left: 15px;
+                margin: 0 0 0 15px;
             }
         }
     }
@@ -248,7 +259,8 @@ body {
         background-color: #343a40;
         border: 1px solid #343a40;
         border-radius: 10px;
-        &_sub { // 'artikel aan boodschap toevoegen' - boodschapdetail
+        &_sub {
+            // 'artikel aan boodschap toevoegen' - boodschapdetail
             margin: 0;
             padding: 10px 20px;
             background-color: #343a40;
@@ -266,9 +278,9 @@ body {
             border: 1px solid #343a40;
             border-radius: 10px;
             &:hover {
-            color: #a88b07;
-            border: 1px solid #343a40;
-            font-weight: bold;
+                color: #a88b07;
+                border: 1px solid #343a40;
+                font-weight: bold;
             }
         }
         &:hover {
@@ -277,14 +289,14 @@ body {
             font-weight: bold;
             animation: rotate 1s linear;
         }
-        @keyframes rotate{
-            0%{
+        @keyframes rotate {
+            0% {
                 transform: rotate(0deg);
             }
-            50%{
+            50% {
                 transform: rotate(180deg);
             }
-            100%{
+            100% {
                 transform: rotate(360deg);
             }
         }
@@ -293,7 +305,7 @@ body {
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        > * { 
+        > * {
             padding: 0;
         }
         &_input {
@@ -344,7 +356,7 @@ body {
                 width: 100%;
                 height: auto;
                 opacity: 0.7;
-            } 
+            }
             &_info {
                 color: whitesmoke;
                 position: absolute;
@@ -362,10 +374,10 @@ body {
             &_title {
                 font-size: 24px;
             }
-            
         }
     }
-    &_top { // boodschap detail boven
+    &_top {
+        // boodschap detail boven
         margin: 30px;
         &_name {
             font-size: 48px;
@@ -379,16 +391,17 @@ body {
             display: flex;
             justify-content: flex-end;
             align-items: center;
-            gap: 20px; 
+            gap: 20px;
             > * {
-                color:rgb(0, 118, 139);
+                color: rgb(0, 118, 139);
                 font-size: 16px;
                 font-weight: bold;
             }
             label {
-                margin: 0; 
+                margin: 0;
             }
-            &--totaal,&--aantal {
+            &--aantal,
+            &--totaal {
                 width: 5%;
                 background: transparent;
                 border: none;
@@ -401,7 +414,7 @@ body {
                 width: 30%;
                 background: transparent;
                 border: none;
-                color:rgb(0, 118, 139);
+                color: rgb(0, 118, 139);
                 font-size: 16px;
                 font-weight: bold;
             }
@@ -441,7 +454,6 @@ body {
             }
         }
     }
-    
     &-row--hidden {
         display: none;
     }
@@ -451,32 +463,32 @@ body {
 }
 .artikelen {
     &_group {
-        margin: 20px 0px;
+        margin: 20px 0;
         display: flex;
         align-items: center;
-    > a {
-        width: 20%;
-        text-decoration: none;
-        padding: 10px 20px;
-        color: #0398b3;
-        background-color: #343a40;
-        border: 1px solid black;
-        border-radius: 10px;
-        text-align: center;
-        &:hover {
-            color: #a88b07;
+        > a {
+            width: 20%;
+            text-decoration: none;
+            padding: 10px 20px;
+            color: #0398b3;
+            background-color: #343a40;
+            border: 1px solid black;
+            border-radius: 10px;
+            text-align: center;
+            &:hover {
+                color: #a88b07;
+            }
+        }
+        > form {
+            margin: 0;
         }
     }
-    > form {
-        margin: 0;
+    &_name {
+        color: rgb(0, 118, 139);
+        font-size: 48px;
+        text-align: center;
+        margin-bottom: 20px;
     }
-}
-&_name {
-    color:rgb(0, 118, 139);
-    font-size: 48px;
-    text-align: center;
-    margin-bottom: 20px;
-}
     ul {
         display: flex;
         justify-content: space-between;
@@ -494,18 +506,16 @@ body {
         }
     }
 }
-
-
-.store_list,
-.article_list {
+.article_list,
+.store_list {
     position: absolute;
     top: 40px;
     left: 0;
     width: 100%;
     z-index: 1;
 }
-.store_list:hover,
-.article_list:hover {
+.article_list:hover,
+.store_list:hover {
     background-color: green;
 }
 .button--hidden {
@@ -514,17 +524,17 @@ body {
 .list--hidden {
     display: none;
 }
-.store_list_parent,
-.article_list_parent {
+.article_list_parent,
+.store_list_parent {
     position: relative;
 }
-.store__list__item,
-.article__list__item {
+.article__list__item,
+.store__list__item {
     display: block;
     background-color: lightgrey;
 }
-.store_list,
-.article_list {
+.article_list,
+.store_list {
     display: block;
 }
 li.store__list__item:hover {
@@ -535,7 +545,6 @@ li.store__list__item:hover {
     border: 1px solid red;
     border-radius: 5px;
 }
-
 .footer {
     width: 100%;
     display: flex;
@@ -564,10 +573,11 @@ li.store__list__item:hover {
                 background-color: #33383b;
                 border-radius: 2px;
                 margin-left: 3px;
-                transition:all .25s;
+                transition: all 0.25s;
                 position: relative;
                 &:hover {
-                    transform:scale(1.1); -webkit-transform:scale(1.1);
+                    transform: scale(1.1);
+                    -webkit-transform: scale(1.1);
                 }
                 &--steven:after {
                     content: "";
@@ -612,7 +622,7 @@ li.store__list__item:hover {
                     background-size: contain;
                     position: absolute;
                     left: 0;
-                    top: 0%;
+                    top: 0;
                 }
             }
             &_name {
@@ -622,19 +632,19 @@ li.store__list__item:hover {
                 margin-top: 10px;
                 margin-bottom: 0;
             }
-        }  
+        }
     }
 }
-  
 @media (max-width: 600px) {
-    .footer-distributed .footer-left, .footer-distributed .footer-right {
-      text-align: center;
+    .footer-distributed .footer-left,
+    .footer-distributed .footer-right {
+        text-align: center;
     }
     .footer-distributed .footer-right {
-      float: none;
-      margin: 0 auto 20px;
+        float: none;
+        margin: 0 auto 20px;
     }
     .footer-distributed .footer-left p.footer-links {
-      line-height: 1.8;
+        line-height: 1.8;
     }
-  }
+}
