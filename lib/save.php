@@ -20,7 +20,7 @@ if ($_POST["form"] == "boodschapdetail"){
         $_POST["data"][$row_id]["row_pric"] = (float) $_POST["data"][$row_id]["row_pric"];
     }
     // Boodschap mag niet leeg zijn
-    if (!key_exists("data", $_POST) || count($_POST["data"] == 0)){
+    if (!key_exists("data", $_POST) || count($_POST["data"]) == 0){
         $_POST["data"] = [];
         $_SESSION["errors"]["data_error"] = "Uw boodschap kan helaas niet leeg zijn. Gelieve een artikel in te vullen";
     }
@@ -29,6 +29,7 @@ if ($_POST["form"] == "boodschapdetail"){
     $_SESSION["boodschappen"][$gro_id]["headers"][0] = $_POST["headers"];
     $_SESSION["boodschappen"][$gro_id]["data"] = $_POST["data"];
     $_SESSION["next_row_id"] = $_POST["headers"]["next_row_id"] +1;
+
 
     // indien de gebruiker wil navigeren naar een andere pagina.
     if ($_POST["action"] == "refer"){
@@ -141,6 +142,7 @@ else{
         // nagaan of deze combinatie nog niet in de nieuwe boodschap zit
         $result = checkGroceryForItemStoreCombination();
 
+
         if ($result){
             $_SESSION["info"]["add"] = "Deze winkel-artikel combinatie zit reeds in uw winkelmandje";
             exit(header("location:".$_SERVER["HTTP_REFERER"]));
@@ -202,11 +204,14 @@ function checkGroceryForItemStoreCombination(){
     }
 
     // data zetten voor een nieuwe rij
+    $_SESSION["boodschappen"][$next_gro_id]["data"][$next_row_id] = [];
     $_SESSION["boodschappen"][$next_gro_id]["data"][$next_row_id]["row_art_id"] = $art_id;
     $_SESSION["boodschappen"][$next_gro_id]["data"][$next_row_id]["row_sto_id"] = $sto_id;
     $_SESSION["boodschappen"][$next_gro_id]["data"][$next_row_id]["art_name"] = $art_name;
     $_SESSION["boodschappen"][$next_gro_id]["data"][$next_row_id]["sto_name"] = $sto_name;
     $_SESSION["boodschappen"][$next_gro_id]["data"][$next_row_id]["row_pric"] = $price;
+    $_SESSION["boodschappen"][$next_gro_id]["data"][$next_row_id]["row_id"] = $next_row_id;
+    $_SESSION["boodschappen"][$next_gro_id]["data"][$next_row_id]["gro_id"] = $next_gro_id;
     $_SESSION["next_row_id"] += 1;
 
     return False;

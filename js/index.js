@@ -47,9 +47,9 @@ const handleInput = function(e) {
 
 const setFocus = function(e) {
 	const options_list = e.target.parentElement.children[2];
-	//console.log(options_list);
 	const class_list = e.target.classList.value;
 	const list = class_list.includes("input__article") ? articles : class_list.includes("input__store") ? stores : null;
+
 	if ((e.target.value.length > 0) && (e.target.classList.value.includes("input__store") || e.target.classList.value.includes("input__article"))) {
 		options_list.style.display = "block";
 		options_list_items = filterOptions(e, list);
@@ -102,7 +102,6 @@ const filterOptions = function(e, list) {
 }
 
 const updateValue = function(e) {
-	//console.log(e);
 	e.target.setAttribute("value", e.target.value);
 	setFocus(e);
 }
@@ -154,14 +153,7 @@ const unsetSelect = function(e) {
 
 const redirect = function(e) {
 	const refer = document.getElementById("refer");
-	//console.log("refer");
-	//console.log(refer);
 	refer.setAttribute("value", e.target.attributes[3].value);
-	//console.log(refer);
-	/*const form_refer = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[2];
-	console.log("form_refer");
-	console.log(form_refer);
-	form_refer.setAttribute("value", e.target.attributes[3].value);*/
 
 }
 
