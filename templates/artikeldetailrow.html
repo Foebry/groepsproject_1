@@ -1,10 +1,12 @@
-<li class="list_item">
-    <div class="col list_item_col">
-        <p class="list_item_col_name">@sto_name@</p>
+<li class="form_headings_data_list_row list_item">
+    <div>
+        <h4 class="list_item_col_name">@sto_name@</h4>
     </div>
-    <div class="col list_item_col">
-        <p class="list_item_col_price">@pri_value@ / @uni_name@</p>
+    <div>
+        <h4 class="list_item_col_price">@pri_value@ / @uni_name@</h4>
     </div>
-    <button type="submit" name="action" value="add-@pri_art_id@-@pri_sto_id@-@art_name@-@sto_name@-@pri_value@">koop</button>
-    <button type="submit" name="action" value="delete-@pri_id@">delete</button>
+    <div>
+    <button class="form_submit--grocery" type="submit" name="action" value="add-@pri_art_id@-@pri_sto_id@-@art_name@-@sto_name@-@pri_value@">koop</button>
+    <button class="form_submit--grocery" type="submit" name="action" value="delete-@pri_id@">delete</button>
+    </div>
 </li>
