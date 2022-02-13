@@ -47,21 +47,61 @@ const handleInput = function(e) {
 
 const setFocus = function(e) {
 	const options_list = e.target.parentElement.children[2];
-	console.log(options_list);
 	const class_list = e.target.classList.value;
 	const list = class_list.includes("input__article") ? articles : class_list.includes("input__store") ? stores : null;
+
 	if ((e.target.value.length > 0) && (e.target.classList.value.includes("input__store") || e.target.classList.value.includes("input__article"))) {
 		options_list.style.display = "block";
-		options_list_items = Array(...list.children).filter(el => el.outerText.toLowerCase().includes(e.target.value.toLowerCase())).slice(0, 10);
+		options_list_items = filterOptions(e, list);
 		options_list.innerHTML = options_list_items.reduce((str, el) => str + el.outerHTML, "");
 	} else if (e.target.value.length == 0) {
 		options_list.innerHTML = "";
 		options_list.classList.add("list--hidden");
+		console.log("net voor de unsetSelect");
+		unsetSelect(e);
 	}
 }
 
+const filterOptions = function(e, list) {
+	const form = document.getElementById("form");
+	if (form.value == "artikel-detail") {
+		return Array(...list.children).filter(el => el.outerText.toLowerCase().includes(e.target.value.toLowerCase())).slice(0, 10);
+	}
+
+	const sto_id = e.target.classList.value.includes("input__store") ? e.target.previousElementSibling.children[0].value : e.target.parentElement.parentElement.children[0].children[0].children[0].value;
+	const art_id = e.target.classList.value.includes("input__article") ? e.target.previousElementSibling.children[0].value : e.target.parentElement.parentElement.children[1].children[0].children[0].value;
+
+	//indien gebruiker zoekt op artikel, toon enkel artikelen die verkrijgbaar is in de geselecteerde winkel.
+	//geen winkel geselecteerd? toon dan ieder artikel, maar slechts 1 maal.
+	if (e.target.classList.value.includes("input__article")) {
+		return Array(...list.children).filter(el => el.outerText.toLowerCase().includes(e.target.value.toLowerCase()))
+			.filter(el => {
+				const el_sto_id = el.classList[2].split("sto_id-")[1];
+				return sto_id ? el_sto_id == sto_id : true;
+			})
+			.filter((el, i, list) => {
+				return !list.slice(0, i).map(el => el.id).includes(el.id);
+			});
+	}
+
+	//indien gebruiker zoekt op winkel, toon enkel winkels die het geslecteerde artikel verkopen.
+	// geen winkel geselecteerd? toon dan iedere winkel, maar slechts 1 maal.
+	if (e.target.classList.value.includes("input__store")) {
+		return Array(...list.children).filter(el => el.outerText.toLowerCase().includes(e.target.value.toLowerCase()))
+			.filter(el => {
+				const el_art_id = el.classList[1].split("art_id-")[1];
+				return art_id ? el_art_id == art_id : true;
+			})
+			.filter((el, i, list) => {
+				return !list.slice(0, i).map(el => el.id).includes(el.id);
+			});
+	}
+
+
+	return Array(...list.children).filter(el => el.outerText.toLowerCase().includes(e.target.value.toLowerCase())).slice(0, 10);
+}
+
 const updateValue = function(e) {
-	console.log(e);
 	e.target.setAttribute("value", e.target.value);
 	setFocus(e);
 }
@@ -86,21 +126,19 @@ const setValue = function(e) {
 		if (form.value == "boodschapdetail" && e.target.parentElement.classList.contains("article_list")) {
 			const detail_button = e.target.parentElement.parentElement.parentElement.children[4].children[0].children[0];
 			detail_button.attributes[3].value += e.target.id;
+			//console.log(e.target.classList)
 			detail_button.removeAttribute("disabled");
 		}
 	}
 }
 
+const unsetSelect = function(e) {
+	e.target.previousElementSibling.children[0].setAttribute("value", "");
+}
+
 const redirect = function(e) {
 	const refer = document.getElementById("refer");
-	console.log("refer");
-	console.log(refer);
 	refer.setAttribute("value", e.target.attributes[3].value);
-	console.log(refer);
-	/*const form_refer = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.children[2];
-	console.log("form_refer");
-	console.log(form_refer);
-	form_refer.setAttribute("value", e.target.attributes[3].value);*/
 
 }
 

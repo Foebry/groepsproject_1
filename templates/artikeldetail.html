@@ -17,14 +17,21 @@
             </div>
             <img src="./images/@art_img@" alt="@art_name@ afbeelding" />
         </div>
-        @info@
-        @error@
         <div class="form_headings_data">
+            <div class="messages">
+                @error@
+            </div>
+            <div class="error-messages">
+                @info@
+            </div>
             <h2 class="form_headings_data_title">Prijs per winkel </h2>
             <ul class="form_headings_data_list">
                 <li class="form_headings_data_list_row form_headings_data_list_row--title"><h4>Winkels</h4><h4>Prijs/eenheid</h4><h4></h4></li>
                 @artikel_list@
             </ul>
         </div>
+        <ul class="list--hidden" id="store_list">
+            @store_list@
+        </ul>
     </section>
 </form>

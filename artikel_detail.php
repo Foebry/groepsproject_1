@@ -2,6 +2,7 @@
 require_once "./lib/autoload.php";
 $id = $_GET["id"];
 
+
 //sql query voor artikeldetail en artikeldetailrow
 $artDetail_sql="select art_id, art_name, art_code, art_img from article where art_id = $id";
 
@@ -14,7 +15,7 @@ order by pri_value;";
 
 $stores_data_sql = "select sto_id, sto_name from stores where sto_id not in(
     select pri_sto_id from art_price_sto
-    where pri_art_id = 1)";
+    where pri_art_id = $id)";
 
 //data ophalen uit DB
 $stores_data= GetData($stores_data_sql);
@@ -33,11 +34,11 @@ $content .= PrintNavbar();
 //samenstellen van data en templates
 $artDetailRow = MergeViewWithData($artDetailRow_temp,$artDetailRow_data);
 $artDetailRow .= file_get_contents("./templates/artikeldetail_addrow.html");
+
 $content .= MergeViewWithData( $artDetail_temp, $artDetail_data );
 $content = str_replace("@artikel_list@", $artDetailRow, $content);
 $content = str_replace("@csrf@", $csrf, $content);
 $content = str_replace("@store_list@", $stores, $content);
-
 $content = MergeErrorInfoPlaceholders($content, $errors, $info);
 $content = removeEmptyPlaceholders($content);
 
