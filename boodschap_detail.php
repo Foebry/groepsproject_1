@@ -41,7 +41,7 @@
 
 
     //$articles_sql = "select art_id, art_name from article";
-    $articles_sql = "select art_id, sto_id, art_name, sto_name from art_price_sto
+    $articles_sql = "select art_id, sto_id, art_name, sto_name, pri_value from art_price_sto
                         join article a on art_price_sto.pri_art_id = a.art_id
                         join stores s on art_price_sto.pri_sto_id = s.sto_id";
 
