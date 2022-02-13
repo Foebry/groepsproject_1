@@ -131,6 +131,18 @@ function mergeErrors(string $templatestr, array $errors){
 }
 
 
+function MergeStatusPlaceholders(string $templatestr, array $status){
+    $messages = "";
+    foreach($status as $key => $value){
+        $status_message = file_get_contents("./templates/status_message.html");
+        $messages .= str_replace("@message@", $value, $status_message);
+    }
+
+    $templatestr = str_replace("@status@", $messages, $templatestr);
+    return $templatestr;
+}
+
+
 function mergeInfo(string $templatestr, array $info){
     $messages = "";
     foreach($info as $key => $value){
