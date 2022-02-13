@@ -40,12 +40,14 @@
     }
 
 
-    $articles_sql = "select art_id, art_name from article";
-    $stores_sql = "select sto_id, sto_name from stores";
+    //$articles_sql = "select art_id, art_name from article";
+    $articles_sql = "select art_id, sto_id, art_name, sto_name from art_price_sto
+                        join article a on art_price_sto.pri_art_id = a.art_id
+                        join stores s on art_price_sto.pri_sto_id = s.sto_id";
 
     // opvragen van de data
     $articles_data = GetData($articles_sql);
-    $stores_data = GetData($stores_sql);
+    $stores_data = $articles_data;
 
     // indien een boodschap opgrvraagd wordt waarvan de id niet bestaat, wordt de gebruiker herleid
     // naar error.php met volgende status message
