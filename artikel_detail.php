@@ -24,7 +24,7 @@ $artDetailRow_data= GetData($artDetailRow_sql);
 
 //onbestaand artikel? -> navigeer naar status.php
 if (!$artDetail_data) {
-    $_SESSION["info"]["404-artikel"] = "Dit artikel bestaat helaas niet.";
+    $_SESSION["status"]["404"] = "Wij konden dit artikel niet vinden.</br>Voeg uw artikel toe via <a href='./artikel_add.php'>deze link</a>.";
     exit(header("location:./status.php"));
 }
 

@@ -253,7 +253,7 @@ function validateUserEmail(string $field) :void{
 */
 function validateCSRF() :void{
     if (!key_exists("csrf", $_POST) or !hash_equals($_POST["csrf"], $_SESSION["latest_csrf"])){
-        $_SESSION["status"]["csrf"] = "U bent niet gemachtigd om deze bewerking uit te voeren";
+        $_SESSION["status"]["401"] = "U bent niet gemachtigd om deze bewerking uit te voeren";
         exit(header("location:../status.php"));
     }
     $_SESSION['latest_csrf'] = "";

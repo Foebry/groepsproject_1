@@ -4,11 +4,14 @@ ini_set( 'display_errors', 1 );
 
 require_once "lib/autoload.php";
 
+$statuscode = array_keys($status)[0];
+
 $content = PrintHead();
 $content .= PrintNavbar();
-$content .= "@info@";
+$content .= "<div class='status'>@status@<div class='status_imgholder'><img src='./images/$statuscode.jpg'></div></div>";
 
-$content = MergeErrorInfoPlaceholders($content, $errors, $info);
+
+$content = MergeStatusPlaceholders($content, $status);
 $content = removeEmptyPlaceholders($content);
 echo $content;
 
