@@ -115,7 +115,11 @@ if ($_POST["form"] == "boodschapdetail"){
         // verwijder boodschap uit cache
         unset($_SESSION["boodschappen"][$gro_id]);
 
-        $_SESSION["info"]["success"] = $_POST["info-submit"];
+        // bestaat de boodschap in de databank of niet?
+        $db_data = getData("select * from grocery where gro_id = $gro_id");
+        $msg = $db_data ? $_POST["info-update"] : $_POST["info-insert"];
+
+        $_SESSION["info"]["success"] = $msg;
 
         // navigeer naar homepagina
         exit(header("location:".$_POST["refer"]));
@@ -172,7 +176,7 @@ else{
         ExecuteSQL($sql);
     }
 
-    $_SESSION["info"]["success"] = $_POST[$_POST["key"]] > 0 ? $_POST["info-update"] : $_POST["info-add"];
+    $_SESSION["info"]["success"] = $_POST[$_POST["key"]] > 0 ? $_POST["info-update"] : $_POST["info-insert"];
 
     //$_SESSION["info"]["success"] = $_POST["info-success"];
     exit(header("location:".$_POST["refer"]));
