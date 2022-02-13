@@ -360,16 +360,22 @@ body img {
   color: #c2d4eb;
 }
 .form_headings_imgholder {
-  background-color: red;
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
 }
 .form_headings_imgholder > img {
   display: block;
   width: 200px;
   height: 200px;
   opacity: 0.7;
+  border-radius: 10px;
 }
 .form_headings_imgholder_info {
-  color: #343a40;
+  color: #00768b;
+  text-align: center;
 }
 .form_headings_imgholder_info_name {
   font-size: 48px;
@@ -386,7 +392,7 @@ body img {
 .form_headings_data_list {
   margin-top: 20px;
   padding: 20px;
-  background-color: red;
+  background-color: #00768b;
   border-radius: 10px;
 }
 .form_headings_data_list_row {
@@ -406,14 +412,8 @@ body img {
   justify-content: flex-start;
   flex-wrap: wrap;
 }
-.form_headings_data_list_row--add input:last-of-type {
-  margin-right: 21%;
-}
 .form_headings_data_list_row--add div {
   flex: 0 0 33%;
-}
-.form_headings_data_list_row--add div > input:last-of-type {
-  margin-right: 21%;
 }
 .form_headings_data_list_row--add div > input {
   width: 40%;
@@ -430,12 +430,7 @@ body img {
 }
 .form_headings_data_list_row div:last-child {
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
   gap: 20px;
-}
-.form_headings_data_list_row div:last-child > button {
-  margin: 0;
 }
 .form_top {
   margin: 30px;
@@ -555,18 +550,20 @@ body img {
   display: none;
 }
 .form_article {
-  width: 40%;
-  color: #00768b;
+  width: 100%;
+  color: #c2d4eb;
 }
 .form_article_title {
-  margin: 20px 0px;
   font-size: 36px;
+  color: #c2d4eb;
+  margin-bottom: 20px;
 }
 .form_article_group {
   display: flex;
 }
 .form_article_group_button {
   margin: 0;
+  margin-left: 70px;
   align-self: flex-end;
 }
 .form_article_input_code, .form_article_input_name, .form_article_input_unit {
@@ -575,11 +572,12 @@ body img {
 }
 .form_article_input_code label, .form_article_input_name label, .form_article_input_unit label {
   width: 20%;
+  margin-right: 10px;
 }
 .form_article_input_code input, .form_article_input_name input, .form_article_input_unit input {
   border: none;
   border-radius: 5px;
-  width: 50%;
+  width: 70%;
 }
 .form_article_imagegroup {
   display: flex;
@@ -595,6 +593,13 @@ body img {
 .form_article_imagegroup_imgholder > img {
   width: 100%;
   height: auto;
+  border-radius: 10px;
+}
+.form--center {
+  width: 50%;
+  margin: 20px auto;
+  background-color: #00768b;
+  padding: 20px;
   border-radius: 10px;
 }
 
