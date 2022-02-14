@@ -5,6 +5,9 @@
 * {
     font-family: Roboto;
 }
+button#reset-button.datetime-reset-button {
+    display: none;
+}
 body {
     margin: 0 auto;
     background-color: rgb(194, 212, 235);
@@ -178,7 +181,7 @@ body {
             }
             &_name {
                 font-size: 24px;
-                color: rgb(194, 212, 235);
+                color: rgb(126, 172, 126);
                 position: absolute;
                 top: 10px;
                 text-align: center;
@@ -495,11 +498,14 @@ body {
         // boodschap detail boven
         margin: 30px;
         &_name {
+            max-width: 650px;
             font-size: 48px;
+            margin: 0 auto;
             margin-bottom: 20px;
             text-align: center;
+            
             &--input {
-                text-align: center;
+                width: 100%;
                 border-radius: 5px;
             }
         }
@@ -528,7 +534,8 @@ body {
             display: flex;
             align-items: center;
             &_date {
-                width: 360px;
+                width: 150px;
+                //width: 360px;
                 background: transparent;
                 border: none;
                 color: rgb(0, 118, 139);
@@ -536,7 +543,8 @@ body {
                 font-weight: bold;
             }
             &_descr {
-                width: 60%;
+                width: 500px;
+                //width: 60%;
                 font-size: 16px;
                 border-radius: 5px;
             }
@@ -546,8 +554,11 @@ body {
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 10px;
-            > * {
-                flex: 1 0 45%;
+            > *:nth-child(2), *:nth-child(3) {
+                flex: 0 1 50%;
+            }
+            > *:nth-child(1), *:nth-child(4) {
+                flex: 0 1 30%
             }
         }
     }
@@ -858,7 +869,7 @@ li.store__list__item:hover {
         }
     }
 }
-@media screen and (max-width: 1120px) {
+@media screen and (max-width: 1150px) {
     .container {
         width: 90%;
     }
@@ -872,6 +883,24 @@ li.store__list__item:hover {
             max-width: 100%;
            flex-basis: 100%;;
         }
+    }
+    .form {
+        &_top {
+            &_name {
+                font-size: 40px;
+                max-width: 550px;
+            }
+            &_input {
+                &_descr {
+                    width: 400px;
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width: 800px) {
+    .form_top_input_descr {
+        width: 300px;
     }
 }
 @media screen and (max-width: 700px) {
@@ -969,14 +998,17 @@ li.store__list__item:hover {
             align-items: center;  
         }
         &_group {
+            width: 70%;
             &_label {
+                text-align: start;
+                padding: 0;
                 text-align: center;
             }
             div {
                 display: flex;
-                justify-content: center;
                 > input {
-                    width: 100%;
+                    width: 70%;
+                    margin: 0 auto;
                 }
             }
             &_text {

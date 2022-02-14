@@ -1,5 +1,5 @@
 // When the user scrolls the page, execute myFunction
-window.onscroll = function() {myFunction()};
+window.onscroll = function() {onScroll()};
 
 // Get the navbar
 const navbar = document.getElementById("nav");
@@ -8,7 +8,7 @@ const navbar = document.getElementById("nav");
 var sticky = navbar.offsetTop;
 
 // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
-function myFunction() {
+function onScroll() {
   if (window.pageYOffset >= sticky) {
     navbar.classList.add("nav_sticky")
   } else {

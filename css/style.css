@@ -31,6 +31,10 @@
   font-family: Roboto;
 }
 
+button#reset-button.datetime-reset-button {
+  display: none;
+}
+
 body {
   margin: 0 auto;
   background-color: #c2d4eb;
@@ -72,18 +76,47 @@ body textarea {
   border-radius: 10px;
   text-align: center;
 }
+.messages_msg p {
+  line-height: 21.5px;
+}
+.messages_msg a {
+  text-decoration: underline;
+}
 .messages_msg--error {
   color: red;
 }
 .messages_msg--info {
   color: #7eac7e;
 }
-.messages--article {
+.messages_msg--info a {
+  color: #7eac7e;
+}
+.messages_msg--status {
+  color: #a88b07;
+}
+
+.status {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.status_imgholder {
+  aspect-ratio: 1/1;
+  width: 40%;
+  align-self: center;
+  margin-bottom: 20px;
+}
+.status_imgholder img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+.status--article {
   margin-top: 30px;
   justify-content: center;
   flex-direction: row-reverse;
 }
-.messages--article > * {
+.status--article > * {
   margin: 0;
 }
 
@@ -184,7 +217,7 @@ body textarea {
 }
 .popular_slider_productcard_name {
   font-size: 24px;
-  color: #c2d4eb;
+  color: #7eac7e;
   position: absolute;
   top: 10px;
   text-align: center;
@@ -494,12 +527,14 @@ body textarea {
   margin: 30px;
 }
 .form_top_name {
+  max-width: 650px;
   font-size: 48px;
+  margin: 0 auto;
   margin-bottom: 20px;
   text-align: center;
 }
 .form_top_name--input {
-  text-align: center;
+  width: 100%;
   border-radius: 5px;
 }
 .form_top_readonly {
@@ -527,7 +562,7 @@ body textarea {
   align-items: center;
 }
 .form_top_input_date {
-  width: 360px;
+  width: 150px;
   background: transparent;
   border: none;
   color: #00768b;
@@ -535,7 +570,7 @@ body textarea {
   font-weight: bold;
 }
 .form_top_input_descr {
-  width: 60%;
+  width: 500px;
   font-size: 16px;
   border-radius: 5px;
 }
@@ -545,8 +580,11 @@ body textarea {
   flex-wrap: wrap;
   gap: 10px;
 }
-.form_top_group > * {
-  flex: 1 0 45%;
+.form_top_group > *:nth-child(2), .form_top_group *:nth-child(3) {
+  flex: 0 1 50%;
+}
+.form_top_group > *:nth-child(1), .form_top_group *:nth-child(4) {
+  flex: 0 1 30%;
 }
 .form_data {
   margin: 30px;
@@ -858,7 +896,7 @@ li.store__list__item:hover {
   margin-bottom: 0;
 }
 
-@media screen and (max-width: 1120px) {
+@media screen and (max-width: 1150px) {
   .container {
     width: 90%;
   }
@@ -870,6 +908,19 @@ li.store__list__item:hover {
   .groceries_list_card {
     max-width: 100%;
     flex-basis: 100%;
+  }
+
+  .form_top_name {
+    font-size: 40px;
+    max-width: 550px;
+  }
+  .form_top_input_descr {
+    width: 400px;
+  }
+}
+@media screen and (max-width: 800px) {
+  .form_top_input_descr {
+    width: 300px;
   }
 }
 @media screen and (max-width: 700px) {
@@ -953,15 +1004,20 @@ li.store__list__item:hover {
     flex-direction: column;
     align-items: center;
   }
+  .form_group {
+    width: 70%;
+  }
   .form_group_label {
+    text-align: start;
+    padding: 0;
     text-align: center;
   }
   .form_group div {
     display: flex;
-    justify-content: center;
   }
   .form_group div > input {
-    width: 100%;
+    width: 70%;
+    margin: 0 auto;
   }
   .form_group_text {
     width: 100%;
