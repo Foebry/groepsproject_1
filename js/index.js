@@ -32,7 +32,7 @@ const setNamesNewRow = function(el) {
 	el.children[1].children[0].setAttribute("name", `data[${nri}][row_art_id]`);
 	el.children[1].children[1].setAttribute("name", `data[${nri}][art_name]`);
 	el.children[2].children[0].setAttribute("name", `data[${nri}][row_pieces]`);
-	el.children[3].children[0].setAttribute("name", `data[${nri}][row_pric]`);
+	el.children[3].children[0].setAttribute("name", `data[${nri}][pri_value]`);
 	el.children[4].children[1].setAttribute("value", `delete-${nri}`);
 
 }

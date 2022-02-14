@@ -14,7 +14,9 @@ function validate($field, $values, &$array=null){
         "sto_name" => "De naam van de winkel",
         "row_pieces" => "Het aantal voor dit artikel",
         "row_pric" => "De prijs voor dit artikel",
-        "pri_value" => "De prijs"
+        "pri_value" => "De prijs",
+        "row_art_id" => "Gelieve een artikel uit de lijst te selecteren.",
+        "row_sto_id" => "Gelieve een winkel uit de lijst te selecteren."
     ];
     // indien de doorgegeven waarde van field leeg is, zet ze gelijk aan "null"
     $array[$field] = $array[$field] == "" ? "null" : $array[$field];
@@ -23,6 +25,7 @@ function validate($field, $values, &$array=null){
     // zoniet, zet de correcte error message en return;
     if ($not_null and $array[$field] == "null"){
         $_SESSION["errors"][$field."_error"] = "$fields[$field] mag niet leeg zijn.";
+        if ($field == "row_art_id" || $field == "row_sto_id") $_SESSION["errors"][$field."_error"] = $fields[$field];
         $array["$field--error"] = "col--error";
         return $array;
     }
@@ -253,7 +256,7 @@ function validateUserEmail(string $field) :void{
 */
 function validateCSRF() :void{
     if (!key_exists("csrf", $_POST) or !hash_equals($_POST["csrf"], $_SESSION["latest_csrf"])){
-        $_SESSION["status"]["csrf"] = "U bent niet gemachtigd om deze bewerking uit te voeren";
+        $_SESSION["status"]["401"] = "U bent niet gemachtigd om deze bewerking uit te voeren";
         exit(header("location:../status.php"));
     }
     $_SESSION['latest_csrf'] = "";

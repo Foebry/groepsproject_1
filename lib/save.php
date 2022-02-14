@@ -17,7 +17,7 @@ if ($_POST["form"] == "boodschapdetail"){
         $_POST["data"][$row_id]["row_art_id"] = (int) $_POST["data"][$row_id]["row_art_id"];
         $_POST["data"][$row_id]["row_sto_id"] = (int) $_POST["data"][$row_id]["row_sto_id"];
         $_POST["data"][$row_id]["row_gro_id"] = (int) $gro_id;
-        $_POST["data"][$row_id]["row_pric"] = (float) $_POST["data"][$row_id]["row_pric"];
+        $_POST["data"][$row_id]["pri_value"] = (float) $_POST["data"][$row_id]["row_pric"];
     }
     // Boodschap mag niet leeg zijn
     if (!key_exists("data", $_POST) || count($_POST["data"]) == 0){
@@ -95,11 +95,12 @@ if ($_POST["form"] == "boodschapdetail"){
             }
 
             // bepalen of het een insert of update statment moet zijn.
-            $sql = "select * from row where row_id = $row";
-            $sql_data = getData($sql);
-            $statement = $sql_data ? "update $table set " : "insert into $table set ";
+            $db_data = getData("select * from grocery where gro_id = $gro_id");
+            $msg = $db_data ? $_POST["info-update"] : $_POST["info-insert"];
+            $statement = $db_data ? "update $table set " : "insert into $table set ";
             $where = $sql_data ? " where row_id = $row" : "";
 
+            $_SESSION["info"]["success"] = $msg;
             // sql statement aanmaken en uitvoeren
             $sql = buildStatement($statement, $table, $data);
             $sql_statements[] = $sql.$where;
@@ -114,8 +115,6 @@ if ($_POST["form"] == "boodschapdetail"){
 
         // verwijder boodschap uit cache
         unset($_SESSION["boodschappen"][$gro_id]);
-
-        $_SESSION["info"]["success"] = $_POST["info-submit"];
 
         // navigeer naar homepagina
         exit(header("location:".$_POST["refer"]));
@@ -172,7 +171,7 @@ else{
         ExecuteSQL($sql);
     }
 
-    $_SESSION["info"]["success"] = $_POST[$_POST["key"]] > 0 ? $_POST["info-update"] : $_POST["info-add"];
+    $_SESSION["info"]["success"] = $_POST[$_POST["key"]] > 0 ? $_POST["info-update"] : $_POST["info-insert"];
 
     //$_SESSION["info"]["success"] = $_POST["info-success"];
     exit(header("location:".$_POST["refer"]));
