@@ -7,7 +7,7 @@
         $_SESSION["boodschappen"][$gro_id]["headers"][0]["gro_date"] = date("Y-m-d", strtotime("today"));
         $_SESSION["boodschappen"][$gro_id]["headers"][0]["gro_amount"] = 0;
         $_SESSION["boodschappen"][$gro_id]["headers"][0]["gro_description"] = null;
-        $_SESSION["boodschappen"][$gro_id]["headers"][0]["gro_pric"] = 0;
+        $_SESSION["boodschappen"][$gro_id]["headers"][0]["pri_value"] = 0;
 
         return $_SESSION["boodschappen"][$gro_id]["headers"];
 
@@ -31,7 +31,7 @@
             $_POST["data"][$row_id]["row_art_id"] = (int) $_POST["data"][$row_id]["row_art_id"];
             $_POST["data"][$row_id]["row_sto_id"] = (int) $_POST["data"][$row_id]["row_sto_id"];
             $_POST["data"][$row_id]["row_gro_id"] = (int) $gro_id;
-            $_POST["data"][$row_id]["row_pric"] = (float) $_POST["data"][$row_id]["row_pric"];
+            $_POST["data"][$row_id]["pri_value"] = (float) $_POST["data"][$row_id]["pri_value"];
         }
         //bevat het ingezonden formulier geen data of is na verwijderen van lege rijen de data
         // een lege array geworden (enkel lege rijen ingezonden).
@@ -49,14 +49,168 @@
 
 
     /**
-    *
+    * Wanneer de gebruiker een boodschapregel verwijdert, verwijder eerst deze regel uit de ceched boodschap.
     */
-    function deleteFromCache() :int{
+    function deleteFromCache(int $row_id) :void{
         if ($_POST["form"] == "boodschapdetail"){
             // verwijder de row-record uit de $_SESSION cache
-            $row_id = (int) explode("-", $_POST["action"])[1];
+            $gro_id = $_POST["headers"]["gro_id"];
             unset($_SESSION["boodschappen"][$gro_id]["data"][$row_id]);
-
-            return $row_id;
         }
+    }
+
+
+    /**
+    * Door de foreign key constraint moet de boodschap eerst bestaan vooraleer er boodschapregels aan
+    * de boodschap toegevoegd kunnen worden.
+    * Valideer dan eerst de boodschapgegevens en update / insert deze.
+    */
+    function validateGroceryHeaders(int $gro_id) :string{
+        $table = "grocery";
+        $headers = getHeaders($table);
+        validateData($headers);
+        // boodcshap bestaan al? maak update statement anders insert statement
+        $gro_sql = "select * from grocery where gro_id = $gro_id";
+        $gro_data = getData($gro_sql);
+        $statement = $gro_data ? "update $table set " : "insert into $table set ";
+        $where = $gro_data ? " where gro_id = $gro_id" : "";
+
+        // sql statement aanmaken
+        $sql = buildStatement($statement, $table, $_POST["headers"]);
+
+        return $sql.$where;
+    }
+
+
+    /**
+    *
+    */
+    function validateArticleData(&$sql_statements){
+        $table = $_POST["table"];
+        $headers = getHeaders($table);
+
+        validateData($headers);
+
+        $sql = "select pri_id from $table where pri_sto_id = $sto_id and pri_art_id = $art_id";
+        $in_db = getData($sql);
+        $statement = $in_db ? "update $table set " : "insert into $table set ";
+        $where = $in_db ? " where pri_id = $pri_id" : "";
+        $_SESSION["info_success"] = $in_db ? $_POST["info-update"] : $_POST["info-insert"];
+
+        $sql = buildStatement($statement, $table);
+        $sql_statements[] = $sql.$where;
+    }
+
+
+    /**
+    *
+    */
+    function validateArtikelWinkelData(&$sql_statements){
+        $table = $_POST["table"];
+        $headers = getHeaders($table);
+
+        validateData($headers);
+
+        $sto_id = $_POST["pri_sto_id"];
+        $art_id = $_POST["pri_art_id"];
+
+        $sql = "select pri_id from $table where pri_sto_id = $sto_id and pri_art_id = $art_id";
+        $in_db = getData($sql);
+        $pri_id = $in_db[0]["pri_id"];
+
+        $statement = $in_db ? "update $table set " : "insert into $table set ";
+        $where = $in_db ? " where pri_id = $pri_id" : "";
+        $_SESSION["info_success"] = $in_db ? $_POST["info-update"] : $_POST["info-insert"];
+
+        $sql = buildStatement($statement, $table);
+        $sql_statements[] = $sql.$where;
+    }
+
+
+    /**
+    *
+    */
+    function validateData(array $headers){
+        foreach($headers as $key => $values){
+            $key_type = $_POST["DB_HEADERS"][$key]["key"];
+            if (key_exists($key, $_POST["headers"]) OR ($key_type === "PRI")) continue;
+            validate($key, $values, $_POST["headers"]);
+        }
+        // foutieve data gevonden? keer terug naar formulier.
+        if (count($_SESSION["errors"]) > 0){
+            exit(header("location:".$_SERVER["HTTP_REFERER"]));
+        }
+    }
+
+
+    function validateDataCache(int $gro_id, array &$sql_statements, $table){
+        $headers = getHeaders($table);
+        foreach($_POST["data"] as $row => $data){
+            $array = $_SESSION["boodschappen"][$gro_id]["data"][$row];
+
+            foreach($headers as $key => $values){
+                $key_type = $_POST["DB_HEADERS"][$key]["key"];
+
+                if(key_exists($key, $data) AND ($key_type === "PRI")) continue;
+
+                $_SESSION["boodschappen"][$gro_id]["data"][$row] = validate($key, $values, $array);
+            }
+
+            // boodschapdetail regel bestaat reeds? update anders insert
+            $db_data = getData("select * from grocery where gro_id = $gro_id");
+            $msg = $db_data ? $_POST["info-update"] : $_POST["info-insert"];
+            $statement = $db_data ? "update $table set " : "insert into $table set ";
+            $where = $db_data ? " where row_id = $row" : "";
+
+            $_SESSION["info"]["success"] = $msg;
+
+            // sql statement aanmaken voor boodschapdetail regel
+            $sql = buildStatement($statement, $table, $data);
+            $sql_statements[] = $sql.$where;
+        }
+        // foutieve data gevonden? keer terug naar formulier
+        if (count($_SESSION["errors"]) > 0){
+            exit(header("location:".$_SERVER["HTTP_REFERER"]));
+        }
+    }
+
+
+    /**
+    *
+    */
+    function checkGroceryForItemStoreCombination(){
+        $elements = explode("-", $_POST["action"]);
+        $art_id = $elements[1];
+        $sto_id = $elements[2];
+        $art_name = $elements[3];
+        $sto_name = $elements[4];
+        $price = $elements[5];
+
+        $next_gro_id = $_SESSION["next_gro_id"];
+        $next_row_id = $_SESSION["next_row_id"];
+
+        foreach($_SESSION["boodschappen"] as $gro_id => $gro_data){
+            if (!key_exists("headers", $gro_data)){
+                setGroceryHeaders($gro_id, $next_row_id);
+            }
+            foreach($gro_data["data"] as $row_id => $row_data){
+                if ($row_data["row_art_id"] == $art_id && $row_data["row_sto_id"] == $sto_id){
+
+                    return True;
+                }
+            }
+        }
+
+        // data zetten voor een nieuwe rij
+        $_SESSION["boodschappen"][$next_gro_id]["data"][$next_row_id] = [];
+        $_SESSION["boodschappen"][$next_gro_id]["data"][$next_row_id]["row_art_id"] = $art_id;
+        $_SESSION["boodschappen"][$next_gro_id]["data"][$next_row_id]["row_sto_id"] = $sto_id;
+        $_SESSION["boodschappen"][$next_gro_id]["data"][$next_row_id]["art_name"] = $art_name;
+        $_SESSION["boodschappen"][$next_gro_id]["data"][$next_row_id]["sto_name"] = $sto_name;
+        $_SESSION["boodschappen"][$next_gro_id]["data"][$next_row_id]["pri_value"] = $price;
+        $_SESSION["boodschappen"][$next_gro_id]["data"][$next_row_id]["row_id"] = $next_row_id;
+        $_SESSION["boodschappen"][$next_gro_id]["data"][$next_row_id]["gro_id"] = $next_gro_id;
+        $_SESSION["next_row_id"] += 1;
+
+        return False;
     }

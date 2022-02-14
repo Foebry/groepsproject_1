@@ -64,7 +64,7 @@ const setFocus = function(e) {
 
 const filterOptions = function(e, list) {
 	const form = document.getElementById("form");
-	if (form.value == "artikel-detail") {
+	if (form.value == "artikeldetail") {
 		return Array(...list.children).filter(el => el.outerText.toLowerCase().includes(e.target.value.toLowerCase())).slice(0, 10);
 	}
 

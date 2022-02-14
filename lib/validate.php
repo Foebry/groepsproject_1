@@ -16,7 +16,8 @@ function validate($field, $values, &$array=null){
         "row_pric" => "De prijs voor dit artikel",
         "pri_value" => "De prijs",
         "row_art_id" => "Gelieve een artikel uit de lijst te selecteren.",
-        "row_sto_id" => "Gelieve een winkel uit de lijst te selecteren."
+        "row_sto_id" => "Gelieve een winkel uit de lijst te selecteren.",
+        "pri_sto_id" => "De naam van de winkel",
     ];
     // indien de doorgegeven waarde van field leeg is, zet ze gelijk aan "null"
     $array[$field] = $array[$field] == "" ? "null" : $array[$field];
@@ -24,7 +25,7 @@ function validate($field, $values, &$array=null){
     // indien de ingevoerde waarde leeg is, ga na of dit veld in de databank leeg mag zijn,
     // zoniet, zet de correcte error message en return;
     if ($not_null and $array[$field] == "null"){
-        $_SESSION["errors"][$field."_error"] = "$fields[$field] mag niet leeg zijn.";
+        $_SESSION["errors"][$field."_error"] = "$fields[$field] mag niet leeg zijn. $field";
         if ($field == "row_art_id" || $field == "row_sto_id") $_SESSION["errors"][$field."_error"] = $fields[$field];
         $array["$field--error"] = "col--error";
         return $array;
