@@ -43,11 +43,7 @@ $output = MergeViewWithData( 'boodschapcard.html', $data );
 $template = file_get_contents("templates/boodschappen.html");
 $result .= str_replace("@list@", $output, $template);
 $result = str_replace("@next_gro_id@", $_SESSION["next_gro_id"], $result);
-<<<<<<< HEAD
 $result = removeEmptyPlaceholders($result);
-=======
-$result = mergeErrorInfoPlaceholders($result, $errors, $info);
->>>>>>> dev
 
 print $result;
 PrintFooter();
