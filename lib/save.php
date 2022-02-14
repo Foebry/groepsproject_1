@@ -34,7 +34,6 @@ if ( strpos($_POST["action"], "submit") !== false){
     $sql_statements = [];
 
     if($_POST["form"] == "boodschapdetail"){
-        exit("submit boodschapdetail regel 40");
         $gro_id = $_POST["headers"]["gro_id"];
         // door FKC moet boodschap eerst bestaan vooraleer er boodschapregels aangemaakt kunnen worden.
         $sql_statements[] = validateGroceryHeaders($gro_id);
@@ -42,18 +41,16 @@ if ( strpos($_POST["action"], "submit") !== false){
         // data boodschapregels valideren
         $table = $_POST["table"];
 
-        validateDataCache($gro_id, $sql_statements, $table);
+        validateGroceryRows($gro_id, $sql_statements, $table);
 
         //verwijder boodschap uit cache. Deze hebben we niet meer nodig.
         unset($_SESSION["boodschappen"][$gro_id]);
 
     }
     elseif($_POST["form"] == "artikeldetail" OR $_POST["form"] == "artikel_form"){
-        //exit("submit artikeldetail/artikel_form regel 55");
 
         // gebruiker voegt artikel aan boodschap toe vanaf de artikeldetail pagina
         if(strpos($_POST["action"], "-") !== false){
-            exit("submit artikeldetail regel 59");
             $result = checkGroceryForItemStoreCombination();
 
             if ($result){
@@ -69,7 +66,6 @@ if ( strpos($_POST["action"], "submit") !== false){
         }
 
         if ($_POST["form"] == "artikel_form"){
-            exit("submit artikel_form regel 69");
 
             validateArticleData($sql_statements);
         }

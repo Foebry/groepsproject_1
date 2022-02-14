@@ -1,4 +1,8 @@
 <?php
+
+    /**
+    * Aanmaken van een nieuwe boodschap;
+    */
     function setGroceryHeaders(int $gro_id, int $next_row_id) :array{
         $_SESSION["boodschappen"][$gro_id]["headers"][0]["next_row_id"] = $next_row_id;
         $_SESSION["boodschappen"][$gro_id]["headers"][0]["gro_id"] = $gro_id;
@@ -83,67 +87,10 @@
 
 
     /**
-    *
+    * Na valideren van boodschapheaders valideer nu ook iedere boodschapregel en maak de verschillende
+    * sql-queries aan.
     */
-    function validateArticleData(&$sql_statements){
-        $table = $_POST["table"];
-        $headers = getHeaders($table);
-
-        validateData($headers);
-
-        $sql = "select pri_id from $table where pri_sto_id = $sto_id and pri_art_id = $art_id";
-        $in_db = getData($sql);
-        $statement = $in_db ? "update $table set " : "insert into $table set ";
-        $where = $in_db ? " where pri_id = $pri_id" : "";
-        $_SESSION["info_success"] = $in_db ? $_POST["info-update"] : $_POST["info-insert"];
-
-        $sql = buildStatement($statement, $table);
-        $sql_statements[] = $sql.$where;
-    }
-
-
-    /**
-    *
-    */
-    function validateArtikelWinkelData(&$sql_statements){
-        $table = $_POST["table"];
-        $headers = getHeaders($table);
-
-        validateData($headers);
-
-        $sto_id = $_POST["pri_sto_id"];
-        $art_id = $_POST["pri_art_id"];
-
-        $sql = "select pri_id from $table where pri_sto_id = $sto_id and pri_art_id = $art_id";
-        $in_db = getData($sql);
-        $pri_id = $in_db[0]["pri_id"];
-
-        $statement = $in_db ? "update $table set " : "insert into $table set ";
-        $where = $in_db ? " where pri_id = $pri_id" : "";
-        $_SESSION["info_success"] = $in_db ? $_POST["info-update"] : $_POST["info-insert"];
-
-        $sql = buildStatement($statement, $table);
-        $sql_statements[] = $sql.$where;
-    }
-
-
-    /**
-    *
-    */
-    function validateData(array $headers){
-        foreach($headers as $key => $values){
-            $key_type = $_POST["DB_HEADERS"][$key]["key"];
-            if (key_exists($key, $_POST["headers"]) OR ($key_type === "PRI")) continue;
-            validate($key, $values, $_POST["headers"]);
-        }
-        // foutieve data gevonden? keer terug naar formulier.
-        if (count($_SESSION["errors"]) > 0){
-            exit(header("location:".$_SERVER["HTTP_REFERER"]));
-        }
-    }
-
-
-    function validateDataCache(int $gro_id, array &$sql_statements, $table){
+    function validateGroceryRows(int $gro_id, array &$sql_statements, $table){
         $headers = getHeaders($table);
         foreach($_POST["data"] as $row => $data){
             $array = $_SESSION["boodschappen"][$gro_id]["data"][$row];
@@ -168,15 +115,78 @@
             $sql = buildStatement($statement, $table, $data);
             $sql_statements[] = $sql.$where;
         }
-        // foutieve data gevonden? keer terug naar formulier
+    }
+
+
+    /**
+    * Gebruiker wil een nieuw artikel toevoegen.
+    * Valideer ingestuurde data en maak sql statement aan.
+    */
+    function validateArticleData(&$sql_statements){
+        $table = $_POST["table"];
+        $headers = getHeaders($table);
+
+        validateData($headers);
+
+        $sql = "select pri_id from $table where pri_sto_id = $sto_id and pri_art_id = $art_id";
+        $in_db = getData($sql);
+        $statement = $in_db ? "update $table set " : "insert into $table set ";
+        $where = $in_db ? " where pri_id = $pri_id" : "";
+        $_SESSION["info_success"] = $in_db ? $_POST["info-update"] : $_POST["info-insert"];
+
+        $sql = buildStatement($statement, $table);
+        $sql_statements[] = $sql.$where;
+    }
+
+
+    /**
+    * Gebruiker zit op artikeldetail pagina en wil een nieuwe winkelprijs toevoegen of een bestaande
+    * winkelprijs aanpassen.
+    * valideer dan de doorgestuurde gegevens en maak het sql-statement aan.
+    */
+    function validateArtikelWinkelData(&$sql_statements){
+        $table = $_POST["table"];
+        $headers = getHeaders($table);
+
+        validateData($headers);
+
+        $sto_id = $_POST["pri_sto_id"];
+        $art_id = $_POST["pri_art_id"];
+
+        $sql = "select pri_id from $table where pri_sto_id = $sto_id and pri_art_id = $art_id";
+        $in_db = getData($sql);
+        $pri_id = $in_db[0]["pri_id"];
+
+        $statement = $in_db ? "update $table set " : "insert into $table set ";
+        $where = $in_db ? " where pri_id = $pri_id" : "";
+        $_SESSION["info_success"] = $in_db ? $_POST["info-update"] : $_POST["info-insert"];
+
+        $sql = buildStatement($statement, $table);
+        $sql_statements[] = $sql.$where;
+    }
+
+
+    /**
+    * Doorgestuurde data valideren.
+    */
+    function validateData(array $headers){
+        foreach($headers as $key => $values){
+            $key_type = $_POST["DB_HEADERS"][$key]["key"];
+            if (key_exists($key, $_POST["headers"]) OR ($key_type === "PRI")) continue;
+            validate($key, $values, $_POST["headers"]);
+        }
+        // foutieve data gevonden? keer terug naar formulier.
         if (count($_SESSION["errors"]) > 0){
             exit(header("location:".$_SERVER["HTTP_REFERER"]));
         }
     }
 
 
+
     /**
-    *
+    * Gebruiker zit op artikeldetail pagina en wil het artikel uit een bepaalde winkel toevoegen
+    * aan zijn nieuwe boodschap.
+    * Eerst nagaan of deze nog niet aanwezig is in de nieuwe boodschap.
     */
     function checkGroceryForItemStoreCombination(){
         $elements = explode("-", $_POST["action"]);
