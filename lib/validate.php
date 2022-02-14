@@ -16,7 +16,8 @@ function validate($field, $values, &$array=null){
         "row_pric" => "De prijs voor dit artikel",
         "pri_value" => "De prijs",
         "row_art_id" => "Gelieve een artikel uit de lijst te selecteren.",
-        "row_sto_id" => "Gelieve een winkel uit de lijst te selecteren."
+        "row_sto_id" => "Gelieve een winkel uit de lijst te selecteren.",
+        "pri_sto_id" => "De naam van de winkel",
     ];
     // indien de doorgegeven waarde van field leeg is, zet ze gelijk aan "null"
     $array[$field] = $array[$field] == "" ? "null" : $array[$field];
