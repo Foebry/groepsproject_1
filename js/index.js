@@ -123,17 +123,32 @@ const setValue = function(e) {
 		input_field.setAttribute("value", e.target.innerText);
 		input_field.value = e.target.innerText;
 		select_field.value = parseInt(e.target.id);
-		if (form.value == "boodschapdetail" && e.target.parentElement.classList.contains("article_list")) {
-			const detail_button = e.target.parentElement.parentElement.parentElement.children[4].children[0].children[0];
-			detail_button.attributes[3].value += e.target.id;
-			//console.log(e.target.classList)
-			detail_button.removeAttribute("disabled");
+
+		if (form.value == "boodschapdetail") {
+			if (e.target.parentElement.classList.contains("article_list") || e.target.parentElement.classList.contains("store_list")) {
+				const price_input = e.target.parentElement.parentElement.parentElement.children[3].children[0];
+				const sto_id = e.target.parentElement.parentElement.parentElement.children[0].children[0].value;
+				const art_id = e.target.parentElement.parentElement.parentElement.children[1].children[0].value;
+				//indien winkel-artikel combinatie bekend, zet prijs gelijk aan overeenkomstige prijs.
+				if (sto_id && art_id) {
+					const price_value = e.target.classList.value.split("price-")[1];
+					price_input.setAttribute("value", price_value);
+				}
+			}
+
+			if (form.value == "boodschapdetail" && e.target.parentElement.classList.contains("article_list")) {
+				const detail_button = e.target.parentElement.parentElement.parentElement.children[4].children[0].children[0];
+				detail_button.attributes[3].value += e.target.id;
+				detail_button.removeAttribute("disabled");
+			}
 		}
 	}
 }
 
 const unsetSelect = function(e) {
 	e.target.previousElementSibling.children[0].setAttribute("value", "");
+	const price_input = e.target.parentElement.parentElement.children[3].children[0];
+	price_input.removeAttribute("value");
 }
 
 const redirect = function(e) {
