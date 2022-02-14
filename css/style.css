@@ -71,8 +71,7 @@ body textarea {
 .messages_msg {
   background-color: #343a40;
   padding: 10px;
-  margin: 0px 30px;
-  margin-top: 10px;
+  margin: 10px 30px 0;
   border-radius: 10px;
   text-align: center;
 }
@@ -124,7 +123,7 @@ body textarea {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0px 10%;
+  padding: 0 10%;
   background-color: #00768b;
 }
 .header_imgholder {
@@ -221,6 +220,8 @@ body textarea {
   position: absolute;
   top: 10px;
   text-align: center;
+  background-color: #343a40b2;
+  border-radius: 5px;
 }
 
 .groceries {
@@ -533,13 +534,13 @@ body textarea {
 .form_top_name {
   max-width: 650px;
   font-size: 48px;
-  margin: 0 auto;
-  margin-bottom: 20px;
+  margin: 0 auto 20px;
   text-align: center;
 }
 .form_top_name--input {
   width: 100%;
   border-radius: 5px;
+  text-align: center;
 }
 .form_top_readonly {
   display: flex;
@@ -584,10 +585,12 @@ body textarea {
   flex-wrap: wrap;
   gap: 10px;
 }
-.form_top_group > *:nth-child(2), .form_top_group *:nth-child(3) {
+.form_top_group *:nth-child(3),
+.form_top_group > *:nth-child(2) {
   flex: 0 1 45%;
 }
-.form_top_group > *:nth-child(1), .form_top_group *:nth-child(4) {
+.form_top_group *:nth-child(4),
+.form_top_group > *:nth-child(1) {
   flex: 1 1 35%;
 }
 .form_data {
@@ -628,17 +631,17 @@ body textarea {
   background-color: #528fdd;
   border: 1px solid #528fdd;
 }
-.form_data_list_row_store, .form_data_list_row_article {
+.form_data_list_row_article, .form_data_list_row_store {
   position: relative;
 }
-.form_data_list_row_store > ul, .form_data_list_row_article > ul {
+.form_data_list_row_article > ul, .form_data_list_row_store > ul {
   position: absolute;
   top: 40px;
   left: 0;
   width: 100%;
   z-index: 1;
 }
-.form_data_list_row_store > ul:hover, .form_data_list_row_article > ul:hover {
+.form_data_list_row_article > ul:hover, .form_data_list_row_store > ul:hover {
   cursor: pointer;
 }
 .form_data_list_row_buttons {
@@ -649,7 +652,8 @@ body textarea {
   color: #fff;
   border-radius: 5px;
 }
-.form_data_list_row_buttons li:first-child button, .form_data_list_row_buttons li:first-child {
+.form_data_list_row_buttons li:first-child,
+.form_data_list_row_buttons li:first-child button {
   background-color: blueviolet;
   border-color: blueviolet;
 }
@@ -660,7 +664,8 @@ body textarea {
 .form_data_list_row_buttons li:nth-child(2):hover {
   cursor: pointer;
 }
-.form_data_list_row_buttons li:last-child button, .form_data_list_row_buttons li:last-child {
+.form_data_list_row_buttons li:last-child,
+.form_data_list_row_buttons li:last-child button {
   background-color: darkred;
   border-color: darkred;
 }
@@ -683,8 +688,7 @@ body textarea {
   display: flex;
 }
 .form_article_group_button {
-  margin: 0;
-  margin-left: 70px;
+  margin: 0 0 0 70px;
   align-self: flex-end;
 }
 .form_article_input_code, .form_article_input_name, .form_article_input_unit {
@@ -955,7 +959,7 @@ li.store__list__item:hover {
 
   .popular {
     margin-top: 40px;
-    padding: 0px;
+    padding: 0;
   }
   .popular_slider {
     justify-content: space-evenly;
@@ -969,11 +973,11 @@ li.store__list__item:hover {
   }
 
   .groceries {
-    margin: 40px 0px;
+    margin: 40px 0;
     padding: 0;
   }
   .groceries_list {
-    padding: 0px 40px 20px;
+    padding: 0 40px 20px;
   }
 
   .form_submit--grocery {
@@ -1046,16 +1050,22 @@ li.store__list__item:hover {
     justify-content: flex-start;
     gap: 20px;
   }
-  .form_headings_data_list_row div, .form_headings_data_list_row h4, .form_headings_data_list_row input, .form_headings_data_list_row--add div, .form_headings_data_list_row--add h4, .form_headings_data_list_row--add input {
+  .form_headings_data_list_row div,
+.form_headings_data_list_row h4,
+.form_headings_data_list_row input, .form_headings_data_list_row--add div,
+.form_headings_data_list_row--add h4,
+.form_headings_data_list_row--add input {
     width: 120px;
   }
   .form_top_group {
     justify-content: flex-start;
   }
-  .form_top_group > *:nth-child(1), .form_top_group *:nth-child(4) {
+  .form_top_group *:nth-child(4),
+.form_top_group > *:nth-child(1) {
     width: 200px;
   }
-  .form_top_group > *:nth-child(2), .form_top_group *:nth-child(3) {
+  .form_top_group *:nth-child(3),
+.form_top_group > *:nth-child(2) {
     width: 200px;
   }
 }

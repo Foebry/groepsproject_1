@@ -26,7 +26,7 @@ $result .= str_replace("@slider@", $output, $template);
 $where = isset($_GET['search']) ? 'where gro_name like "%'.$_GET['search'].'%"': '';
 
 $sql = "select g.gro_id, g.gro_name, g.gro_date, p.per_firstname, p.per_lastname,sum(row_pieces) as aantal,
-(select round(sum(aps.pri_value * row_pieces)) from row r
+(select round(sum(aps.pri_value * row_pieces), 2) from row r
 inner join article a on r.row_art_id = a.art_id
 join art_price_sto aps on a.art_id = aps.pri_art_id
 where (pri_sto_id= row_sto_id and r.row_gro_id = g.gro_id)) as totaal from row r

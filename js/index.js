@@ -65,7 +65,7 @@ const setFocus = function(e) {
 const filterOptions = function(e, list) {
 	const form = document.getElementById("form");
 	if (form.value == "artikeldetail") {
-		return Array(...list.children).filter(el => el.outerText.toLowerCase().includes(e.target.value.toLowerCase())).slice(0, 10);
+		return Array(...list.children).filter(el => el.innerText.toLowerCase().includes(e.target.value.toLowerCase())).slice(0, 10);
 	}
 
 	const sto_id = e.target.classList.value.includes("input__store") ? e.target.previousElementSibling.children[0].value : e.target.parentElement.parentElement.children[0].children[0].children[0].value;

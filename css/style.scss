@@ -42,8 +42,7 @@ body {
     &_msg {
         background-color: #343a40;
         padding: 10px;
-        margin: 0px 30px;
-        margin-top: 10px;
+        margin: 10px 30px 0;
         border-radius: 10px;
         text-align: center;
         p {
@@ -94,7 +93,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0px 10%;
+    padding: 0 10%;
     background-color: rgb(0, 118, 139);
     &_imgholder {
         width: 200px;
@@ -185,6 +184,8 @@ body {
                 position: absolute;
                 top: 10px;
                 text-align: center;
+                background-color: #343a40b2;
+                border-radius: 5px;
             }
         }
     }
@@ -269,7 +270,7 @@ body {
     margin: 0 auto 20px;
     &--place {
         margin: 20px auto;
-        color:rgb(194, 212, 235);
+        color: rgb(194, 212, 235);
         background-color: rgb(0, 118, 139);
         border-radius: 10px;
         padding: 20px;
@@ -284,14 +285,14 @@ body {
         &_input {
             width: 60%;
             border-radius: 5px;
-            background-color:rgb(194, 212, 235);
-            border:none;
+            background-color: rgb(194, 212, 235);
+            border: none;
         }
         &_text {
             width: 90%;
             border-radius: 5px;
-            background-color:rgb(194, 212, 235);
-            border:none;
+            background-color: rgb(194, 212, 235);
+            border: none;
         }
         &_error {
             margin-left: 25%;
@@ -333,9 +334,9 @@ body {
             border: 1px solid #343a40;
             border-radius: 10px;
             &:hover {
-            color: #0398b3;
-            border: 1px solid #343a40;
-            font-weight: bold;
+                color: #0398b3;
+                border: 1px solid #343a40;
+                font-weight: bold;
             }
         }
         &:hover {
@@ -463,7 +464,7 @@ body {
                     &--title {
                         > h4 {
                             font-size: 24px;
-                        } 
+                        }
                     }
                     &--add {
                         display: flex;
@@ -504,13 +505,12 @@ body {
         &_name {
             max-width: 650px;
             font-size: 48px;
-            margin: 0 auto;
-            margin-bottom: 20px;
+            margin: 0 auto 20px;
             text-align: center;
-            
             &--input {
                 width: 100%;
                 border-radius: 5px;
+                text-align: center;
             }
         }
         &_readonly {
@@ -558,11 +558,13 @@ body {
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 10px;
-            > *:nth-child(2), *:nth-child(3) {
+            *:nth-child(3),
+            > *:nth-child(2) {
                 flex: 0 1 45%;
             }
-            > *:nth-child(1), *:nth-child(4) {
-                flex: 1 1 35%
+            *:nth-child(4),
+            > *:nth-child(1) {
+                flex: 1 1 35%;
             }
         }
     }
@@ -598,10 +600,11 @@ body {
                 }
                 input[readonly] {
                     width: 100%;
-                    background-color:rgb(82, 143, 221);
+                    background-color: rgb(82, 143, 221);
                     border: 1px solid rgb(82, 143, 221);
                 }
-                &_store, &_article {
+                &_article,
+                &_store {
                     position: relative;
                     > ul {
                         position: absolute;
@@ -619,7 +622,8 @@ body {
                         color: #fff;
                         border-radius: 5px;
                     }
-                    li:first-child button, li:first-child {
+                    li:first-child,
+                    li:first-child button {
                         background-color: blueviolet;
                         border-color: blueviolet;
                     }
@@ -627,10 +631,11 @@ body {
                         background-color: green;
                         border-color: green;
                         &:hover {
-                            cursor:pointer;
+                            cursor: pointer;
                         }
                     }
-                    li:last-child button, li:last-child {
+                    li:last-child,
+                    li:last-child button {
                         background-color: darkred;
                         border-color: darkred;
                     }
@@ -649,7 +654,8 @@ body {
     &_article {
         width: 100%;
         color: rgb(194, 212, 235);
-        &_title { // niet in article section, maar hoort wel bij form
+        &_title {
+            // niet in article section, maar hoort wel bij form
             font-size: 36px;
             color: rgb(194, 212, 235);
             margin-bottom: 20px;
@@ -657,13 +663,14 @@ body {
         &_group {
             display: flex;
             &_button {
-                margin: 0;
-                margin-left: 70px;
+                margin: 0 0 0 70px;
                 align-self: flex-end;
             }
         }
         &_input {
-            &_code, &_name, &_unit {
+            &_code,
+            &_name,
+            &_unit {
                 width: 100%;
                 position: relative;
                 label {
@@ -678,7 +685,7 @@ body {
                     position: absolute;
                     &[readonly] {
                         color: rgb(194, 212, 235);
-                        background-color:rgb(0, 118, 139);
+                        background-color: rgb(0, 118, 139);
                     }
                 }
                 margin-bottom: 10px;
@@ -886,7 +893,7 @@ li.store__list__item:hover {
         }
         &_card {
             max-width: 100%;
-           flex-basis: 100%;;
+            flex-basis: 100%;
         }
     }
     .form {
@@ -944,7 +951,7 @@ li.store__list__item:hover {
     }
     .popular {
         margin-top: 40px;
-        padding: 0px;
+        padding: 0;
         &_slider {
             justify-content: space-evenly;
             flex-wrap: wrap;
@@ -959,10 +966,10 @@ li.store__list__item:hover {
         }
     }
     .groceries {
-        margin: 40px 0px;
+        margin: 40px 0;
         padding: 0;
         &_list {
-            padding: 0px 40px 20px;
+            padding: 0 40px 20px;
         }
     }
     .form {
@@ -1021,7 +1028,7 @@ li.store__list__item:hover {
         &--place {
             display: flex;
             flex-direction: column;
-            align-items: center;  
+            align-items: center;
         }
         &_group {
             width: 70%;
@@ -1045,20 +1052,25 @@ li.store__list__item:hover {
         &_headings_imgholder {
             gap: 50px;
         }
-        &_headings_data_list_row, &_headings_data_list_row--add {
+        &_headings_data_list_row,
+        &_headings_data_list_row--add {
             justify-content: flex-start;
             gap: 20px;
-            div, h4, input {
+            div,
+            h4,
+            input {
                 width: 120px;
             }
         }
         &_top {
             &_group {
                 justify-content: flex-start;
-                > *:nth-child(1), *:nth-child(4) {
+                *:nth-child(4),
+                > *:nth-child(1) {
                     width: 200px;
                 }
-                > *:nth-child(2), *:nth-child(3) {
+                *:nth-child(3),
+                > *:nth-child(2) {
                     width: 200px;
                 }
             }
