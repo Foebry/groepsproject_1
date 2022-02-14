@@ -25,7 +25,7 @@ function validate($field, $values, &$array=null){
     // indien de ingevoerde waarde leeg is, ga na of dit veld in de databank leeg mag zijn,
     // zoniet, zet de correcte error message en return;
     if ($not_null and $array[$field] == "null"){
-        $_SESSION["errors"][$field."_error"] = "$fields[$field] mag niet leeg zijn. $field";
+        $_SESSION["errors"][$field."_error"] = "$fields[$field] mag niet leeg zijn.";
         if ($field == "row_art_id" || $field == "row_sto_id") $_SESSION["errors"][$field."_error"] = $fields[$field];
         $array["$field--error"] = "col--error";
         return $array;
