@@ -12,21 +12,22 @@
     <!-- einde hidden inputs -->
     <section class="form_headings">
         <div class="form_headings_imgholder">
-            <img src="./images/@art_img@" alt="@art_name@ afbeelding" />
             <div class="form_headings_imgholder_info">
                 <h3 class="form_headings_imgholder_info_name">@art_name@</h3>
                 <h3 class="form_headings_imgholder_info_code">@art_code@</h3>
             </div>
+            <img src="./images/@art_img@" alt="@art_name@ afbeelding" />
         </div>
-        <div class="form_data">
-            <div class="messages">
+        <div class="form_headings_data">
+            <div class="messages messages--article">
                 @error@
             </div>
             <div class="error-messages">
                 @info@
             </div>
-            <h2 class="form_data_title">Prijs per winkel </h2>
-            <ul class="form_data_list">
+            <h2 class="form_headings_data_title">Prijs per winkel </h2>
+            <ul class="form_headings_data_list">
+                <li class="form_headings_data_list_row form_headings_data_list_row--title"><h4>Winkels</h4><h4>Prijs/eenheid</h4><h4></h4></li>
                 @artikel_list@
             </ul>
         </div>
