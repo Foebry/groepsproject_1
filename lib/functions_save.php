@@ -104,11 +104,12 @@
             }
 
             // boodschapdetail regel bestaat reeds? update anders insert
-            $db_data = getData("select * from grocery where gro_id = $gro_id");
-            $msg = $db_data ? $_POST["info-update"] : $_POST["info-insert"];
+            $msg_sql = getData("select gro_id from grocery where gro_id = $gro_id");
+            $db_data = getData("select * from row where row_id = $row");
             $statement = $db_data ? "update $table set " : "insert into $table set ";
             $where = $db_data ? " where row_id = $row" : "";
 
+            $msg = $msg_sql ? $_POST["info-update"] : $_POST["info-insert"];
             $_SESSION["info"]["success"] = $msg;
 
             // sql statement aanmaken voor boodschapdetail regel
@@ -128,10 +129,7 @@
 
         validateData($headers);
 
-        $sql = "select pri_id from $table where pri_sto_id = $sto_id and pri_art_id = $art_id";
-        $in_db = getData($sql);
-        $statement = $in_db ? "update $table set " : "insert into $table set ";
-        $where = $in_db ? " where pri_id = $pri_id" : "";
+        $statement = "insert into $table set ";
         $_SESSION["info_success"] = $in_db ? $_POST["info-update"] : $_POST["info-insert"];
 
         $sql = buildStatement($statement, $table);
