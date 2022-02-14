@@ -13,9 +13,7 @@ join units u on u.uni_id = a.art_uni_id
 where pri_art_id = $id
 order by pri_value;";
 
-$stores_data_sql = "select sto_id, sto_name from stores where sto_id not in(
-    select pri_sto_id from art_price_sto
-    where pri_art_id = $id)";
+$stores_data_sql = "select sto_id, sto_name from stores";
 
 //data ophalen uit DB
 $stores_data= GetData($stores_data_sql);
