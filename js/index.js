@@ -169,7 +169,6 @@ const edit = function(e) {
 	children[0].children[1].toggleAttribute("readonly");
 	children[1].children[1].toggleAttribute("readonly");
 	children[2].children[0].toggleAttribute("readonly");
-	children[3].children[0].toggleAttribute("readonly");
 }
 
 document.addEventListener("click", handleEvents);

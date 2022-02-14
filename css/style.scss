@@ -470,7 +470,7 @@ body {
                         justify-content: flex-start;
                         flex-wrap: wrap;
                         div {
-                            flex: 0 0 33%;
+                            flex: 0 1 33%;
                             > input {
                                 width: 40%;
                                 border: none;
@@ -488,7 +488,11 @@ body {
                     }
                     div:last-child {
                         display: flex;
-                        gap: 20px;
+                        gap: 10px;
+                        margin-bottom: 10px;
+                        button {
+                            margin: 0;
+                        }
                     }
                 }
             }
@@ -555,10 +559,10 @@ body {
             flex-wrap: wrap;
             gap: 10px;
             > *:nth-child(2), *:nth-child(3) {
-                flex: 0 1 50%;
+                flex: 0 1 45%;
             }
             > *:nth-child(1), *:nth-child(4) {
-                flex: 0 1 30%
+                flex: 1 1 35%
             }
         }
     }
@@ -818,7 +822,8 @@ li.store__list__item:hover {
                     display: block;
                     width: 35px;
                     height: 35px;
-                    background: url("../images/linkedin_steven.png");
+                    background: url("../images/LI-In-Bug.png");
+                    background-repeat: no-repeat;
                     background-size: contain;
                     position: absolute;
                     left: 0;
@@ -896,11 +901,25 @@ li.store__list__item:hover {
                 }
             }
         }
+        &_headings {
+            &_data {
+                &_list {
+                    &_row--add div {
+                        input {
+                            width: 120px;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 @media screen and (max-width: 800px) {
-    .form_top_input_descr {
-        width: 300px;
+    .form_top_input {
+        z-index: 5;
+        &_descr {
+            width: 300px;
+        }
     }
 }
 @media screen and (max-width: 700px) {
@@ -925,6 +944,7 @@ li.store__list__item:hover {
     }
     .popular {
         margin-top: 40px;
+        padding: 0px;
         &_slider {
             justify-content: space-evenly;
             flex-wrap: wrap;
@@ -962,6 +982,12 @@ li.store__list__item:hover {
                 }
             }
         }
+        &_top {
+            &_name {
+                font-size: 30px;
+                max-width: 400px;
+            }
+        }
     }
     .artikelen {
         &_group {
@@ -974,7 +1000,7 @@ li.store__list__item:hover {
         padding: 10px 40px;
     }
 }
-@media screen and (max-width: 580px) {
+@media screen and (max-width: 590px) {
     .header {
         &_name {
             font-size: 42px;
@@ -1014,6 +1040,27 @@ li.store__list__item:hover {
             &_text {
                 width: 100%;
                 min-height: 100px;
+            }
+        }
+        &_headings_imgholder {
+            gap: 50px;
+        }
+        &_headings_data_list_row, &_headings_data_list_row--add {
+            justify-content: flex-start;
+            gap: 20px;
+            div, h4, input {
+                width: 120px;
+            }
+        }
+        &_top {
+            &_group {
+                justify-content: flex-start;
+                > *:nth-child(1), *:nth-child(4) {
+                    width: 200px;
+                }
+                > *:nth-child(2), *:nth-child(3) {
+                    width: 200px;
+                }
             }
         }
     }

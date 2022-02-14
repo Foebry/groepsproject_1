@@ -11,7 +11,7 @@
         $_SESSION["boodschappen"][$gro_id]["headers"][0]["gro_date"] = date("Y-m-d", strtotime("today"));
         $_SESSION["boodschappen"][$gro_id]["headers"][0]["gro_amount"] = 0;
         $_SESSION["boodschappen"][$gro_id]["headers"][0]["gro_description"] = null;
-        $_SESSION["boodschappen"][$gro_id]["headers"][0]["pri_value"] = 0;
+        $_SESSION["boodschappen"][$gro_id]["headers"][0]["gro_pric"] = 0;
 
         return $_SESSION["boodschappen"][$gro_id]["headers"];
 

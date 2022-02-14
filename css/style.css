@@ -504,7 +504,7 @@ body textarea {
   flex-wrap: wrap;
 }
 .form_headings_data_list_row--add div {
-  flex: 0 0 33%;
+  flex: 0 1 33%;
 }
 .form_headings_data_list_row--add div > input {
   width: 40%;
@@ -521,7 +521,11 @@ body textarea {
 }
 .form_headings_data_list_row div:last-child {
   display: flex;
-  gap: 20px;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.form_headings_data_list_row div:last-child button {
+  margin: 0;
 }
 .form_top {
   margin: 30px;
@@ -581,10 +585,10 @@ body textarea {
   gap: 10px;
 }
 .form_top_group > *:nth-child(2), .form_top_group *:nth-child(3) {
-  flex: 0 1 50%;
+  flex: 0 1 45%;
 }
 .form_top_group > *:nth-child(1), .form_top_group *:nth-child(4) {
-  flex: 0 1 30%;
+  flex: 1 1 35%;
 }
 .form_data {
   margin: 30px;
@@ -848,7 +852,8 @@ li.store__list__item:hover {
   display: block;
   width: 35px;
   height: 35px;
-  background: url("../images/linkedin_steven.png");
+  background: url("../images/LI-In-Bug.png");
+  background-repeat: no-repeat;
   background-size: contain;
   position: absolute;
   left: 0;
@@ -917,8 +922,14 @@ li.store__list__item:hover {
   .form_top_input_descr {
     width: 400px;
   }
+  .form_headings_data_list_row--add div input {
+    width: 120px;
+  }
 }
 @media screen and (max-width: 800px) {
+  .form_top_input {
+    z-index: 5;
+  }
   .form_top_input_descr {
     width: 300px;
   }
@@ -944,6 +955,7 @@ li.store__list__item:hover {
 
   .popular {
     margin-top: 40px;
+    padding: 0px;
   }
   .popular_slider {
     justify-content: space-evenly;
@@ -976,6 +988,10 @@ li.store__list__item:hover {
     font-weight: 400;
     text-transform: lowercase;
   }
+  .form_top_name {
+    font-size: 30px;
+    max-width: 400px;
+  }
 
   .artikelen_group_add {
     margin-left: 40px;
@@ -985,7 +1001,7 @@ li.store__list__item:hover {
     padding: 10px 40px;
   }
 }
-@media screen and (max-width: 580px) {
+@media screen and (max-width: 590px) {
   .header_name {
     font-size: 42px;
   }
@@ -1022,6 +1038,25 @@ li.store__list__item:hover {
   .form_group_text {
     width: 100%;
     min-height: 100px;
+  }
+  .form_headings_imgholder {
+    gap: 50px;
+  }
+  .form_headings_data_list_row, .form_headings_data_list_row--add {
+    justify-content: flex-start;
+    gap: 20px;
+  }
+  .form_headings_data_list_row div, .form_headings_data_list_row h4, .form_headings_data_list_row input, .form_headings_data_list_row--add div, .form_headings_data_list_row--add h4, .form_headings_data_list_row--add input {
+    width: 120px;
+  }
+  .form_top_group {
+    justify-content: flex-start;
+  }
+  .form_top_group > *:nth-child(1), .form_top_group *:nth-child(4) {
+    width: 200px;
+  }
+  .form_top_group > *:nth-child(2), .form_top_group *:nth-child(3) {
+    width: 200px;
   }
 }
 @media screen and (max-width: 490px) {
