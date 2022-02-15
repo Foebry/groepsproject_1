@@ -1,4 +1,4 @@
-<form class="form form--center" method="POST" action="../lib/save.php">
+<form class="form form--center" method="POST" action="./lib/save.php">
     <!--hidden inputs -->
     <input type="hidden" name="csrf" value="@csrf@" />
     <input type="hidden" name="table" value="article" />
@@ -12,30 +12,30 @@
     <h2 class="form_article_title">Maak een nieuw artikel aan</h2>
     @error@
     <div class="form_article_group">
-    <section class="form_article">
-        <div class="form_article_input">
-            <div class="form_article_input_name">
-                <label for="art_name">Naam:</label>
-                <input type="text" id="art_name" name="art_name" placeholder="Geef uw artikel een naam" autocomplete="off">
+        <section class="form_article">
+            <div class="form_article_input">
+                <div class="form_article_input_name">
+                    <label for="art_name">Naam:</label>
+                    <input type="text" id="art_name" name="art_name" placeholder="Geef uw artikel een naam" autocomplete="off">
+                </div>
+                <div class="form_article_input_code">
+                    <label for="art_code">Code:</label>
+                    <input type="text" id="art_code" name="art_code" value="@art_code@" readonly>
+                </div>
             </div>
-            <div class="form_article_input_code">
-                <label for="art_code">Code:</label>
-                <input type="text" id="art_code" name="art_code" value="@art_code@" readonly>
+            <div class="form_article_input_unit">
+                <label for="art_unit">Eenheid:</label>
+                <select class="article_input_unit_select" id="art_unit" name="art_uni_id">
+                    @unit_options@
+                </select>
             </div>
-        </div>
-        <div class="form_article_input_unit">
-            <label for="art_unit">Eenheid:</label>
-            <select class="article_input_unit_select" id="art_unit" name="art_uni_id">
-                @unit_options@
-            </select>
-        </div>
-        <div class="form_article_imagegroup">
-            <label class="form_article_imagegroup_label">Default image:</label>
-            <div class="form_article_imagegroup_imgholder">
-                <img src="./images/coming-soon.jpg" alt="afbeelding van uw product">
+            <div class="form_article_imagegroup">
+                <label class="form_article_imagegroup_label">Default image:</label>
+                <div class="form_article_imagegroup_imgholder">
+                    <img src="./images/coming-soon.jpg" alt="afbeelding van uw product">
+                </div>
             </div>
-        </div>
-    </section>
-    <button class="form_submit form_article_group_button" type="submit" name="action" value="submit">submit</button>
+        </section>
+        <button class="form_submit form_article_group_button" type="submit" name="action" value="submit">submit</button>
     </div>
 </form>

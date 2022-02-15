@@ -49,5 +49,5 @@
     //mail($to, $subject, $message, $headers);
 
     // keer terug naar index.
-    $_SESSION["INFO"]["mail"] = "Bedankt om ons te contacteren!\nUw bericht werd goed ontvangen.";
+    $_SESSION["info"]["mail"] = "Bedankt om ons te contacteren!\nUw bericht werd goed ontvangen.";
     exit(header("location:".$_POST["next"]));

@@ -131,7 +131,7 @@
 
         $statement = "insert into $table set ";
         $_SESSION["info_success"] = $in_db ? $_POST["info-update"] : $_POST["info-insert"];
-
+        
         $sql = buildStatement($statement, $table);
         $sql_statements[] = $sql.$where;
     }

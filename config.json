@@ -1,0 +1,22 @@
+{
+    "DATABASE": {
+        "LOCAL": {
+            "host": "localhost",
+            "username": "root",
+            "password": "",
+            "dbname": "groepsproject"
+        },
+        "LIVE": {
+            "host": "185.115.218.166",
+            "username": "fs_tijl",
+            "password": "X4hjFDyHTag1",
+            "dbname": "fs_tijl"
+        },
+        "TEST": {
+            "host": "185.115.218.166",
+            "username": "fs_sander",
+            "password": "Y8SkDIvlwM8Y",
+            "dbname": "fs_sander"
+        }
+    }
+}
